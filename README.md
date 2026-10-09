@@ -154,6 +154,7 @@ The ridges run parallel to the valley (<FigureRef to="ridges" />).
   source="Survey Office, ridge and valley map, 1942"
   cite="survey-1942"
   license="Public domain"
+  fullSize
   wide
 >
   The caption, which may contain *Markdown*.
@@ -165,21 +166,22 @@ The ridges run parallel to the valley (<FigureRef to="ridges" />).
 
 ## Bibliography
 
-- [@survey-1942] Survey Office. *Ridge and Valley Survey*. City: Publisher, 1942.
+- [survey-1942] Survey Office. *Ridge and Valley Survey*. City: Publisher, 1942.
 ```
 
-This renders as **Figure 1.** followed by the caption, then a line reading *Drawn by Jane Doe. · Source: Survey Office, ridge and valley map, 1942 · Public domain*, where the source links to the bibliography entry.
+This renders as **Figure 1.** followed by the caption, then a line reading *Drawn by Jane Doe. · Source: Survey Office, ridge and valley map, 1942 · Public domain · View full size*, where the source links to the bibliography entry.
 
 - `alt` is required. Describe what the image shows; use `alt=""` only for purely decorative images.
-- `id` names the figure so the text can refer to it. `<FigureRef to="ridges" />` prints "Figure 1" as a link to the figure, and stays correct when figures are added or reordered. A reference may come before or after its figure.
+- `id` names the figure so the text can refer to it, and gives it a permanent link, `#figure-ridges`. `<FigureRef to="ridges" />` prints "Figure 1" as a link to the figure, and stays correct when figures are added or reordered. A reference may come before or after its figure. **Give an `id` to any figure you or anyone else may link to**: a figure without one is still numbered but has no link target, because its number changes when figures are added.
 - `credit` names who made the image (photographer, illustrator, cartographer).
 - `source` says where the image comes from. Link it with either `cite`, the key of an entry in the article's bibliography, or `sourceUrl`, for a source online. With `cite` alone, the source line shows the whole bibliography entry.
 - `license` states the copyright or license status, e.g. "Public domain" or "CC BY 4.0"; add `licenseUrl` to link it.
+- `fullSize` adds a "View full size" link to the original image file, for maps and photographs with detail too fine for the page. Give it a URL instead (`fullSize="https://…"`) to link to a larger copy elsewhere, such as an archive's scan.
 - `wide` lets the figure extend beyond the text column (up to about 1000px). Leave it off for ordinary figures.
 - `unnumbered` leaves a decorative image out of the numbering.
 - SVG, PNG, JPEG, and WebP all work. Raster images are resized and converted to WebP automatically at several widths, never larger than the original; nothing is cropped.
 
-**Bibliography keys.** In a list directly under a heading named *Bibliography*, *References*, or *Works Cited*, start an entry with a key in brackets, like `[@survey-1942]`. The key is removed from the page and the entry becomes a link target for `cite`. Keys use letters, digits, `-`, `_`, `.`, and `:`. This works in `.md` articles too.
+**Bibliography keys.** In a list directly under a heading named *Bibliography*, *References*, or *Works Cited*, start an entry with a key in brackets, like `[survey-1942]`. The key is removed from the page and the entry becomes a link target for `cite`. Keys start with a lowercase letter or digit and use letters, digits, `-`, `_`, `.`, and `:`. Don't write `[@survey-1942]`: in Pandoc and Zettlr that is a citation, which their citation processor would replace, so the build rejects it. A bare `[survey-1942]` stays plain text in those tools. This works in `.md` articles too.
 
 **Mistakes stop the build.** A `FigureRef` or `cite` that matches nothing, or two figures with the same `id`, is reported with the article's file name when you run `npm run dev` or `npm run build`, so a broken reference cannot be published.
 
