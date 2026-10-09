@@ -1,0 +1,267 @@
+---
+// A section divider that quotes a short phrase of shape-note music: a fine
+// rule with the noteheads set in a gap at its centre. Activating the notes
+// opens the words and the source beneath them.
+//
+// It works without JavaScript: the notes are always drawn, and the words are
+// in a native <details> disclosure. The script below adds two enhancements
+// only: the notes fade in when the divider first scrolls into view, and a
+// mouse hover previews the words.
+import { getEntry } from 'astro:content';
+import { resolvePhrase } from '../lib/shapeNotes/notation';
+import { renderPhraseSvg } from '../lib/shapeNotes/render';
+
+interface Props {
+	/** The id of a phrase in src/data/shapeNotes/phrases.yaml. */
+	ref: string;
+}
+
+const { ref } = Astro.props;
+const entry = ref ? await getEntry('shapeNotes', ref) : undefined;
+if (!entry) {
+	throw new Error(`<ShapeNoteDivider ref="${ref ?? ''}" />: no phrase with that id in src/data/shapeNotes/phrases.yaml`);
+}
+const data = entry.data;
+const phrase = resolvePhrase({ id: entry.id, ...data });
+const { svg, width, height, ruleY } = renderPhraseSvg(phrase);
+
+const shapes = phrase.events.map((event) => (event.kind === 'rest' ? 'rest' : event.syllable)).join(', ');
+const { source, tune, words } = data;
+const label = data.fixture ? `Shape notes: ${data.title}` : `Shape notes from ${data.title}`;
+const sourceLine = [
+	source.edition,
+	source.year,
+	source.page != null && (/^\d/.test(String(source.page)) ? `p. ${source.page}` : String(source.page)),
+	source.identifier,
+]
+	.filter(Boolean)
+	.join(', ');
+const makers = [
+	tune?.composer && `Tune: ${tune.composer}${tune.year ? `, ${tune.year}` : ''}`,
+	words?.author && `words: ${words.author}${words.year ? `, ${words.year}` : ''}`,
+	data.arrangement && `arrangement: ${data.arrangement}`,
+].filter(Boolean);
+---
+
+<div
+	class="shapenote"
+	data-shapenote
+	data-shapenote-fixture={data.fixture ? '' : undefined}
+	style={`--sn-w: ${width}; --sn-h: ${height}; --sn-rule-y: ${ruleY};`}
+>
+	<details class="sn-disclosure">
+		<summary class="sn-phrase">
+			<Fragment set:html={svg} />
+			<span class="sr-only">{label}. Words and source</span>
+		</summary>
+		<div class="sn-words">
+			<p class="sn-lyric" lang="en">{phrase.lyric}</p>
+			<p class="sn-source">
+				{
+					data.fixture ? (
+						<>
+							<strong>Test data.</strong> {source.title}.
+						</>
+					) : (
+						<>
+							{data.title}
+							{data.voice && ` (${data.voice})`}. {makers.length > 0 && <>{makers.join('; ')}. </>}
+							{source.url ? <a href={source.url}><cite>{source.title}</cite></a> : <cite>{source.title}</cite>}
+							{sourceLine && `, ${sourceLine}`}.
+						</>
+					)
+				}
+				{data.editorial.length > 0 && <span class="sn-editorial"> {data.editorial.join(' ')}</span>}
+			</p>
+			<p class="sr-only">Shapes, in order: {shapes}.</p>
+		</div>
+	</details>
+</div>
+
+<style>
+	.shapenote {
+		/* Phrase size: 1 SVG unit per CSS pixel on wide screens, a little smaller on phones. */
+		--sn-scale: 1;
+		--sn-pad: 0.5rem;
+		/* Room kept for the words, so opening them does not move the text below. */
+		--sn-reserve: 4.75rem;
+		position: relative;
+		max-width: 26rem;
+		margin: 2.75em auto 1.25em;
+		text-align: center;
+	}
+
+	/* The rule: one fine line through the middle of the notes' range. */
+	.shapenote::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: calc(var(--sn-pad) + var(--sn-rule-y) * var(--sn-scale) * 1px);
+		border-top: 1px solid color-mix(in srgb, var(--muted-ink) 55%, var(--paper));
+	}
+
+	.sn-phrase {
+		position: relative;
+		display: inline-block;
+		/* The gap in the rule, and a touch target larger than the notes. */
+		padding: var(--sn-pad) 0.875rem;
+		background: var(--paper);
+		color: color-mix(in srgb, var(--ink) 92%, #000);
+		list-style: none;
+		cursor: pointer;
+		line-height: 0;
+	}
+
+	.sn-phrase::-webkit-details-marker {
+		display: none;
+	}
+
+	.sn-phrase :global(.sn-svg) {
+		display: block;
+		width: calc(var(--sn-w) * var(--sn-scale) * 1px);
+		height: calc(var(--sn-h) * var(--sn-scale) * 1px);
+		max-width: none;
+	}
+
+	.sn-disclosure:not([open])::after {
+		content: '';
+		display: block;
+		height: var(--sn-reserve);
+	}
+
+	.sn-words {
+		min-height: var(--sn-reserve);
+		max-width: 22rem;
+		margin: 0 auto;
+		padding-top: 0.25rem;
+	}
+
+	.sn-lyric {
+		margin: 0;
+		color: var(--ink);
+		font-size: 0.9375rem;
+		font-style: italic;
+		line-height: 1.45;
+	}
+
+	.sn-source {
+		margin: 0.3rem 0 0;
+		color: var(--muted-ink);
+		font-family: var(--sans);
+		font-size: 0.75rem;
+		line-height: 1.45;
+	}
+
+	.sn-source strong {
+		font-weight: 600;
+	}
+
+	.sn-editorial {
+		font-style: italic;
+	}
+
+	@media (max-width: 30rem) {
+		.shapenote {
+			--sn-scale: 0.85;
+			max-width: 20rem;
+		}
+	}
+
+	/* Scroll reveal, added only by the script below. */
+	.shapenote :global(.sn-note) {
+		transition: opacity 480ms ease-out;
+		transition-delay: calc(var(--i) * 35ms);
+	}
+
+	.shapenote.is-pending :global(.sn-note) {
+		opacity: 0;
+		transition: none;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.shapenote :global(.sn-note) {
+			transition: none;
+		}
+	}
+
+	@media print {
+		.shapenote {
+			break-inside: avoid;
+		}
+
+		.shapenote :global(.sn-note) {
+			opacity: 1 !important;
+		}
+
+		/* Print the words: closed disclosures are opened where the browser allows it. */
+		.sn-disclosure::details-content {
+			content-visibility: visible;
+			display: block;
+		}
+
+		.sn-disclosure:not([open])::after {
+			display: none;
+		}
+	}
+</style>
+
+<script>
+	const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	// Reveal the notes once, the first time a divider comes into view. A
+	// divider already on screen when the page loads is left as it is, so
+	// nothing flickers or animates on load.
+	const observer =
+		!reduceMotion && 'IntersectionObserver' in window
+			? new IntersectionObserver(
+					(entries) => {
+						for (const entry of entries) {
+							if (!entry.isIntersecting) continue;
+							entry.target.classList.remove('is-pending');
+							observer?.unobserve(entry.target);
+						}
+					},
+					{ rootMargin: '0px 0px -12% 0px', threshold: 0.5 },
+				)
+			: undefined;
+
+	for (const divider of document.querySelectorAll<HTMLElement>('[data-shapenote]')) {
+		if (observer) {
+			const box = divider.getBoundingClientRect();
+			if (box.bottom < 0 || box.top > window.innerHeight) {
+				divider.classList.add('is-pending');
+				observer.observe(divider);
+			}
+		}
+
+		const details = divider.querySelector('details');
+		const summary = divider.querySelector('summary');
+		if (!details || !summary) continue;
+
+		// A mouse hover previews the words; a click keeps them open. Touch and
+		// keyboard use the disclosure itself: tap, Enter, or Space to toggle.
+		let previewing = false;
+		summary.addEventListener('pointerenter', (event) => {
+			if (event.pointerType !== 'mouse' || details.open) return;
+			previewing = true;
+			details.open = true;
+		});
+		details.addEventListener('pointerleave', () => {
+			if (!previewing) return;
+			previewing = false;
+			details.open = false;
+		});
+		summary.addEventListener('click', (event) => {
+			if (!previewing) return;
+			event.preventDefault();
+			previewing = false;
+		});
+		details.addEventListener('keydown', (event) => {
+			if (event.key !== 'Escape' || !details.open) return;
+			previewing = false;
+			details.open = false;
+			summary.focus();
+		});
+	}
+</script>

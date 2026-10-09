@@ -1,0 +1,42 @@
+---
+title: The Printer's Ornament
+subtitle: A Fixture for Shape-Note Dividers
+description: A layout fixture for the shape-note section divider. Its prose tests the divider in a reading column, and its two musical phrases are synthetic test data, not historical tunes.
+published: 2026-10-09
+type: essay
+topics:
+  - music
+draft: true
+---
+
+import ShapeNoteDivider from '../../components/ShapeNoteDivider.astro';
+
+*This page is a demonstration of the shape-note divider. Its prose is written to test the divider within an essay. The two musical phrases are synthetic test data written for this site: they are not historical tunes, and their words are labelled as test data where they appear.*
+
+A nineteenth-century tunebook is a work of the job printer as much as of the composer. Its music was set from movable type, piece by piece, and its pages carry the small irregularities of that work: a notehead inked a little heavier than its neighbour, a stem that does not quite meet its head, a rule that thins where the forme was worn. These are not faults to be corrected in a modern edition so much as evidence of how the book was made.
+
+The shapes themselves were a teaching device. A singer who could not read a staff could still learn to tell a triangle from a square, and each shape named a syllable: fa, sol, la, and mi. The syllables did not name fixed pitches. They named positions in the scale, so that a singer who knew where fa stood in one key could find it in any other.
+
+What follows is a test of a single ornament: a fine rule between sections, with a short phrase of notes set in a gap at its centre. A reader who passes over it should see only the rule. A reader who stops should find that it is music, and that the music has words.
+
+The paragraphs before the first divider are long enough that, on most screens, it begins below the fold, so that the notes can be seen to appear as it scrolls into view. Nothing in this paragraph is a claim about any particular tunebook, printer, or singing school; it is written to fill the column at an ordinary reading length.
+
+A second paragraph of the same kind follows, for the same reason. The divider should sit within the column, leave generous space above and below, and never draw the eye away from the prose on either side of it. Its notes are drawn as SVG, small enough to read as an ornament and large enough to be recognised as notes when looked at closely.
+
+<ShapeNoteDivider ref="fixture-minor-phrase" />
+
+## After the first divider
+
+The section that follows a divider should begin as it would after any other break. The divider makes no heading of its own and has no box around it; the rule and the notes are all there is. When the words are opened beneath the notes, the space they occupy has already been kept, so this paragraph does not move.
+
+A phrase of shape notes without a staff is not a complete transcription. The height of each note shows the shape of the melody, and the spacing between notes follows the rhythm, but a singer could not sing the exact pitches from the ornament alone. The source given with the words is where the music can be read in full.
+
+The keyboard reaches the divider in the ordinary order of the page. Enter or Space opens the words, and Escape closes them. On a phone, a tap does the same.
+
+<ShapeNoteDivider ref="fixture-long-lyric" />
+
+## After a longer phrase
+
+The second divider carries a longer line of test words, to check how they wrap beneath the notes on a narrow screen, and a busier rhythm, to check that the phrase is compressed to fit rather than allowed to widen the column.
+
+The essay then ends as usual, with its footer and the list of all writing.

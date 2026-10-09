@@ -1,5 +1,5 @@
 import { defineCollection, reference } from 'astro:content';
-import { glob } from 'astro/loaders';
+import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 // Treat an empty YAML value (`updated:`) the same as an omitted one.
@@ -44,4 +44,48 @@ const projects = defineCollection({
 	}),
 });
 
-export const collections = { writing, projects };
+// Musical phrases quoted by shape-note dividers. Shapes and lyrics are worked
+// out from these records in src/lib/shapeNotes/; see that folder.
+const optionalYear = z.number().int().min(1000).max(2100).nullish();
+const shapeNotes = defineCollection({
+	loader: file('src/data/shapeNotes/phrases.yaml'),
+	schema: z
+		.object({
+			title: z.string().trim().min(1),
+			/** Synthetic data for tests and layout fixtures; `npm test` fails if one is published. */
+			fixture: z.boolean().default(false),
+			notation: z.enum(['four-shape', 'seven-shape']),
+			key: z.object({ tonic: z.string().regex(/^[A-G](#|b)?$/), mode: z.enum(['major', 'minor']) }),
+			meter: optionalText,
+			/** The voice quoted, e.g. "tenor" (the melody in The Sacred Harp). */
+			voice: optionalText,
+			notes: z
+				.array(
+					z.union([
+						z.strictObject({ pitch: z.string(), dur: z.number().positive(), syl: z.string().optional() }),
+						z.strictObject({ rest: z.number().positive() }),
+					]),
+				)
+				.min(1),
+			/** The tune, the words, and the arrangement can each have their own maker and date. */
+			tune: z.object({ composer: optionalText, year: optionalYear }).optional(),
+			words: z.object({ author: optionalText, year: optionalYear, firstLine: optionalText }).optional(),
+			arrangement: optionalText,
+			/** The printed edition the notes were taken from. */
+			source: z.object({
+				title: z.string().trim().min(1),
+				edition: optionalText,
+				year: optionalYear,
+				page: z.union([z.string(), z.number()]).nullish(),
+				url: z.url().nullish(),
+				identifier: optionalText,
+			}),
+			/** Excerpting, transposition, simplification, or any other change from the source. */
+			editorial: z.array(z.string().trim().min(1)).default([]),
+		})
+		.refine((phrase) => phrase.fixture || (phrase.source.year && phrase.source.page != null && (phrase.source.url || phrase.source.identifier)), {
+			message: 'A historical phrase needs source.year, source.page, and source.url or source.identifier.',
+		}),
+});
+
+export const collections = { writing, projects, shapeNotes };
