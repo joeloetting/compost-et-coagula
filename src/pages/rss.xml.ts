@@ -1,7 +1,7 @@
 import rss from '@astrojs/rss';
 import type { APIContext } from 'astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import { getWriting, writingPath } from '../utils/content';
+import { articleAuthor, getWriting, writingPath } from '../utils/content';
 import { feedHtml } from '../utils/feed';
 import { fullHeadline } from '../utils/seo';
 import { absoluteUrl } from '../utils/urls';
@@ -20,6 +20,8 @@ export async function GET(context: APIContext) {
 				pubDate: entry.data.published,
 				link,
 				categories: entry.data.topics,
+				// RSS's own <author> must be an email address; Dublin Core takes a name.
+				customData: `<dc:creator>${escapeXml(articleAuthor(entry).name)}</dc:creator>`,
 			};
 		}),
 	);
@@ -28,6 +30,11 @@ export async function GET(context: APIContext) {
 		description: SITE_DESCRIPTION,
 		site: absoluteUrl('/', context.site),
 		items,
+		xmlns: { dc: 'http://purl.org/dc/elements/1.1/' },
 		customData: '<language>en-us</language>',
 	});
+}
+
+function escapeXml(text: string): string {
+	return text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 }

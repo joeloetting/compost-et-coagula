@@ -1,4 +1,5 @@
 ---
+import { SITE_AUTHOR } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { url } from '../utils/urls';
 ---
@@ -10,8 +11,8 @@ import { url } from '../utils/urls';
 		</header>
 		<div class="prose">
 			<p>
-				Compost et Coagula is a place for essays, research notes, and intellectual work in progress. I write across theology, environmental
-				science, history, literature, and software, following questions that rarely remain confined to one discipline.
+				Compost et Coagula is the independent publication of {SITE_AUTHOR.name}: a place for essays, research notes, and intellectual work in
+				progress. I write across theology, environmental science, history, literature, and software, following questions that rarely remain confined to one discipline.
 			</p>
 			<p>
 				The subjects that recur here include Christian theology and the philosophy of religion; soil science, ecology, and geomorphology;
@@ -40,8 +41,8 @@ import { url } from '../utils/urls';
 
 			{/*
 				EDITABLE PLACEHOLDER — not rendered on the site.
-				Add a short author note here if you want one: preferred public name,
-				a sentence or two of biography, and a contact method. Keep it to details
+				The author's name comes from SITE_AUTHOR in src/consts.ts. Add a sentence
+				or two of biography and a contact method here if you want them. Keep it to details
 				you are comfortable publishing.
 			*/}
 

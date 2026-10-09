@@ -1,5 +1,5 @@
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import { type Article, typeLabels, writingPath } from './content';
+import { type Article, articleAuthor, typeLabels, writingPath } from './content';
 import { absoluteUrl } from './urls';
 
 /**
@@ -16,6 +16,7 @@ export function fullHeadline(title: string, subtitle?: string): string {
 export function articleSchema(article: Article, site: URL | undefined): Record<string, unknown> {
 	const { title, subtitle, description, published, updated, topics, type } = article.data;
 	const pageUrl = absoluteUrl(writingPath(article), site);
+	const author = articleAuthor(article);
 	const publication = {
 		'@type': 'Periodical',
 		name: SITE_TITLE,
@@ -38,7 +39,7 @@ export function articleSchema(article: Article, site: URL | undefined): Record<s
 		inLanguage: 'en',
 		isAccessibleForFree: true,
 		...(topics.length > 0 && { keywords: topics.join(', ') }),
-		author: { '@type': 'Organization', name: SITE_TITLE, url: absoluteUrl('/about/', site) },
+		author: { '@type': 'Person', name: author.name, url: absoluteUrl(author.path, site) },
 		publisher: { '@type': 'Organization', name: SITE_TITLE, url: absoluteUrl('/', site) },
 		isPartOf: publication,
 	};

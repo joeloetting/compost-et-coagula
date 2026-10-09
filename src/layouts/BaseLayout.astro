@@ -3,7 +3,7 @@ import { Font } from 'astro:assets';
 import '../styles/global.css';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { SITE_AUTHOR, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { fullHeadline, jsonLd } from '../utils/seo';
 import { absoluteUrl, url } from '../utils/urls';
 
@@ -19,11 +19,13 @@ interface Props {
 	updated?: Date;
 	/** Set on drafts and the 404 page to keep them out of search engines. */
 	noindex?: boolean;
+	/** Author of the page; defaults to the site author. */
+	author?: string;
 	/** schema.org data, emitted as JSON-LD. */
 	schema?: Record<string, unknown>;
 }
 
-const { title, subtitle, description = SITE_DESCRIPTION, ogType = 'website', published, updated, noindex = false, schema } = Astro.props;
+const { title, subtitle, description = SITE_DESCRIPTION, ogType = 'website', published, updated, noindex = false, author = SITE_AUTHOR.name, schema } = Astro.props;
 
 const headline = title ? fullHeadline(title, subtitle) : SITE_TITLE;
 const fullTitle = title ? `${headline} · ${SITE_TITLE}` : SITE_TITLE;
@@ -39,6 +41,7 @@ const ogImage = absoluteUrl('/og-default.png', Astro.site);
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{fullTitle}</title>
 		<meta name="description" content={description} />
+		<meta name="author" content={author} />
 		<link rel="canonical" href={canonical} />
 		{noindex && <meta name="robots" content="noindex" />}
 
@@ -62,6 +65,7 @@ const ogImage = absoluteUrl('/og-default.png', Astro.site);
 		<meta property="og:image:height" content="630" />
 		<meta property="og:image:alt" content={SITE_TITLE} />
 		<meta property="og:locale" content="en_US" />
+		{ogType === 'article' && <meta property="article:author" content={author} />}
 		{published && <meta property="article:published_time" content={published.toISOString()} />}
 		{updated && <meta property="article:modified_time" content={updated.toISOString()} />}
 		{schema && <script is:inline type="application/ld+json" set:html={jsonLd(schema)} />}
