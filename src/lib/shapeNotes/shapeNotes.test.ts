@@ -5,6 +5,7 @@ import {
 	durationGlyph,
 	fourShapeSyllable,
 	lyricText,
+	parsePitch,
 	type PhraseRecord,
 	resolvePhrase,
 	sevenShapeSyllable,
@@ -166,6 +167,24 @@ describe('renderPhraseSvg', () => {
 		const { svg } = renderPhraseSvg(resolvePhrase(phrase({ notes: [{ pitch: 'A3', dur: 4, syl: 'low' }, { pitch: 'E4', dur: 4, syl: 'high' }] })));
 		const ys = [...svg.matchAll(/<g class="sn-note"[^>]*><path d="M[\d.]+ ([\d.]+)/g)].map((m) => Number(m[1]));
 		assert.ok(ys[1] < ys[0], `y ${ys.join(', ')}`);
+	});
+
+	it('sets each notehead at its pitch: half a notehead per step, as on a staff', () => {
+		// The opening of Idumea: A4 A4 G4 A4 C5 D5 C5.
+		const pitches = ['A4', 'A4', 'G4', 'A4', 'C5', 'D5', 'C5'];
+		const notes = pitches.map((pitch) => ({ pitch, dur: 1, syl: 'la' }));
+		const { svg } = renderPhraseSvg(resolvePhrase(phrase({ notes })));
+		const centres = [...svg.matchAll(/<g class="sn-note"[^>]*><path d="([^"]+)"/g)].map(([, d]) => {
+			const outer = d.split('Z')[0];
+			const ys = [...outer.matchAll(/[ML][\d.]+ ([\d.]+)/g)].map((m) => Number(m[1]));
+			return (Math.min(...ys) + Math.max(...ys)) / 2;
+		});
+		const steps = pitches.map((p) => -(parsePitch(p)!.step - parsePitch('A4')!.step));
+		const headHeight = 6.8;
+		centres.forEach((y, i) => {
+			const expected = centres[0] + steps[i] * (headHeight / 2);
+			assert.ok(Math.abs(y - expected) < 0.5, `${pitches[i]}: y ${y.toFixed(2)}, expected ${expected.toFixed(2)}`);
+		});
 	});
 
 	it('refuses a phrase too long for a divider', () => {

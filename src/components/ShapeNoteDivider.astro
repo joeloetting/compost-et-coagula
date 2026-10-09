@@ -56,35 +56,26 @@ const makers = [
 		</summary>
 		<div class="sn-words">
 			<p class="sn-lyric" lang="en">{phrase.lyric}</p>
-			<div class="sn-source">
-				{
-					data.fixture ? (
-						<>
-							<strong>Test data.</strong> {source.title}.
-						</>
-					) : (
-						<>
-							{data.title}
-							{data.voice && ` (${data.voice})`}. {makers.length > 0 && <>{makers.join('; ')}. </>}
-							{source.url ? <a href={source.url}><cite>{source.title}</cite></a> : <cite>{source.title}</cite>}
-							{sourceLine && `, ${sourceLine}`}.
-						</>
-					)
-				}
-				{
-					data.editorial.length > 0 && (
-						<> </>
-					)
-				}
-				{
-					data.editorial.length > 0 && (
-						<details class="sn-notes">
-							<summary>Notes</summary>
-							<span class="sn-editorial">{data.editorial.join(' ')}</span>
-						</details>
-					)
-				}
-			</div>
+			<details class="sn-source">
+				<summary>Source</summary>
+				<p>
+					{
+						data.fixture ? (
+							<>
+								<strong>Test data.</strong> {source.title}.
+							</>
+						) : (
+							<>
+								{data.title}
+								{data.voice && ` (${data.voice})`}. {makers.length > 0 && <>{makers.join('; ')}. </>}
+								{source.url ? <a href={source.url}><cite>{source.title}</cite></a> : <cite>{source.title}</cite>}
+								{sourceLine && `, ${sourceLine}`}.
+							</>
+						)
+					}
+					{data.editorial.length > 0 && <span class="sn-editorial"> {data.editorial.join(' ')}</span>}
+				</p>
+			</details>
 			<p class="sr-only">Shapes, in order: {shapes}.</p>
 		</div>
 	</details>
@@ -96,7 +87,7 @@ const makers = [
 		--sn-scale: 1;
 		--sn-pad: 0.5rem;
 		/* Room kept for the words, so opening them does not move the text below. */
-		--sn-reserve: 4.75rem;
+		--sn-reserve: 2.75rem;
 		position: relative;
 		max-width: 26rem;
 		margin: 2.75em auto 1.25em;
@@ -151,51 +142,51 @@ const makers = [
 
 	.sn-lyric {
 		margin: 0;
-		color: var(--ink);
-		font-size: 0.9375rem;
+		color: var(--muted-ink);
+		font-size: 0.8125rem;
 		font-style: italic;
+		line-height: 1.4;
+	}
+
+	/* The citation, one step further in: a small "Source" link that opens it. */
+	.sn-source {
+		margin-top: 0.15rem;
+		color: var(--muted-ink);
+		font-family: var(--sans);
+		font-size: 0.6875rem;
 		line-height: 1.45;
 	}
 
-	.sn-source {
-		margin: 0.3rem 0 0;
+	.sn-source > summary {
+		display: inline-block;
 		color: var(--muted-ink);
-		font-family: var(--sans);
-		font-size: 0.75rem;
-		line-height: 1.45;
+		text-decoration: underline;
+		text-decoration-color: color-mix(in srgb, var(--muted-ink) 45%, transparent);
+		text-underline-offset: 0.18em;
+		cursor: pointer;
+		list-style: none;
+	}
+
+	.sn-source > summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.sn-source p {
+		margin: 0.2rem 0 0;
 	}
 
 	.sn-source strong {
 		font-weight: 600;
 	}
 
-	/* Editorial notes on the quotation, one step further in. */
-	.sn-notes {
-		display: inline;
-	}
-
-	.sn-notes > summary {
-		display: inline;
-		color: var(--link);
-		text-decoration: underline;
-		text-decoration-color: color-mix(in srgb, var(--link) 45%, transparent);
-		text-underline-offset: 0.18em;
-		cursor: pointer;
-	}
-
-	.sn-notes > summary::-webkit-details-marker {
-		display: none;
-	}
-
 	.sn-editorial {
-		display: block;
 		font-style: italic;
 	}
 
 	@media (max-width: 30rem) {
 		.shapenote {
 			--sn-scale: 0.85;
-			--sn-reserve: 5.25rem;
+			--sn-reserve: 3.5rem;
 			max-width: 20rem;
 		}
 	}

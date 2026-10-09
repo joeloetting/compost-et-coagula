@@ -15,7 +15,9 @@ import type { ResolvedEvent, ResolvedNote, ResolvedPhrase, Shape } from './notat
 /** Notehead size and spacing, in SVG units (1 unit = 1 CSS px at the default size). */
 const HEAD_W = 8.4;
 const HEAD_H = 6.8;
-const STEP = 2.2; // vertical distance per diatonic step
+// One diatonic step is half a notehead, as on a staff: a note on a line and
+// the note in the next space overlap by half their height.
+const STEP = HEAD_H / 2;
 const STEM = 10.5;
 const PAD = 2;
 const MAX_WIDTH = 150;
