@@ -6,7 +6,7 @@ export const SITE_TITLE = 'Compost et Coagula';
  * touching the pages that display the name.
  */
 export const SITE_AUTHOR = {
-	name: 'Joel O',
+	name: 'Joel Oetting',
 	/** Site path of the page that introduces the author. */
 	path: '/about/',
 };
