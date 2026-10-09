@@ -4,6 +4,7 @@ import { satteri } from '@astrojs/markdown-satteri';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
+import { figurePlugins } from './src/plugins/figures.mjs';
 
 // The site is published as a GitHub Pages project site. If a custom domain is
 // added later, change `site` to that domain and remove `base`.
@@ -47,6 +48,8 @@ export default defineConfig({
 	markdown: {
 		processor: satteri({
 			features: { gfm: { footnotes: { label: 'Notes' } } },
+			// Figure numbers, figure references, and bibliography anchors.
+			mdastPlugins: figurePlugins,
 			hastPlugins: [wrapTables],
 		}),
 		shikiConfig: { theme: 'css-variables' },

@@ -32,7 +32,7 @@ src/content/writing/holy-saturday-in-oak-ridge.md  ->  /writing/holy-saturday-in
 
 Choose the file name carefully and do not change it after publishing, since that would break existing links.
 
-Use `.md` (plain Markdown) by default. Use `.mdx` only when the article needs captioned figures (see below).
+Use `.md` (plain Markdown) by default. Use `.mdx` only when the article needs figures with captions, numbers, or sources (see below).
 
 ### Template
 
@@ -136,25 +136,51 @@ src/content/writing/holy-saturday-in-oak-ridge/map.svg
 ![Alt text describing the image](./holy-saturday-in-oak-ridge/photo.jpg)
 ```
 
-**With a caption**, rename the article to `.mdx` and use the `Figure` component:
+**As a numbered figure**, rename the article to `.mdx` and use the `Figure` component. Figures are numbered automatically in the order they appear (Figure 1, Figure 2, …), and the caption begins with that number:
 
 ```mdx
 import Figure from '../../components/Figure.astro';
-import map from './holy-saturday-in-oak-ridge/map.svg';
+import FigureRef from '../../components/FigureRef.astro';
+import map from './holy-saturday-in-oak-ridge/map.png';
 
-<Figure src={map} alt="Short description of the map." credit="Source: …" wide>
+The ridges run parallel to the valley (<FigureRef to="ridges" />).
+
+<Figure
+  id="ridges"
+  src={map}
+  alt="Short description of the map."
+  credit="Drawn by Jane Doe."
+  source="Survey Office, ridge and valley map, 1942"
+  cite="survey-1942"
+  license="Public domain"
+  wide
+>
   The caption, which may contain *Markdown*.
 
   <Fragment slot="description">
     <p>An optional longer description for maps and diagrams, shown when the reader opens it.</p>
   </Fragment>
 </Figure>
+
+## Bibliography
+
+- [@survey-1942] Survey Office. *Ridge and Valley Survey*. City: Publisher, 1942.
 ```
 
+This renders as **Figure 1.** followed by the caption, then a line reading *Drawn by Jane Doe. · Source: Survey Office, ridge and valley map, 1942 · Public domain*, where the source links to the bibliography entry.
+
 - `alt` is required. Describe what the image shows; use `alt=""` only for purely decorative images.
+- `id` names the figure so the text can refer to it. `<FigureRef to="ridges" />` prints "Figure 1" as a link to the figure, and stays correct when figures are added or reordered. A reference may come before or after its figure.
+- `credit` names who made the image (photographer, illustrator, cartographer).
+- `source` says where the image comes from. Link it with either `cite`, the key of an entry in the article's bibliography, or `sourceUrl`, for a source online. With `cite` alone, the source line shows the whole bibliography entry.
+- `license` states the copyright or license status, e.g. "Public domain" or "CC BY 4.0"; add `licenseUrl` to link it.
 - `wide` lets the figure extend beyond the text column (up to about 1000px). Leave it off for ordinary figures.
-- `credit` is optional and appears after the caption.
-- SVG, PNG, JPEG, and WebP all work. Raster images are resized and converted automatically; nothing is cropped.
+- `unnumbered` leaves a decorative image out of the numbering.
+- SVG, PNG, JPEG, and WebP all work. Raster images are resized and converted to WebP automatically at several widths, never larger than the original; nothing is cropped.
+
+**Bibliography keys.** In a list directly under a heading named *Bibliography*, *References*, or *Works Cited*, start an entry with a key in brackets, like `[@survey-1942]`. The key is removed from the page and the entry becomes a link target for `cite`. Keys use letters, digits, `-`, `_`, `.`, and `:`. This works in `.md` articles too.
+
+**Mistakes stop the build.** A `FigureRef` or `cite` that matches nothing, or two figures with the same `id`, is reported with the article's file name when you run `npm run dev` or `npm run build`, so a broken reference cannot be published.
 
 `src/content/writing/holy-saturday-in-oak-ridge.mdx` is a working example of every element above.
 
@@ -201,7 +227,8 @@ src/
   content.config.ts    metadata schemas
   pages/               routes: home, writing, projects, about, RSS, 404
   layouts/             page and article layouts
-  components/          header, footer, article lists, Figure
+  components/          header, footer, article lists, Figure, FigureRef
+  plugins/figures.mjs  figure numbers, figure references, bibliography keys
   styles/global.css    design tokens and typography
   utils/               published-content queries and URL helpers
   assets/fonts/        self-hosted fonts (SIL Open Font License)
