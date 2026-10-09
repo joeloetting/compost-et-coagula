@@ -42,7 +42,7 @@
 
 	/* Layout */
 	--page-width: 70rem; /* 1120px */
-	--measure: 45rem; /* 720px reading column */
+	--measure: 38.5rem; /* 616px reading column: about 66–72 characters per line at 20px */
 	--wide: 62.5rem; /* 1000px figures */
 	--gutter: clamp(1.125rem, 4vw, 2.5rem);
 	--space-section: clamp(3rem, 6vw, 5rem);
