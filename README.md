@@ -245,6 +245,8 @@ The search page (`/search/`) uses [Pagefind](https://pagefind.app/). After every
 
 The RSS feed (`/rss.xml`) carries the full text of every published article, rendered with the same components as the site and reduced to plain HTML that feed readers can display. Each article page also carries schema.org metadata (JSON-LD) for search engines.
 
+The author's name is set once, as `SITE_AUTHOR` in `src/consts.ts`. It appears in every article's byline, in the page metadata and JSON-LD, and as `dc:creator` in the RSS feed.
+
 ## Project structure
 
 ```text
@@ -252,6 +254,7 @@ src/
   content/writing/     articles (Markdown)
   content/projects/    project pages (Markdown)
   content.config.ts    metadata schemas
+  consts.ts            site title, description, and author name
   pages/               routes: home, writing, projects, about, search, RSS, 404
   layouts/             page and article layouts
   components/          header, footer, article lists, Figure, FigureRef
