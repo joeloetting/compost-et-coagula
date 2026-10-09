@@ -35,7 +35,7 @@ body {
 	margin-inline: auto;
 }
 
-@container article (min-width: 63rem) {
+@container article (min-width: 56.5rem) {
 	.article > * {
 		margin-inline: 0;
 	}
@@ -164,7 +164,7 @@ body {
 	}
 }
 
-@container article (min-width: 63rem) {
+@container article (min-width: 56.5rem) {
 	.note-mark {
 		display: none;
 	}
