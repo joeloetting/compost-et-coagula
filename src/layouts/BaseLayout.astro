@@ -6,11 +6,14 @@ import '../styles/print.css';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { fullHeadline, jsonLd } from '../utils/seo';
 import { absoluteUrl, url } from '../utils/urls';
 
 interface Props {
 	/** Page title; the site name is appended unless this is the home page. */
 	title?: string;
+	/** Added to the title tag and og:title so search engines see the specific subject. */
+	subtitle?: string;
 	description?: string;
 	/** Open Graph type. Articles also pass their dates. */
 	ogType?: 'website' | 'article';
@@ -18,11 +21,14 @@ interface Props {
 	updated?: Date;
 	/** Set on drafts and the 404 page to keep them out of search engines. */
 	noindex?: boolean;
+	/** schema.org data, emitted as JSON-LD. */
+	schema?: Record<string, unknown>;
 }
 
-const { title, description = SITE_DESCRIPTION, ogType = 'website', published, updated, noindex = false } = Astro.props;
+const { title, subtitle, description = SITE_DESCRIPTION, ogType = 'website', published, updated, noindex = false, schema } = Astro.props;
 
-const fullTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
+const headline = title ? fullHeadline(title, subtitle) : SITE_TITLE;
+const fullTitle = title ? `${headline} · ${SITE_TITLE}` : SITE_TITLE;
 // Astro.url.pathname already includes the base path.
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = absoluteUrl('/og-default.png', Astro.site);
@@ -51,7 +57,7 @@ const ogImage = absoluteUrl('/og-default.png', Astro.site);
 		<meta property="og:site_name" content={SITE_TITLE} />
 		<meta property="og:type" content={ogType} />
 		<meta property="og:url" content={canonical} />
-		<meta property="og:title" content={title ?? SITE_TITLE} />
+		<meta property="og:title" content={headline} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={ogImage} />
 		<meta property="og:image:width" content="1200" />
@@ -60,6 +66,7 @@ const ogImage = absoluteUrl('/og-default.png', Astro.site);
 		<meta property="og:locale" content="en_US" />
 		{published && <meta property="article:published_time" content={published.toISOString()} />}
 		{updated && <meta property="article:modified_time" content={updated.toISOString()} />}
+		{schema && <script is:inline type="application/ld+json" set:html={jsonLd(schema)} />}
 		<meta name="twitter:card" content="summary_large_image" />
 		<slot name="head" />
 	</head>

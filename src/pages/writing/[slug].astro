@@ -1,7 +1,7 @@
 ---
-import { render } from 'astro:content';
+import { getEntries, render } from 'astro:content';
 import ArticleLayout from '../../layouts/ArticleLayout.astro';
-import { type Article, getWriting } from '../../utils/content';
+import { type Article, getWriting, typeLabels } from '../../utils/content';
 
 export async function getStaticPaths() {
 	const entries = await getWriting();
@@ -10,8 +10,12 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props as { article: Article };
 const { Content } = await render(article);
+const projects = await getEntries(article.data.projects);
 ---
 
 <ArticleLayout article={article}>
 	<Content />
+	{/* Search filters, read by Pagefind when it indexes the built site (see pagefind.yml). */}
+	<span hidden data-pagefind-filter={`type:${typeLabels[article.data.type]}`}></span>
+	{projects.map((project) => <span hidden data-pagefind-filter={`project:${project.data.title}`} />)}
 </ArticleLayout>

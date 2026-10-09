@@ -87,6 +87,12 @@
 		margin: 0;
 	}
 
+	/* The text column sits at the left of the page, leaving room on the right
+	   for the printed margin (centered, the notes would run off the page). */
+	.article > * {
+		margin-inline: 0;
+	}
+
 	a {
 		color: inherit;
 		text-decoration: none;
@@ -148,7 +154,7 @@
 	blockquote,
 	pre,
 	tr,
-	.editorial-note,
+	.editorial-notes,
 	.prose .footnotes li {
 		break-inside: avoid;
 	}
@@ -168,7 +174,7 @@
 		overflow: visible;
 	}
 
-	.editorial-note {
+	.editorial-notes {
 		border-left: 1pt solid #999;
 	}
 }

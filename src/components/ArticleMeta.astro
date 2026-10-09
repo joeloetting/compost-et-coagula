@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { article, projects } = Astro.props;
-const { title, description, published, updated, type, correction, draft } = article.data;
+const { title, subtitle, description, published, updated, type, correction, draft } = article.data;
 ---
 
 <header class="article-header">
@@ -25,8 +25,12 @@ const { title, description, published, updated, type, correction, draft } = arti
 		}
 		{draft && <span class="badge">Draft</span>}
 	</p>
-	<h1>{title}</h1>
-	<p class="description">{description}</p>
+	<h1>
+		{title}
+		{subtitle && <span class="subtitle">{subtitle}</span>}
+	</h1>
+	{/* Skip the description when it only repeats the subtitle. */}
+	{description !== subtitle && <p class="description">{description}</p>}
 	<p class="meta dates">
 		<span>Published <FormattedDate date={published} /></span>
 		{
@@ -40,7 +44,7 @@ const { title, description, published, updated, type, correction, draft } = arti
 			correction && (
 				<span>
 					<span aria-hidden="true"> · </span>
-					<a href="#editorial-note">See editorial note</a>
+					<a href="#editorial-notes">See editorial note</a>
 				</span>
 			)
 		}
@@ -65,6 +69,18 @@ const { title, description, published, updated, type, correction, draft } = arti
 		font-size: clamp(2.125rem, 1.4rem + 2.6vw, 3.125rem);
 		line-height: 1.12;
 		letter-spacing: -0.015em;
+	}
+
+	/* Part of the heading, as on a title page, but set smaller and in italic. */
+	.subtitle {
+		display: block;
+		margin-top: 0.5rem;
+		font-size: 0.55em;
+		font-style: italic;
+		font-weight: 400;
+		line-height: 1.3;
+		letter-spacing: 0;
+		color: var(--muted-ink);
 	}
 
 	.description {

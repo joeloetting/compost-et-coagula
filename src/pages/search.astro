@@ -1,0 +1,231 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { url } from '../utils/urls';
+---
+
+<BaseLayout title="Search" description="Search the full text of everything published in Compost et Coagula.">
+	<header class="page-header">
+		<h1>Search</h1>
+		<p class="lede">Search the full text of every essay, working note, and development journal.</p>
+	</header>
+
+	<!-- A plain GET form, so a search can be linked to as /search/?q=…; the script below runs it on load. -->
+	<form class="search" role="search" action={url('/search/')} method="get" data-bundle={url('/pagefind/')} data-base={url('/')}>
+		<label for="search-input" class="sr-only">Search terms</label>
+		<div class="search-row">
+			<input id="search-input" type="search" name="q" autocomplete="off" spellcheck="false" />
+			<button type="submit">Search</button>
+		</div>
+		<fieldset class="search-scope" hidden>
+			<legend class="sr-only">Show</legend>
+		</fieldset>
+	</form>
+
+	<p class="search-status meta" role="status" aria-live="polite"></p>
+	<ol class="search-results"></ol>
+
+	<noscript>
+		<p>Search needs JavaScript. Everything published is also listed under <a href={url('/writing/')}>Writing</a>.</p>
+	</noscript>
+</BaseLayout>
+
+<script>
+	interface PagefindResult {
+		data(): Promise<{ url: string; excerpt: string; meta: { title?: string }; filters: Record<string, string[]> }>;
+	}
+	interface Pagefind {
+		options(options: { baseUrl: string }): Promise<void>;
+		filters(): Promise<Record<string, Record<string, number>>>;
+		debouncedSearch(
+			term: string,
+			options?: { filters?: Record<string, string> },
+			debounceMs?: number,
+		): Promise<{ results: PagefindResult[] } | null>;
+	}
+
+	const form = document.querySelector<HTMLFormElement>('form.search')!;
+	const input = form.querySelector<HTMLInputElement>('input[name="q"]')!;
+	const scope = form.querySelector<HTMLFieldSetElement>('.search-scope')!;
+	const status = document.querySelector<HTMLElement>('.search-status')!;
+	const list = document.querySelector<HTMLOListElement>('.search-results')!;
+
+	let pagefind: Pagefind | undefined;
+	try {
+		// The bundle is written by Pagefind after the site is built, so it is
+		// loaded at run time rather than bundled.
+		pagefind = await import(/* @vite-ignore */ `${form.dataset.bundle}pagefind.js`);
+		await pagefind!.options({ baseUrl: form.dataset.base! });
+	} catch {
+		status.textContent = 'Search is available on the built site. Run npm run build and npm run preview to try it locally.';
+	}
+
+	// "Show: All · Essays · Working notes …", offered once there is more than one kind of writing.
+	if (pagefind) {
+		const types = Object.keys((await pagefind.filters()).type ?? {}).sort();
+		if (types.length > 1) {
+			for (const value of ['', ...types]) {
+				const label = document.createElement('label');
+				const radio = Object.assign(document.createElement('input'), { type: 'radio', name: 'type', value });
+				label.append(radio, ` ${value || 'All'}`);
+				scope.append(label);
+			}
+			scope.hidden = false;
+		}
+	}
+
+	const params = new URLSearchParams(location.search);
+	input.value = params.get('q') ?? '';
+	const initialType = params.get('type') ?? '';
+	const initialRadio = scope.querySelector<HTMLInputElement>(`input[value="${CSS.escape(initialType)}"]`);
+	if (initialRadio) initialRadio.checked = true;
+
+	function selectedType(): string {
+		return scope.querySelector<HTMLInputElement>('input:checked')?.value ?? '';
+	}
+
+	async function run() {
+		if (!pagefind) return;
+		const term = input.value.trim();
+		const type = selectedType();
+
+		// Keep the address shareable: /search/?q=soil&type=Essay
+		const next = new URLSearchParams();
+		if (term) next.set('q', term);
+		if (type) next.set('type', type);
+		history.replaceState(null, '', next.size ? `?${next}` : location.pathname);
+
+		if (!term) {
+			list.replaceChildren();
+			status.textContent = '';
+			return;
+		}
+		const search = await pagefind.debouncedSearch(term, type ? { filters: { type } } : {}, 200);
+		if (!search) return; // superseded by a newer keystroke
+		const results = await Promise.all(search.results.slice(0, 20).map((result) => result.data()));
+
+		list.replaceChildren(
+			...results.map((result) => {
+				const item = document.createElement('li');
+				const heading = document.createElement('h2');
+				heading.className = 'title';
+				const link = Object.assign(document.createElement('a'), { href: result.url, textContent: result.meta.title ?? result.url });
+				heading.append(link);
+				// Pagefind's excerpt is escaped text with <mark> around the matched words.
+				const excerpt = Object.assign(document.createElement('p'), { className: 'excerpt', innerHTML: result.excerpt });
+				const meta = Object.assign(document.createElement('p'), {
+					className: 'meta',
+					textContent: [...(result.filters.type ?? []), ...(result.filters.project ?? [])].join(' · '),
+				});
+				item.append(heading, excerpt, meta);
+				return item;
+			}),
+		);
+		const count = search.results.length;
+		status.textContent = count === 0 ? `Nothing found for “${term}”.` : `${count} ${count === 1 ? 'result' : 'results'} for “${term}”.`;
+	}
+
+	form.addEventListener('submit', (event) => {
+		event.preventDefault();
+		run();
+	});
+	input.addEventListener('input', run);
+	scope.addEventListener('change', run);
+	run();
+</script>
+
+<style>
+	.search {
+		max-width: var(--measure);
+	}
+
+	.search-row {
+		display: flex;
+		gap: 0.5rem;
+	}
+
+	input[type='search'] {
+		flex: 1;
+		min-width: 0;
+		padding: 0.5rem 0.75rem;
+		font: inherit;
+		color: var(--ink);
+		background: transparent;
+		border: 1px solid var(--rule);
+		border-radius: 2px;
+	}
+
+	input[type='search']:focus {
+		border-color: var(--accent);
+	}
+
+	button {
+		padding: 0.5rem 1rem;
+		font-family: var(--sans);
+		font-size: var(--text-small);
+		color: var(--ink);
+		background: var(--surface);
+		border: 1px solid var(--rule);
+		border-radius: 2px;
+		cursor: pointer;
+	}
+
+	.search-scope {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25rem 1.25rem;
+		margin: 0.75rem 0 0;
+		padding: 0;
+		border: 0;
+		font-family: var(--sans);
+		font-size: var(--text-small);
+		accent-color: var(--accent);
+	}
+
+	.search-scope[hidden] {
+		display: none;
+	}
+
+	.search-status {
+		margin-top: 1.5rem;
+	}
+
+	.search-results {
+		max-width: var(--measure);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.search-results :global(li) {
+		padding-block: 1.25rem;
+		border-bottom: 1px solid var(--rule);
+	}
+
+	.search-results :global(.title) {
+		font-size: 1.25rem;
+		line-height: 1.3;
+	}
+
+	.search-results :global(.title a) {
+		color: var(--ink);
+		text-decoration: none;
+	}
+
+	.search-results :global(.title a:hover) {
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+	}
+
+	.search-results :global(.excerpt) {
+		margin-top: 0.4rem;
+	}
+
+	.search-results :global(mark) {
+		background: var(--highlight);
+		color: inherit;
+	}
+
+	.search-results :global(.meta) {
+		margin-top: 0.4rem;
+	}
+</style>

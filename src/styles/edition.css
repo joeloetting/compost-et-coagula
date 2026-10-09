@@ -120,6 +120,10 @@ body {
 	color: var(--accent);
 }
 
+.note-punct {
+	display: none;
+}
+
 .note-para {
 	display: block;
 }
@@ -245,8 +249,16 @@ body {
 	text-decoration: none;
 }
 
+.prose .editorial-notes > * + * {
+	margin-top: 0.6em;
+}
+
+.prose .editorial-notes h2 + * {
+	margin-top: 0;
+}
+
 .prose .editorial-notes ol {
-	margin: 0;
+	margin-bottom: 0;
 	padding-left: 1.5em;
 }
 
@@ -259,8 +271,7 @@ body {
 	margin-top: 0.5em;
 }
 
-.editorial-notes,
-.editorial-note {
+.editorial-notes {
 	max-width: var(--measure);
 	margin-top: var(--space-section);
 	padding: 1rem 1.25rem;
@@ -270,8 +281,7 @@ body {
 	line-height: 1.6;
 }
 
-.prose .editorial-notes h2,
-.editorial-note h2 {
+.prose .editorial-notes h2 {
 	margin-top: 0;
 	margin-bottom: 0.4rem;
 	font-family: var(--sans);
@@ -286,6 +296,6 @@ body {
 	margin-top: 2.5em;
 }
 
-.editorial-note:target {
+.editorial-notes:target {
 	background: var(--highlight);
 }

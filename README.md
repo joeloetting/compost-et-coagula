@@ -17,7 +17,7 @@ Other commands:
 
 | Command | What it does |
 |---|---|
-| `npm run build` | Build the production site into `dist/` |
+| `npm run build` | Build the production site into `dist/`, then build the search index |
 | `npm run preview` | Serve the built `dist/` locally, exactly as it will be published |
 | `npm run check` | Type and Astro diagnostics |
 | `npm test` | Diagnostics, build, then check links and draft exclusion |
@@ -65,6 +65,7 @@ Text with a footnote.[^1]
 | Field | Required | Notes |
 |---|---|---|
 | `title` | yes | |
+| `subtitle` | no | A scholarly subtitle naming the specific subject. Added to the browser title, link previews, structured data, and the RSS title, so search engines index the subject and not only the title. |
 | `description` | yes | Plain text, one or two sentences. |
 | `published` | yes | `YYYY-MM-DD`. Lists are sorted by this date, newest first. |
 | `updated` | no | `YYYY-MM-DD`. Shown as "Updated …" next to the publication date. |
@@ -241,7 +242,7 @@ Edit the file and push. For a change that matters to the argument, also:
   correction: "An earlier version misdated the survey. The date has been corrected; the argument is unchanged."
   ```
 
-The correction appears as an "Editorial note" at the end of the article, dated by `updated:`, with a link to it beside the dates at the top. To tie a correction to a particular passage instead, use an `[editorial]` footnote there (see above). Small fixes such as typos need neither.
+The correction appears as an "Editorial note" at the end of the article, dated by `updated:`, with a link to it beside the dates at the top. To tie a correction to a particular passage instead, use an `[editorial]` footnote there (see above). Both kinds are listed together in one section at the end. Small fixes such as typos need neither.
 
 ### Printing
 
@@ -253,6 +254,12 @@ Articles print as book pages: the navigation is dropped, marginal notes sit in t
 
 The site lives at a GitHub Pages project address, so every internal link includes the `/compost-et-coagula/` base path. In components, build internal links with `url()` from `src/utils/urls.ts` rather than writing paths that begin with `/`. If you later move to a custom domain, change `site` and remove `base` in `astro.config.mjs`.
 
+### Search and feeds
+
+The search page (`/search/`) uses [Pagefind](https://pagefind.app/). After every build, Pagefind reads the finished article pages in `dist/` and writes a static index to `dist/pagefind/`, so search needs no server or outside service. It only works on a built site: use `npm run build` and `npm run preview` to try it locally. Which parts of a page are indexed is set in `pagefind.yml`.
+
+The RSS feed (`/rss.xml`) carries the full text of every published article, rendered with the same components as the site and reduced to plain HTML that feed readers can display. Each article page also carries schema.org metadata (JSON-LD) for search engines.
+
 ## Project structure
 
 ```text
@@ -260,7 +267,7 @@ src/
   content/writing/     articles (Markdown)
   content/projects/    project pages (Markdown)
   content.config.ts    metadata schemas
-  pages/               routes: home, writing, projects, about, RSS, 404
+  pages/               routes: home, writing, projects, about, search, RSS, 404
   layouts/             page and article layouts
   components/          header, footer, article lists, Figure, FigureRef
   plugins/figures.mjs  figure numbers, figure references, bibliography keys
@@ -268,9 +275,10 @@ src/
   styles/edition.css   article margin, marginalia, editorial marks
   plugins/apparatus.mjs  footnote prefixes into marginalia and editorial notes
   styles/print.css     print layout
-  utils/               published-content queries and URL helpers
+  utils/               content queries, URL, metadata, and feed helpers
   assets/fonts/        self-hosted fonts (SIL Open Font License)
 scripts/check-dist.mjs build checks used by `npm test`
+pagefind.yml           search index settings
 ```
 
 Fonts: Source Serif 4, Source Sans 3, and IBM Plex Mono, self-hosted as Latin and Latin Extended WOFF2 subsets. The Source Serif 4 roman subsets are cut from Adobe's variable font (the `source-serif` npm package, 4.5.1) with small capitals (`smcp`, `c2sc`) and old-style figures (`onum`) kept. Their licenses are in `src/assets/fonts/`.

@@ -10,7 +10,8 @@
 // [margin] and [crossref] notes are set beside the line that refers to them:
 // in the margin on wide screens, and behind a small mark that opens a popover
 // on narrow ones (see src/styles/edition.css). [editorial] notes are collected
-// at the end of the article, with a mark in the text linking to each. The
+// at the end of the article, with a mark in the text linking to each, in one
+// section together with the front-matter `correction`, if any. The
 // remaining footnotes are renumbered so their numbers stay consecutive.
 //
 // Also, for every article: links that start with "/" get the site's base path,
@@ -55,6 +56,16 @@ function readEntry(/** @type {string} */ dir, /** @type {string} */ slug) {
 	const frontmatter = readFileSync(file, 'utf8').split(/^---\s*$/m)[1] ?? '';
 	const title = /^title:\s*(.+?)\s*$/m.exec(frontmatter)?.[1].replace(/^(['"])(.*)\1$/, '$2') ?? slug;
 	return { title, draft: /^draft:\s*true\s*$/m.test(frontmatter) };
+}
+
+/** The `updated` front-matter date (a Date or "YYYY-MM-DD"), formatted like FormattedDate. */
+function revisionDate(/** @type {unknown} */ value) {
+	const date = value instanceof Date ? value : typeof value === 'string' && value.trim() ? new Date(value) : undefined;
+	if (!date || Number.isNaN(date.valueOf())) return undefined;
+	return {
+		iso: date.toISOString().slice(0, 10),
+		label: date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }),
+	};
 }
 
 /**
@@ -198,9 +209,14 @@ export function apparatus({ base, contentDir, production }) {
 						[text(isMargin ? `note ${n}` : 'see')],
 					),
 					el('span', { id: noteId, className: ['note', `note--${note.kind}`], popover: 'auto', role: 'note', style: `position-anchor: --${noteId}` }, [
+						// Brackets and a colon for copies without the site's styles (feed
+						// readers, plain-text extraction); hidden on the page itself.
+						el('span', { className: ['note-punct'] }, [text(' [')]),
 						el('span', { className: ['note-label'] }, [text(isMargin ? `Marginal note ${pad(n)}` : 'Cross-reference')]),
+						el('span', { className: ['note-punct'] }, [text(':')]),
 						text(' '),
 						...noteContent(note.li, ctx, note.kind, true),
+						el('span', { className: ['note-punct'] }, [text(']')]),
 					]),
 				]);
 			}
@@ -212,7 +228,35 @@ export function apparatus({ base, contentDir, production }) {
 				if (href !== node.properties.href && !insideMoved(node)) ctx.setProperty(node, 'href', href);
 			}
 
-			if (!section) return;
+			// One "Editorial note(s)" section holds both the front-matter
+			// `correction` (a revision of the whole article, dated by `updated`)
+			// and the [editorial] notes tied to passages.
+			const frontmatter = ctx.data.astro?.frontmatter ?? {};
+			/** @type {Node[]} */
+			const general = [];
+			if (typeof frontmatter.correction === 'string' && frontmatter.correction.trim()) {
+				const date = revisionDate(frontmatter.updated);
+				general.push(
+					el('p', { className: ['editorial-general'] }, [
+						...(date ? [el('time', { dateTime: date.iso }, [text(date.label)]), text('. ')] : []),
+						text(frontmatter.correction.trim()),
+					]),
+				);
+			}
+			const count = general.length + editorialItems.length;
+			const editorialSection =
+				count > 0
+					? el('section', { id: 'editorial-notes', className: ['editorial-notes'], ariaLabelledBy: ['editorial-notes-label'] }, [
+							el('h2', { id: 'editorial-notes-label' }, [text(count > 1 ? 'Editorial notes' : 'Editorial note')]),
+							...general,
+							...(editorialItems.length ? [el('ol', {}, editorialItems)] : []),
+						])
+					: undefined;
+
+			if (!section) {
+				if (editorialSection) ctx.appendChild(root, editorialSection);
+				return;
+			}
 			// Backlink labels ("Back to reference 3") follow the new numbers.
 			for (const [id, n] of footnoteNumbers) {
 				for (const { node: a } of elements(/** @type {any} */ (notes.get(id)).li)) {
@@ -224,13 +268,6 @@ export function apparatus({ base, contentDir, production }) {
 				}
 			}
 			const remaining = [...notes.values()].filter((n) => n.kind === 'footnote').length;
-			const editorialSection =
-				editorialItems.length > 0
-					? el('section', { className: ['editorial-notes'], ariaLabelledBy: ['editorial-notes-label'] }, [
-							el('h2', { id: 'editorial-notes-label' }, [text(editorialItems.length > 1 ? 'Editorial notes' : 'Editorial note')]),
-							el('ol', {}, editorialItems),
-						])
-					: undefined;
 			if (remaining === 0) {
 				ctx.replaceNode(section, editorialSection ? [editorialSection] : []);
 				return;
