@@ -1,0 +1,91 @@
+---
+title: The Ground Remembers
+subtitle: A Fixture for the Annotated Notebook
+description: A layout fixture for the annotated-notebook design. It exercises labelled marginal notes, footnotes, an excursus, an inset sketch, and a wide plate, and contains no research findings.
+published: 2026-10-09
+type: essay
+topics:
+  - geology
+  - environmental history
+draft: true
+---
+
+import Excursus from '../../components/Excursus.astro';
+import Figure from '../../components/Figure.astro';
+import FigureRef from '../../components/FigureRef.astro';
+import fern from './the-ground-remembers/fern.svg';
+import section from './the-ground-remembers/section.svg';
+
+*This page is a demonstration of the annotated layout. Its prose is written to test typography and the margin. It makes no historical, scientific, or archival claims; the drawings are placeholders made for the site, and every citation is a labelled placeholder.*
+
+<Figure
+  id="fern"
+  src={fern}
+  alt="Line drawing of a fern frond with its rhizome and roots; a young coiled frond is marked a, and a row of spore cases on a lower leaflet is marked b."
+  credit="Placeholder drawing made for this site."
+  inset
+>
+  A fern of the valley floor: *a*, young frond; *b*, spore cases.
+</Figure>
+
+The valley does not preserve its history as a written document. It holds traces: in the soil horizons that a spade turns up, in drainage that no longer runs where the old maps say it should, and in the uneven persistence of what has been deposited and what has been carried away. A walk along the floor of the valley is, in this sense, a walk across an archive whose catalogue has been lost, and whose holdings are still being added to with every flood.
+
+Yet a trace is not itself an explanation. What we find in the ground must still be interpreted, and interpretation brings its own habits with it. A buried layer of cinders may record a fire, a furnace, a railway, or nothing more than a gardener's idea of improving a heavy soil. The layer is the same in each case; only the story we tell about it differs.
+
+What, then, can the landscape testify to, and what remains beyond its evidence? The question is not rhetorical. Field geologists and local historians answer it every day, usually without saying so, whenever they decide which features of a site are worth recording and which can be passed over.[^obs]
+
+## Reading a section
+
+A section is a drawing of the ground as if it had been cut open along a line and viewed from the side. It is one of the oldest instruments of geological reasoning,[^section] and one of the most persuasive, because it presents an inference in the visual language of observation. <FigureRef to="section" /> is a schematic placeholder of the kind an essay like this might reproduce: two ridges, a valley between them, and the strata beneath, offset by a fault.
+
+<Figure
+  id="section"
+  src={section}
+  alt="Schematic geological cross-section, west to east, of two ridges and a valley. Six dipping strata, lettered A to F, are cut by a fault near the eastern ridge; a lens of valley alluvium, Q, lies under the valley floor; three boreholes, B1 to B3, are marked. Not a real place."
+  credit="Drawn for this site as a layout fixture."
+  source="After Author, B., placeholder section"
+  cite="author-b"
+  license="CC BY 4.0"
+  licenseUrl="https://creativecommons.org/licenses/by/4.0/"
+  wide
+>
+  Section across a valley, west to east. *A*, sandstone; *B*, clay; *C* and *F*, limestone; *D*, shale; *E*, chert-bearing beds; *Q*, valley alluvium. Only the three boreholes, *B1* to *B3*, are observed; everything between them is inferred, including the fault.
+
+  <Fragment slot="description">
+    <p>The section runs from a western ridge, across a valley floor with a stream, to a higher eastern ridge. The strata dip gently to the east. Near the eastern ridge a fault, drawn as a vertical line, raises the eastern block, so each layer sits higher on that side. A lens-shaped body of alluvium fills the bottom of the valley. Three boreholes, B1 to B3, are drawn as dashed vertical lines. A scale bar shows one kilometre; the vertical scale is exaggerated about ten times.</p>
+  </Fragment>
+</Figure>
+
+The persuasiveness of such a drawing is exactly what makes it hazardous. The boreholes are the only places where anyone has seen the ground; every line between them is an argument.[^boreholes] The reader of a section is invited to see continuity where there is only interpolation,[^habits] and to take a fault, which here is little more than a way of reconciling two boreholes that disagree, as a feature of the landscape rather than of the drawing.
+
+<Excursus title="On the word “compost”">
+  The word *compost* comes, by way of Old French, from the Latin *compositum*: something put together.[^etym] It shares its root with *composition* and *compound*, and for most of its history it could describe a mixture of almost any kind, from a preserve of fruit to a blend of ideas. Only gradually did it settle on the meaning a gardener gives it, a heap of decaying matter put together on purpose so that it might become soil.
+
+  The older sense is worth keeping in view. A compost heap is not a ruin but a work in progress: its layers record what was added and when, yet they are already becoming something else. In that respect it resembles the valley floor more than any archive does. Both are deposits whose meaning lies partly in what they are turning into.
+</Excursus>
+
+## What an absence can say
+
+The difficulty sharpens when the evidence is negative. A layer that ought to be present and is not, a stream that ought to appear on an early survey and does not, a field where nothing at all was found: each of these is a fact about the record, and it is tempting to treat it as a fact about the past.[^absence]
+
+Sometimes the inference is sound. If a deposit is missing across an entire valley, something removed it or prevented it from forming, and the possibilities can be narrowed by what lies above and below. But an absence in a single borehole may mean only that the drill went down in the wrong place. The work of interpretation is to know the difference, and to say plainly which kind of absence one is relying on.
+
+None of this argues for silence. A careful reading of the ground can still say a great deal about what happened in a place, and occasionally something about what it meant to the people who lived there. It argues instead for a particular kind of prose: one that keeps its evidence in view, marks the places where it has moved from observation to inference, and leaves room around the edges for the questions it has not yet answered.[^seealso]
+
+## References
+
+- [@author-b] Author, B. *A Placeholder Survey of Valley Sections*. City: Publisher, 1900.
+
+[^habits]: [margin: † Qualification] Not every interpolation is a guess. Some rest on the judgement of people who have drilled many holes.
+
+[^obs]: [margin: ☞ Obs. 03] Disturbance is not equivalent to contamination. A disturbed layer records that something happened, not what.
+
+[^section]: Placeholder note. A real note would cite an early published section and the survey it was drawn from.
+
+[^boreholes]: Placeholder note. A real note would cite the borehole logs on which a section like this is based, with their dates and depths.
+
+[^etym]: Placeholder note. A real note would cite a historical dictionary for the word's history and its earliest recorded senses.
+
+[^absence]: [margin: ? Quaestio] Can an absence constitute historical evidence, or only a reason to look again?
+
+[^seealso]: [margin: ↗ See also] [Holy Saturday in Oak Ridge](/writing/holy-saturday-in-oak-ridge/), on beginning an account with the evidence.

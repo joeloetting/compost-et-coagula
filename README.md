@@ -115,6 +115,33 @@ To begin with the Manhattan Project is already a decision.[^start]
 - Keep margin notes short, to plain paragraphs (no lists or quotations), and refer to each one only once. Leave most paragraphs without notes; the empty margin is part of the design.
 - Any link that starts with `/` gets the site's base path automatically, so `/writing/another-essay/` works as written. A link to a page that does not exist fails `npm test`.
 
+**Labels and editorial marks.** A marginal note can carry its own label instead of "Marginal note 01", written after a colon: `[margin: ☞ Obs.]`. The label may begin with one of the traditional editorial marks below, and must always include words, so a reader never needs to know what a mark means (`[margin: ☞]` alone stops the build). These are conventions for the writer, not a tagging system; use them sparingly, and leave most margins empty.
+
+| Mark | Use it for | Example label | How the note reads |
+|---|---|---|---|
+| ☞ | An observation that genuinely matters | `[margin: ☞ Obs. 03]` | Label in the text colour |
+| ? | An open question | `[margin: ? Quaestio]` | Note in italic |
+| ↗ | A cross-reference to other writing | `[margin: ↗ See also]` | Note in the smaller sans |
+| † | A textual or editorial qualification | `[margin: † Qualification]` | Note in the quieter grey |
+| ※ | Special commentary | `[margin: ※ Commentary]` | As an ordinary note |
+| Fig. | A pointer to a figure | `[margin: Fig. 2]` | As an ordinary note |
+
+Screen readers skip the mark itself and read the words after it.
+
+### Excursus
+
+An excursus is a substantial digression that would otherwise derail the argument: a word's history, a geological process, a document examined closely. Unlike a footnote it stays in the reading column, set slightly smaller between a rule and a short closing rule, under a small "Excursus" label, so a reader can see where it begins and ends and skip it. It needs `.mdx`:
+
+```mdx
+import Excursus from '../../components/Excursus.astro';
+
+<Excursus title="On the word “compost”">
+  The paragraphs of the digression, in ordinary Markdown. Footnotes work as usual.
+</Excursus>
+```
+
+`label="…"` replaces the word "Excursus" (for instance `label="Excursus II"`). Keep marginal notes out of an excursus.
+
 ### Block quotations
 
 ```markdown
@@ -192,6 +219,7 @@ This renders as **Figure 1.** followed by the caption, then a line reading *Draw
 - `source` says where the image comes from. Link it with either `cite`, the key of an entry in the article's bibliography, or `sourceUrl`, for a source online. With `cite` alone, the source line shows the whole bibliography entry.
 - `license` states the copyright or license status, e.g. "Public domain" or "CC BY 4.0"; add `licenseUrl` to link it.
 - `wide` lets the figure extend beyond the text column (up to about 1000px). Leave it off for ordinary figures.
+- `inset` sets a small figure (a sketch, a specimen) to the right with the text running beside it; with a margin it reaches halfway into the margin, and on phones it is centered. It occupies the margin beside it, so keep marginal notes away from the paragraphs it sits next to.
 - `unnumbered` leaves a decorative image out of the numbering.
 - SVG, PNG, JPEG, and WebP all work. Raster images are resized and converted to WebP automatically at several widths, never larger than the original; nothing is cropped.
 

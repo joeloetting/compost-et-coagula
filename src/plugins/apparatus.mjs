@@ -9,10 +9,26 @@
 // are renumbered so their numbers stay consecutive. A [footnote] prefix is also
 // accepted, and removed, for writing tools that expect every note to have one.
 //
+// A margin note may carry its own label in place of "Marginal note 01":
+//
+//   [^c]: [margin: ☞ Obs.] Disturbance is not contamination.
+//
+// The label must include words, so a reader never has to know what a mark
+// means. A leading editorial mark (☞ ? ↗ † ※) is set apart for styling and
+// hidden from screen readers, which read the words after it.
+//
 // Also, for every article: links that start with "/" get the site's base path,
 // so `[another essay](/writing/another-essay/)` works as written.
 
-const PREFIX = /^\s*\[(footnote|margin)\]\s*/i;
+const PREFIX = /^\s*\[(footnote|margin)(?::\s*([^\]]*?)\s*)?\]\s*/i;
+// Editorial marks, and the class each gives its note (see edition.css).
+const MARKS = new Map([
+	['☞', 'observation'],
+	['?', 'question'],
+	['↗', 'see-also'],
+	['†', 'qualification'],
+	['※', 'commentary'],
+]);
 
 /** @typedef {{ type: string, tagName?: string, properties?: Record<string, any>, children?: Node[], value?: string }} Node */
 
@@ -74,6 +90,23 @@ export function apparatus({ base }) {
 		});
 	}
 
+	/** The label span: "Marginal note 01", or the author's own, with its mark set apart. */
+	function noteLabel(/** @type {string | undefined} */ custom, /** @type {number} */ n, /** @type {any} */ ctx) {
+		if (custom === undefined) return { label: el('span', { className: ['note-label'] }, [text(`Marginal note ${pad(n)}`)]) };
+		if (!/\p{L}/u.test(custom)) {
+			fail(ctx, `the margin label "[margin: ${custom}]" needs words as well as a mark, e.g. [margin: ☞ Observation]`);
+		}
+		const [, mark, words] = /** @type {RegExpExecArray} */ (/^([^\p{L}\p{N}\s]*)\s*(.*)$/u.exec(custom));
+		const kind = MARKS.get(mark);
+		return {
+			kind,
+			label: el('span', { className: ['note-label'] }, [
+				...(mark ? [el('span', { className: ['note-sign'], ariaHidden: 'true' }, [text(mark)]), text(' ')] : []),
+				text(words),
+			]),
+		};
+	}
+
 	return {
 		name: 'marginal-notes',
 		before(root, ctx) {
@@ -81,14 +114,16 @@ export function apparatus({ base }) {
 			const section = all.find(({ node }) => node.tagName === 'section' && node.properties?.dataFootnotes)?.node;
 
 			// Footnote definitions by id; margin notes are marked by their prefix.
-			/** @type {Map<string, { li: any, margin: boolean }>} */
+			/** @type {Map<string, { li: any, margin: boolean, label?: string }>} */
 			const notes = new Map();
 			for (const { node } of section ? elements(section) : []) {
 				if (node.tagName !== 'li' || !node.properties?.id) continue;
 				const first = node.children.find((/** @type {any} */ c) => c.type === 'element');
 				const lead = first?.children?.[0];
-				const kind = lead?.type === 'text' ? PREFIX.exec(lead.value)?.[1].toLowerCase() : undefined;
-				notes.set(node.properties.id, { li: node, margin: kind === 'margin' });
+				const match = lead?.type === 'text' ? PREFIX.exec(lead.value) : null;
+				const kind = match?.[1].toLowerCase();
+				if (kind === 'footnote' && match?.[2] !== undefined) fail(ctx, 'only [margin] notes can have a label');
+				notes.set(node.properties.id, { li: node, margin: kind === 'margin', label: match?.[2] });
 				if (kind === 'footnote') ctx.replaceNode(lead, text(lead.value.replace(PREFIX, '')));
 			}
 			const moved = new Set([...notes.values()].filter((n) => n.margin).map((n) => n.li));
@@ -117,6 +152,7 @@ export function apparatus({ base }) {
 				seen.add(id);
 				const n = ++margin;
 				const noteId = `note-${n}`;
+				const { label, kind } = noteLabel(note.label, n, ctx);
 				ctx.replaceNode(sup, [
 					el(
 						'button',
@@ -129,11 +165,11 @@ export function apparatus({ base }) {
 						},
 						[text(`note ${n}`)],
 					),
-					el('span', { id: noteId, className: ['note'], popover: 'auto', role: 'note', style: `position-anchor: --${noteId}` }, [
+					el('span', { id: noteId, className: kind ? ['note', `note--${kind}`] : ['note'], popover: 'auto', role: 'note', style: `position-anchor: --${noteId}` }, [
 						// Brackets and a colon for copies without the site's styles (feed
 						// readers, plain-text extraction); hidden on the page itself.
 						el('span', { className: ['note-punct'] }, [text(' [')]),
-						el('span', { className: ['note-label'] }, [text(`Marginal note ${pad(n)}`)]),
+						label,
 						el('span', { className: ['note-punct'] }, [text(':')]),
 						text(' '),
 						...noteContent(note.li, ctx),

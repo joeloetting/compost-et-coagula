@@ -188,6 +188,121 @@ body {
 	}
 }
 
+/* Editorial marks: a margin note labelled "[margin: ☞ Obs.]" and so on. The
+   mark sits before the label's words in the serif, and each kind of note reads
+   a little differently, so a question does not look like a cross-reference.
+   The marks fall outside the self-hosted font subsets and come from the
+   reader's system fonts; text presentation keeps them out of emoji. */
+
+.note-sign {
+	font-family: var(--serif);
+	font-size: 1.4em;
+	font-weight: 400;
+	letter-spacing: 0;
+	line-height: 1;
+	font-variant-emoji: text;
+}
+
+/* ☞ Observation: a genuinely important remark; the label in the ink. */
+.note--observation .note-label {
+	color: var(--ink);
+}
+
+/* ? Quaestio: an open question, set in italic. */
+.note--question .note-para {
+	font-style: italic;
+}
+
+/* ↗ See also: a pointer elsewhere, set small in the sans. */
+.note--see-also .note-para {
+	font-family: var(--sans);
+	font-size: 0.9em;
+}
+
+/* † Qualification: a reservation, quieter than the text it qualifies. */
+.note--qualification .note-para {
+	color: var(--muted-ink);
+}
+
+/* Excursus: a digression inside the reading column, between a full rule and a
+   short closing one (src/components/Excursus.astro). */
+
+.prose .excursus {
+	margin: 2.5em 0;
+	padding-top: 1.1em;
+	border-top: 1px solid var(--rule);
+	font-size: 0.94em;
+	line-height: 1.65;
+}
+
+.prose .excursus::after {
+	content: '';
+	display: block;
+	width: 4rem;
+	margin-top: 1.4em;
+	border-top: 1px solid var(--accent);
+}
+
+.excursus > * + * {
+	margin-top: 0.9em;
+}
+
+.prose .excursus-heading {
+	margin: 0 0 0.9em;
+	font-size: 1em;
+	font-weight: 400;
+}
+
+.excursus-label {
+	display: block;
+	margin-bottom: 0.25em;
+	font-family: var(--sans);
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--accent);
+}
+
+.excursus-title {
+	display: block;
+	font-size: 1.2em;
+	font-style: italic;
+}
+
+/* Inset figures: a small sketch or specimen beside the text. Centered on
+   phones; on wider screens it sits to the right with the text running beside
+   it, and with a margin it reaches partly into the margin. */
+
+.prose .figure--inset {
+	max-width: 18rem;
+	margin-inline: auto;
+}
+
+.figure--inset img {
+	background: none;
+}
+
+.figure--inset figcaption {
+	font-size: 0.8125rem;
+}
+
+@container article (min-width: 36rem) {
+	.prose .figure--inset {
+		float: right;
+		clear: right;
+		width: min(17rem, 45%);
+		margin: 0.4em 0 1em 1.75rem;
+	}
+}
+
+@container article (min-width: 63rem) {
+	.prose .figure--inset {
+		width: 18rem;
+		margin-right: calc(-0.5 * (var(--margin-width) + var(--margin-gap)));
+	}
+}
+
 /* Editorial note: a substantive revision (the `correction` field), announced
    beside the dates at the top and explained at the end. ---------------------- */
 

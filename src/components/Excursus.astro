@@ -1,0 +1,26 @@
+---
+// An excursus: a substantial digression set within the reading column (a
+// word's history, a geological process, a document), between a rule and a
+// short closing rule, so a reader can see where it begins and ends and skip it.
+interface Props {
+	/** The excursus heading, e.g. "On the word compost". */
+	title: string;
+	/** The small label above the title. */
+	label?: string;
+}
+
+const { title, label = 'Excursus' } = Astro.props;
+const id = `excursus-${title
+	.toLowerCase()
+	.normalize('NFKD')
+	.replace(/[^\p{L}\p{N}]+/gu, '-')
+	.replace(/^-|-$/g, '')}`;
+---
+
+<aside class="excursus" aria-labelledby={id}>
+	<h3 id={id} class="excursus-heading">
+		<span class="excursus-label">{label}</span>
+		<span class="excursus-title">{title}</span>
+	</h3>
+	<slot />
+</aside>
