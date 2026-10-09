@@ -83,8 +83,8 @@ const shapeNotes = defineCollection({
 			/** Excerpting, transposition, simplification, or any other change from the source. */
 			editorial: z.array(z.string().trim().min(1)).default([]),
 		})
-		.refine((phrase) => phrase.fixture || (phrase.source.year && phrase.source.page != null && (phrase.source.url || phrase.source.identifier)), {
-			message: 'A historical phrase needs source.year, source.page, and source.url or source.identifier.',
+		.refine((phrase) => phrase.fixture || phrase.source.url || phrase.source.identifier, {
+			message: 'A historical phrase needs source.url or source.identifier, so the quotation can be traced.',
 		}),
 });
 

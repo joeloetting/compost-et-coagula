@@ -56,7 +56,7 @@ const makers = [
 		</summary>
 		<div class="sn-words">
 			<p class="sn-lyric" lang="en">{phrase.lyric}</p>
-			<p class="sn-source">
+			<div class="sn-source">
 				{
 					data.fixture ? (
 						<>
@@ -71,8 +71,20 @@ const makers = [
 						</>
 					)
 				}
-				{data.editorial.length > 0 && <span class="sn-editorial"> {data.editorial.join(' ')}</span>}
-			</p>
+				{
+					data.editorial.length > 0 && (
+						<> </>
+					)
+				}
+				{
+					data.editorial.length > 0 && (
+						<details class="sn-notes">
+							<summary>Notes</summary>
+							<span class="sn-editorial">{data.editorial.join(' ')}</span>
+						</details>
+					)
+				}
+			</div>
 			<p class="sr-only">Shapes, in order: {shapes}.</p>
 		</div>
 	</details>
@@ -157,13 +169,33 @@ const makers = [
 		font-weight: 600;
 	}
 
+	/* Editorial notes on the quotation, one step further in. */
+	.sn-notes {
+		display: inline;
+	}
+
+	.sn-notes > summary {
+		display: inline;
+		color: var(--link);
+		text-decoration: underline;
+		text-decoration-color: color-mix(in srgb, var(--link) 45%, transparent);
+		text-underline-offset: 0.18em;
+		cursor: pointer;
+	}
+
+	.sn-notes > summary::-webkit-details-marker {
+		display: none;
+	}
+
 	.sn-editorial {
+		display: block;
 		font-style: italic;
 	}
 
 	@media (max-width: 30rem) {
 		.shapenote {
 			--sn-scale: 0.85;
+			--sn-reserve: 5.25rem;
 			max-width: 20rem;
 		}
 	}

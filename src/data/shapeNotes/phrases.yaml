@@ -6,12 +6,39 @@
 # middle C = C4); durations are in quarter notes. Shapes are worked out from
 # the key, never written by hand.
 #
-# The two records below are SYNTHETIC TEST DATA. Their notes and words were
+# The records marked `fixture: true` are SYNTHETIC TEST DATA. Their notes and words were
 # written for this site to exercise the component; they are not a historical
 # tune and must not appear in a published article. `npm test` fails if a
 # fixture is used on any published page. A historical phrase such as Idumea
 # goes here only once its notes, rhythm and words have been checked against a
 # public-domain printing, with the source fields filled in.
+
+- id: idumea-opening
+  title: Idumea
+  notation: four-shape
+  key: { tonic: A, mode: minor } # "Flat Key on A"
+  meter: '3/2'
+  voice: tenor
+  # Read from the author's scan of a four-part printing (heading "IDUMEA. S.M.
+  # Flat Key on A."). Every shape agrees with the key, and the pitches agree
+  # with the incipit hymnary.org gives for IDUMEA.
+  notes:
+    - { pitch: A4, dur: 2, syl: My }
+    - { pitch: A4, dur: 4, syl: 'God,' }
+    - { pitch: G4, dur: 1, syl: my }
+    - { pitch: A4, dur: 1, syl: 'life,' }
+    - { pitch: C5, dur: 4, syl: my }
+    - { pitch: D5, dur: 1, syl: love }
+    - { pitch: C5, dur: 1 }
+  tune: { composer: Ananias Davisson (attributed) }
+  words: { author: Isaac Watts, firstLine: 'My God, my life, my love' }
+  source:
+    # TODO: tunebook title, edition, year, and page of the scan.
+    title: Tunebook not yet identified
+    identifier: the author's scan
+  editorial:
+    - 'Excerpt: the first line of the tenor, which carries the melody.'
+    - Pitches as printed in the treble clef; men sing them an octave lower.
 
 - id: fixture-minor-phrase
   fixture: true

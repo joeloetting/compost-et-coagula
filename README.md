@@ -264,12 +264,12 @@ import ShapeNoteDivider from '../../components/ShapeNoteDivider.astro';
 ```
 
 - The shapes follow the four-shape (fasola) system from the key: fa triangle, sol oval, la square, mi diamond. An accidental does not change a shape.
-- A historical phrase must give the source's year, page, and a URL or identifier; record any excerpting, transposition, or simplification under `editorial`. The tune, the words, the arrangement, and the printed edition are recorded separately because they often differ in maker and date.
+- A historical phrase must give a source URL or identifier, and its edition, year, and page when known; record any excerpting, transposition, or simplification under `editorial`. The tune, the words, the arrangement, and the printed edition are recorded separately because they often differ in maker and date.
 - Phrases marked `fixture: true` are synthetic test data. They can be used in drafts, but `npm test` fails if one appears on a published page.
 - A divider quotes a phrase of at most 16 notes and rests. A bad pitch, a duration that is not a note value, or a missing phrase stops the build with a message naming the phrase.
 - The staffless phrase is a quotation, not a full transcription: it keeps the order of pitches, their contour, the rhythm, and the words, but not exact pitch. The source is where the music can be read in full.
 
-`src/content/writing/the-printers-ornament.mdx` is a working example (a draft, using fixtures).
+`src/content/writing/the-printers-ornament.mdx` is a working example (a draft).
 
 ## Publishing
 

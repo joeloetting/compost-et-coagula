@@ -63,6 +63,12 @@ describe('four-shape solmization', () => {
 		assert.equal(shapeFor('mi'), 'diamond');
 	});
 
+	it('matches the shapes printed for the opening of Idumea ("Flat Key on A")', () => {
+		const printed = ['square', 'square', 'oval', 'square', 'triangle', 'oval', 'triangle'];
+		const pitches = ['A4', 'A4', 'G4', 'A4', 'C5', 'D5', 'C5'];
+		assert.deepEqual(pitches.map((p) => shapeFor(fourShapeSyllable(minor, p))), printed);
+	});
+
 	it('can name seven-shape syllables for later use', () => {
 		assert.equal(sevenShapeSyllable(major, 'G4'), 'do');
 		assert.equal(sevenShapeSyllable(major, 'F#4'), 'ti');
