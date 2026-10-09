@@ -3,6 +3,7 @@ import { getEntries } from 'astro:content';
 import ArticleMeta from '../components/ArticleMeta.astro';
 import BaseLayout from './BaseLayout.astro';
 import { type Article, projectPath } from '../utils/content';
+import { articleSchema } from '../utils/seo';
 import { url } from '../utils/urls';
 
 interface Props {
@@ -14,7 +15,16 @@ const { title, description, published, updated, draft } = article.data;
 const projects = await getEntries(article.data.projects);
 ---
 
-<BaseLayout title={title} description={description} ogType="article" published={published} updated={updated} noindex={draft}>
+<BaseLayout
+	title={title}
+	subtitle={article.data.subtitle}
+	description={description}
+	ogType="article"
+	published={published}
+	updated={updated}
+	noindex={draft}
+	schema={articleSchema(article, Astro.site)}
+>
 	<article class="article">
 		<ArticleMeta article={article} projects={projects} />
 		<div class="prose">

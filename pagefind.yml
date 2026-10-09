@@ -1,0 +1,11 @@
+# Pagefind builds the site search index from the finished HTML in dist/ after
+# `astro build` (see the "build" script in package.json).
+#
+# Only article pages are indexed: they are the pages containing
+# <article class="article">, and indexing is limited to that element, so the
+# header, footer, and lists of writing never appear in results. The article's
+# own footer of navigation links is skipped too.
+site: dist
+root_selector: article.article
+exclude_selectors:
+  - .article-footer
