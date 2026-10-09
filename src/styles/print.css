@@ -105,13 +105,15 @@
 		overflow-wrap: anywhere;
 	}
 
-	.prose [data-footnote-backref] {
+	.prose [data-footnote-backref],
+	.later-back {
 		display: none;
 	}
 
-	/* Marginal notes in the printed margin, as on a wide screen. */
+	/* Marginal notes, and later notes, in the printed margin, as on a wide screen. */
 	.note,
-	.note:popover-open {
+	.note:popover-open,
+	.later-margin {
 		display: block;
 		position: static;
 		max-width: none;
@@ -164,7 +166,8 @@
 	pre,
 	tr,
 	.editorial-note,
-	.prose .footnotes li {
+	.prose .footnotes li,
+	.later-notes li {
 		break-inside: avoid;
 	}
 

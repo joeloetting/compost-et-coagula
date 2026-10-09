@@ -8,6 +8,8 @@
 	--margin-width: 15rem;
 	--margin-gap: 3rem;
 	--margin-layout: calc(var(--measure) + var(--margin-gap) + var(--margin-width));
+	/* Oxblood, for notes added after publication; 7:1 against --paper. */
+	--later: #8a2c1f;
 }
 
 /* OpenType features: kerning and ligatures everywhere; tabular figures in
@@ -328,4 +330,171 @@ body {
 
 .editorial-note:target {
 	background: var(--highlight);
+}
+
+/* Later notes: commentary added after publication ---------------------------
+   src/plugins/apparatus.mjs replaces the footnote reference with
+     <a class="later-mark" href="#later-…">?</a>       (the mark in the text)
+     <span class="later-margin" aria-hidden="true">  (a copy for the margin)
+   and lists every later note under "Later notes" at the end, where the mark
+   links. Phones and narrow windows use the mark and the list only; wide
+   screens also show the note in the margin. Each note shows its symbol, its
+   type in words, and its date, so colour is never the only signal. */
+
+.prose .later-mark {
+	/* Padding widens the tap target without moving the line. */
+	padding: 0.5em 0.3em;
+	color: var(--later);
+	font-family: var(--sans);
+	font-size: 0.8em;
+	font-weight: 600;
+	line-height: 0;
+	vertical-align: 0.35em;
+	text-decoration: none;
+	font-variant-emoji: text;
+}
+
+.prose .later-mark:hover {
+	text-decoration: underline;
+}
+
+.later-margin {
+	display: none;
+}
+
+@container article (min-width: 56.5rem) {
+	.later-margin {
+		display: block;
+		float: right;
+		clear: right;
+		width: var(--margin-width);
+		margin: 0.3em calc(-1 * (var(--margin-width) + var(--margin-gap))) 1.25em 0;
+		padding: 0.5em 0 0;
+		border-top: 1px solid var(--later);
+		color: var(--ink);
+		font-family: var(--serif);
+		font-size: var(--text-small);
+		font-style: normal;
+		font-weight: 400;
+		line-height: 1.5;
+		text-align: left;
+		text-indent: 0;
+	}
+}
+
+.later-label {
+	display: block;
+	margin-bottom: 0.2em;
+	color: var(--later);
+	font-family: var(--sans);
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.later-sign {
+	margin-right: 0.1em;
+	font-family: var(--serif);
+	font-size: 1.3em;
+	font-weight: 400;
+	letter-spacing: 0;
+	line-height: 1;
+	font-variant-emoji: text;
+}
+
+/* Questions read as questions, in italic, as the margin's ? notes do. */
+.later--question .note-para,
+.later--question > p:not(.later-label, .later-back) {
+	font-style: italic;
+}
+
+.prose .later-notes {
+	margin-top: 3em;
+	padding-top: 1.25em;
+	border-top: 1px solid var(--rule);
+	font-size: 0.9em;
+	line-height: 1.6;
+}
+
+.prose .later-notes h2 {
+	margin: 0 0 0.25rem;
+	color: var(--later);
+	font-family: var(--sans);
+	font-size: 0.875rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.prose .later-intro {
+	margin: 0 0 1rem;
+	color: var(--muted-ink);
+	font-family: var(--sans);
+	font-size: var(--text-small);
+}
+
+.prose .later-notes ol {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.prose .later-notes li {
+	padding: 0.5em 0 0 0.9em;
+	border-left: 2px solid var(--later);
+	scroll-margin-top: 2rem;
+}
+
+.prose .later-notes li + li {
+	margin-top: 1em;
+}
+
+.prose .later-notes li > p {
+	margin: 0;
+}
+
+.prose .later-notes li > p + p {
+	margin-top: 0.4em;
+}
+
+.prose .later-back {
+	font-family: var(--sans);
+	font-size: 0.875rem;
+}
+
+.prose .later-back a {
+	display: inline-block;
+	padding-block: 0.35em;
+}
+
+.prose .later-notes li:target,
+.prose .later-mark:target {
+	background: var(--highlight);
+}
+
+.prose .later-mark {
+	scroll-margin-top: 30vh;
+}
+
+/* A correction in a later note is announced at the top of the article. */
+.prose .correction-notice {
+	margin: 0 0 2rem;
+	padding: 0.5rem 0.875rem;
+	background: var(--surface);
+	border-left: 2px solid var(--later);
+	font-family: var(--sans);
+	font-size: var(--text-small);
+	line-height: 1.5;
+}
+
+.prose .correction-notice strong {
+	font-weight: 600;
+}
+
+/* Bibliography entries link back to the notes that cite them. */
+.prose .cited-in {
+	color: var(--muted-ink);
+	font-family: var(--sans);
+	font-size: 0.85em;
 }
