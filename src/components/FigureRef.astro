@@ -1,0 +1,14 @@
+---
+import { figureAnchor } from '../utils/figures';
+
+interface Props {
+	/** The id of a figure in the same article. */
+	to: string;
+	/** Set at build time by src/plugins/figures.mjs. */
+	number?: string;
+}
+
+const { to, number } = Astro.props;
+---
+
+<a class="figure-ref" href={`#${figureAnchor(to)}`}>Figure {number}</a>

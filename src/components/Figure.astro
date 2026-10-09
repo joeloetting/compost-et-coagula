@@ -1,6 +1,7 @@
 ---
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
+import { figureAnchor } from '../utils/figures';
 import { url } from '../utils/urls';
 
 interface Props {
@@ -8,16 +9,36 @@ interface Props {
 	src: ImageMetadata | string;
 	/** Short text alternative. Use alt="" only for purely decorative images. */
 	alt: string;
-	/** Source or credit line, shown after the caption. */
+	/** Names the figure so the text can refer to it with <FigureRef to="..." />. */
+	id?: string;
+	/** Leave this figure out of the numbering (decorative images). */
+	unnumbered?: boolean;
+	/** Credit for the maker of the image, e.g. "Photograph by Jane Doe." */
 	credit?: string;
+	/** Where the image comes from: archive, publication, or dataset. */
+	source?: string;
+	/** Link for the source, when it is online. */
+	sourceUrl?: string;
+	/** Key of an entry in the article's bibliography, e.g. cite="smith-1909"; the source links to it. */
+	cite?: string;
+	/** Copyright or license status, e.g. "Public domain" or "CC BY 4.0". */
+	license?: string;
+	licenseUrl?: string;
 	/** Let the figure extend beyond the text column (maps, diagrams). */
 	wide?: boolean;
 	/** Intrinsic size; needed only for public/ paths, to prevent layout shift. */
 	width?: number;
 	height?: number;
+	/** Set at build time by src/plugins/figures.mjs; do not pass these by hand. */
+	number?: string;
+	citeText?: string;
 }
 
-const { src, alt, credit, wide = false, width, height } = Astro.props;
+const { src, alt, id, credit, source, sourceUrl, cite, citeText, license, licenseUrl, wide = false, width, height, number } = Astro.props;
+const anchor = id ? figureAnchor(id) : number ? `figure-${number}` : undefined;
+const sourceText = source ?? citeText;
+const sourceHref = cite ? `#ref-${cite}` : sourceUrl;
+const hasAttribution = Boolean(credit || sourceText || license);
 // Responsive widths for raster images, never larger than the original, which is
 // also the most a raster image is displayed at, so small images are not blurred.
 const widths = typeof src === 'string' ? [] : [640, 1000, 1600, 2000].filter((w) => w < src.width).concat(src.width);
@@ -26,7 +47,7 @@ const hasCaption = Astro.slots.has('default');
 const hasDescription = Astro.slots.has('description');
 ---
 
-<figure class:list={['figure', { 'figure--wide': wide }]}>
+<figure id={anchor} class:list={['figure', { 'figure--wide': wide }]}>
 	{
 		typeof src === 'string' ? (
 			<img src={src.startsWith('/') ? url(src) : src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
@@ -44,10 +65,23 @@ const hasDescription = Astro.slots.has('description');
 		)
 	}
 	{
-		(hasCaption || credit || hasDescription) && (
+		(number || hasCaption || hasAttribution || hasDescription) && (
 			<figcaption>
+				{number && <span class="figure-label">Figure {number}.</span>}
 				{hasCaption && <slot />}
-				{credit && <span class="credit">{credit}</span>}
+				{
+					hasAttribution && (
+						<p class="attribution">
+							{credit && <span>{credit}</span>}
+							{sourceText && (
+								<span>
+									Source: {sourceHref ? <a href={sourceHref}>{sourceText}</a> : sourceText}
+								</span>
+							)}
+							{license && <span>{licenseUrl ? <a href={licenseUrl}>{license}</a> : license}</span>}
+						</p>
+					)
+				}
 				{hasDescription && (
 					<details>
 						<summary>Full description</summary>

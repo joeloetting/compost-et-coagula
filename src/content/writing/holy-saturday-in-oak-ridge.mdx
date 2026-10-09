@@ -14,6 +14,7 @@ draft: true
 ---
 
 import Figure from '../../components/Figure.astro';
+import FigureRef from '../../components/FigureRef.astro';
 import dimensions from './holy-saturday-in-oak-ridge/dimensions.svg';
 import schematicMap from './holy-saturday-in-oak-ridge/schematic-map.svg';
 
@@ -35,9 +36,9 @@ The attraction of Holy Saturday as an interpretive frame is precisely its refusa
 
 ### Three dimensions of a place
 
-The project to which this fixture belongs organizes its inquiry loosely around space, place, and time.[^dimensions] The diagram below is a stand-in for the kind of explanatory figure an essay might include.
+The project to which this fixture belongs organizes its inquiry loosely around space, place, and time.[^dimensions] <FigureRef to="dimensions" /> is a stand-in for the kind of explanatory figure an essay might include.
 
-<Figure src={dimensions} alt="Three overlapping circles labeled Space, Place, and Time.">
+<Figure id="dimensions" src={dimensions} alt="Three overlapping circles labeled Space, Place, and Time.">
   An illustrative diagram of the project's three organizing dimensions. The overlaps carry no analytical meaning in this fixture.
 </Figure>
 
@@ -47,10 +48,10 @@ Fourth-level headings are rare in essays but useful in long methodological secti
 
 ## Reading the ground
 
-A wide figure is used for maps and diagrams that need more room than the text column allows. The image below is a schematic placeholder, not a map of any real place.
+A wide figure is used for maps and diagrams that need more room than the text column allows. <FigureRef to="ridges" /> is a schematic placeholder, not a map of any real place.
 
-<Figure src={schematicMap} alt="Schematic placeholder map showing two ridges, a valley between them, and a watercourse. Not a real place." credit="Drawn for this site as a layout fixture." wide>
-  A schematic of ridge-and-valley terrain, used here to test wide figures, captions, and credits. A real map would carry a source, a scale, and a date.
+<Figure id="ridges" src={schematicMap} alt="Schematic placeholder map showing two ridges, a valley between them, and a watercourse. Not a real place." credit="Drawn for this site as a layout fixture." source="After Author, A., placeholder map" cite="author-a" license="CC BY 4.0" licenseUrl="https://creativecommons.org/licenses/by/4.0/" wide>
+  A schematic of ridge-and-valley terrain, used here to test wide figures, captions, credits, sources, and licenses. A real map would carry a source, a scale, and a date.
 
   <Fragment slot="description">
     <p>Two roughly parallel ridges run left to right across the upper and middle portions of the image. A valley lies between them. A watercourse crosses the lower portion of the image from left to right. A north arrow points to the top of the image. All features are labeled as schematic, and the drawing is explicitly not a map of any real place.</p>
@@ -67,7 +68,7 @@ The section break above is rendered as a quiet ornament rather than a heavy rule
 
 ## Bibliography
 
-- [Placeholder] Author, A. *Title of a Book on Place and Theology*. City: Publisher, Year.
+- [@author-a] [Placeholder] Author, A. *Title of a Book on Place and Theology*. City: Publisher, Year.
 - [Placeholder] Author, B. "Title of a Journal Article on Environmental History." *Journal Name* Volume, no. Issue (Year): pages.
 - [Placeholder] Author, C., and D. Author. *Title of an Edited Volume That Has a Particularly Long Subtitle, to Test How Hanging Indentation Wraps Across Several Lines*. City: Publisher, Year.
 

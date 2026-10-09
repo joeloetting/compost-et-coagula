@@ -437,10 +437,33 @@ pre {
 	margin-top: 0.4em;
 }
 
-.figure .credit {
-	display: block;
+/* "Figure 1." runs into the first paragraph of the caption. */
+.figure .figure-label {
+	font-weight: 600;
+	margin-right: 0.3em;
+}
+
+.figure .figure-label + p {
+	display: inline;
+}
+
+.figure .attribution {
 	margin-top: 0.35em;
 	color: var(--muted-ink);
+}
+
+.figure .attribution > span + span::before {
+	content: ' · ';
+}
+
+/* Arriving from a figure reference, mark the figure briefly. */
+.figure:target figcaption .figure-label {
+	background: var(--highlight);
+	box-shadow: 0 0 0 0.2em var(--highlight);
+}
+
+.figure-ref {
+	white-space: nowrap;
 }
 
 .figure details {
@@ -534,11 +557,12 @@ pre {
 }
 
 .prose .footnotes li:target,
-.prose [data-footnote-ref]:target {
+.prose [data-footnote-ref]:target,
+.prose li[id^='ref-']:target {
 	background: var(--highlight);
 }
 
-.prose :is(.footnotes li, [data-footnote-ref]) {
+.prose :is(.footnotes li, [data-footnote-ref], li[id^='ref-'], .figure) {
 	scroll-margin-top: 2rem;
 }
 
