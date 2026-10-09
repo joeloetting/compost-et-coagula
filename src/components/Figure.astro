@@ -35,6 +35,8 @@ interface Props {
 	fullSize?: boolean | string;
 	/** Let the figure extend beyond the text column (maps, diagrams). */
 	wide?: boolean;
+	/** A small figure set to one side, partly in the margin on wide screens (sketches, specimens). */
+	inset?: boolean;
 	/** Intrinsic size; needed only for public/ paths, to prevent layout shift. */
 	width?: number;
 	height?: number;
@@ -43,7 +45,7 @@ interface Props {
 	citeText?: string;
 }
 
-const { src, alt, id, credit, source, sourceUrl, cite, citeText, license, licenseUrl, fullSize, wide = false, width, height, number } = Astro.props;
+const { src, alt, id, credit, source, sourceUrl, cite, citeText, license, licenseUrl, fullSize, wide = false, inset = false, width, height, number } = Astro.props;
 const anchor = id ? figureAnchor(id) : undefined;
 const original = typeof src === 'string' ? (src.startsWith('/') ? url(src) : src) : src.src;
 const fullSizeHref = fullSize === true ? original : fullSize || undefined;
@@ -58,7 +60,7 @@ const hasCaption = Astro.slots.has('default');
 const hasDescription = Astro.slots.has('description');
 ---
 
-<figure id={anchor} class:list={['figure', { 'figure--wide': wide }]}>
+<figure id={anchor} class:list={['figure', { 'figure--wide': wide, 'figure--inset': inset && !wide }]}>
 	{
 		typeof src === 'string' ? (
 			<img src={src.startsWith('/') ? url(src) : src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
@@ -69,7 +71,7 @@ const hasDescription = Astro.slots.has('description');
 				src={src}
 				alt={alt}
 				widths={widths}
-				sizes={wide ? '(min-width: 1080px) 1000px, 100vw' : '(min-width: 700px) 616px, 100vw'}
+				sizes={wide ? '(min-width: 1080px) 1000px, 100vw' : inset ? '320px' : '(min-width: 700px) 616px, 100vw'}
 				style={`max-width: ${src.width}px`}
 				loading="lazy"
 			/>

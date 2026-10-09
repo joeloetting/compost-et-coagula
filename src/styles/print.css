@@ -139,6 +139,17 @@
 		background: none;
 	}
 
+	.prose .figure--inset {
+		float: right;
+		clear: right;
+		width: 6cm;
+		margin: 0.2em calc(-0.5 * (var(--margin-width) + var(--margin-gap))) 0.6em 0.6cm;
+	}
+
+	.excursus-heading {
+		break-after: avoid;
+	}
+
 	/* Keep headings with what follows, and figures, quotations, code, and table
 	   rows in one piece. */
 	h1,
