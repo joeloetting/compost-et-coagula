@@ -5,12 +5,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { type Article, getProjects, getWriting, projectPath, typeLabels, writingPath } from '../utils/content';
 import { url } from '../utils/urls';
 
-// The home page is the volume's table of contents: every published piece, under
-// the year it was published, newest first. Dates are publication dates; there
-// are no volume or issue numbers until there are real collections to number.
+// The home page is the volume's table of contents: the most recent pieces, under
+// the year each was published, newest first, with a link to the full archive.
+// Dates are publication dates; there are no volume or issue numbers until there
+// are real collections to number.
+const CONTENTS_LIMIT = 8;
 const writing = await getWriting();
 const items = await Promise.all(
-	writing.map(async (entry) => ({ entry, projects: await getEntries(entry.data.projects) })),
+	writing.slice(0, CONTENTS_LIMIT).map(async (entry) => ({ entry, projects: await getEntries(entry.data.projects) })),
 );
 const years = new Map<number, typeof items>();
 for (const item of items) {
@@ -65,6 +67,15 @@ const typeOf = (entry: Article) => typeLabels[entry.data.type];
 				</section>
 			))
 		}
+		{
+			writing.length > 0 && (
+				<p class="archive-link">
+					<a href={url('/writing/')}>
+						{writing.length > CONTENTS_LIMIT ? `Complete archive (${writing.length} pieces)` : 'Complete archive'}
+					</a>
+				</p>
+			)
+		}
 	</section>
 
 	{
@@ -104,14 +115,14 @@ const typeOf = (entry: Article) => typeLabels[entry.data.type];
 	}
 
 	/* "Contents" set like the heading of a book's contents page: centered, in
-	   spaced small capitals, between rules. */
+	   spaced capitals, between rules. */
 	.contents-title {
 		padding-block: 0.6rem;
 		border-block: 1px solid var(--rule);
-		font-size: 1.125rem;
+		font-size: 0.875rem;
 		font-weight: 400;
-		font-variant-caps: all-small-caps;
-		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
 		text-align: center;
 		color: var(--accent);
 	}
@@ -123,7 +134,6 @@ const typeOf = (entry: Article) => typeLabels[entry.data.type];
 	.year-title {
 		font-size: 1.125rem;
 		font-weight: 400;
-		font-variant-numeric: oldstyle-nums;
 		letter-spacing: 0.08em;
 		color: var(--muted-ink);
 	}
@@ -186,6 +196,14 @@ const typeOf = (entry: Article) => typeLabels[entry.data.type];
 
 	.meta {
 		margin-top: 0.35rem;
+	}
+
+	.archive-link {
+		margin-top: 1.25rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--rule);
+		font-family: var(--sans);
+		font-size: var(--text-small);
 	}
 
 	.projects .toc-title {

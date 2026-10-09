@@ -1,7 +1,6 @@
 /*
  * Critical-edition apparatus: the article page's text-and-margin layout,
- * marginal notes and cross-references, and editorial marks.
- * Print rules are in print.css.
+ * marginal notes, and the editorial note. Print rules are in print.css.
  */
 
 :root {
@@ -11,11 +10,9 @@
 	--margin-layout: calc(var(--measure) + var(--margin-gap) + var(--margin-width));
 }
 
-/* OpenType features: kerning and ligatures everywhere; real small capitals
-   (smcp, c2sc) and old-style figures (onum) from the font, which the browser
-   must never fake (the italic has no small caps); tabular figures in tables. */
+/* OpenType features: kerning and ligatures everywhere; tabular figures in
+   tables (global.css). */
 body {
-	font-synthesis-small-caps: none;
 	font-kerning: normal;
 	font-variant-ligatures: common-ligatures contextual;
 }
@@ -52,34 +49,7 @@ body {
 	}
 }
 
-/* Editorial marks ----------------------------------------------------------- */
-
-.prose > p,
-.prose li,
-.prose blockquote {
-	font-variant-numeric: oldstyle-nums proportional-nums;
-}
-
-/* Section sign before each section heading (not the Notes labels). */
-.prose h2:not(.footnotes h2, .editorial-notes h2)::before {
-	content: '§';
-	margin-right: 0.35em;
-	font-weight: 400;
-	color: var(--accent);
-}
-
-/* Abbreviations and acronyms in small capitals, as in a printed edition. */
-.prose abbr {
-	font-variant-caps: all-small-caps;
-	letter-spacing: 0.04em;
-}
-
-.small-caps {
-	font-variant-caps: small-caps;
-	letter-spacing: 0.03em;
-}
-
-/* Marginalia: [margin] and [crossref] footnotes ------------------------------
+/* Marginal notes: [margin] footnotes -----------------------------------------
    src/plugins/apparatus.mjs places each one where it is referred to, as
      <button class="note-mark" popovertarget="note-1">  (narrow screens)
      <span class="note" id="note-1" popover>            (the note itself)
@@ -108,15 +78,16 @@ body {
 	line-height: 1.5;
 	text-align: left;
 	text-indent: 0;
-	font-variant-numeric: oldstyle-nums proportional-nums;
 }
 
 .note-label {
 	display: block;
-	margin-bottom: 0.15em;
-	font-variant-caps: all-small-caps;
-	font-variant-numeric: lining-nums;
+	margin-bottom: 0.2em;
+	font-family: var(--sans);
+	font-size: 0.75rem;
+	font-weight: 600;
 	letter-spacing: 0.08em;
+	text-transform: uppercase;
 	color: var(--accent);
 }
 
@@ -134,10 +105,6 @@ body {
 
 .note a {
 	color: var(--link);
-}
-
-.crossref-pending {
-	color: var(--muted-ink);
 }
 
 .note-mark {
@@ -221,57 +188,10 @@ body {
 	}
 }
 
-/* Editorial notes: [editorial] footnotes and the `correction` field --------- */
+/* Editorial note: a substantive revision (the `correction` field), announced
+   beside the dates at the top and explained at the end. ---------------------- */
 
-.prose .editorial-ref {
-	font-family: var(--sans);
-	font-size: 0.8em;
-	font-weight: 600;
-	padding-inline: 0.15em;
-	text-decoration: none;
-}
-
-.prose .editorial-ref::before {
-	content: '[';
-}
-
-.prose .editorial-ref::after {
-	content: ']';
-}
-
-.prose .editorial-ref:target,
-.editorial-notes li:target {
-	background: var(--highlight);
-}
-
-.editorial-backref {
-	font-family: var(--sans);
-	text-decoration: none;
-}
-
-.prose .editorial-notes > * + * {
-	margin-top: 0.6em;
-}
-
-.prose .editorial-notes h2 + * {
-	margin-top: 0;
-}
-
-.prose .editorial-notes ol {
-	margin-bottom: 0;
-	padding-left: 1.5em;
-}
-
-.prose .editorial-notes ol:has(> li:only-child) {
-	list-style: none;
-	padding-left: 0;
-}
-
-.prose .editorial-notes li + li {
-	margin-top: 0.5em;
-}
-
-.editorial-notes {
+.editorial-note {
 	max-width: var(--measure);
 	margin-top: var(--space-section);
 	padding: 1rem 1.25rem;
@@ -281,8 +201,7 @@ body {
 	line-height: 1.6;
 }
 
-.prose .editorial-notes h2 {
-	margin-top: 0;
+.editorial-note h2 {
 	margin-bottom: 0.4rem;
 	font-family: var(--sans);
 	font-size: 0.875rem;
@@ -292,10 +211,6 @@ body {
 	color: var(--accent);
 }
 
-.prose .editorial-notes {
-	margin-top: 2.5em;
-}
-
-.editorial-notes:target {
+.editorial-note:target {
 	background: var(--highlight);
 }

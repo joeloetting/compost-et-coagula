@@ -15,7 +15,6 @@
 	@top-left {
 		font-family: Georgia, 'Times New Roman', serif;
 		font-size: 8.5pt;
-		font-variant-caps: small-caps;
 		letter-spacing: 0.06em;
 		color: #555;
 	}
@@ -106,8 +105,7 @@
 		overflow-wrap: anywhere;
 	}
 
-	.prose [data-footnote-backref],
-	.editorial-backref {
+	.prose [data-footnote-backref] {
 		display: none;
 	}
 
@@ -154,7 +152,7 @@
 	blockquote,
 	pre,
 	tr,
-	.editorial-notes,
+	.editorial-note,
 	.prose .footnotes li {
 		break-inside: avoid;
 	}
@@ -174,7 +172,7 @@
 		overflow: visible;
 	}
 
-	.editorial-notes {
+	.editorial-note {
 		border-left: 1pt solid #999;
 	}
 }

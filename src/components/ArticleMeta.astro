@@ -40,15 +40,15 @@ const { title, subtitle, description, published, updated, type, correction, draf
 				</span>
 			)
 		}
-		{
-			correction && (
-				<span>
-					<span aria-hidden="true"> · </span>
-					<a href="#editorial-notes">See editorial note</a>
-				</span>
-			)
-		}
 	</p>
+	{
+		correction && (
+			<p class="revision-notice">
+				<strong>Revised{updated && <> <FormattedDate date={updated} /></>}.</strong>{' '}
+				<a href="#editorial-note">Read the editorial note</a> for what changed.
+			</p>
+		)
+	}
 </header>
 
 <style>
@@ -92,5 +92,20 @@ const { title, subtitle, description, published, updated, type, correction, draf
 
 	.dates {
 		margin-top: 1.25rem;
+	}
+
+	/* A substantive revision is announced here and explained at the end. */
+	.revision-notice {
+		margin-top: 1rem;
+		padding: 0.5rem 0.875rem;
+		background: var(--surface);
+		border-left: 2px solid var(--accent);
+		font-family: var(--sans);
+		font-size: var(--text-small);
+		line-height: 1.5;
+	}
+
+	.revision-notice strong {
+		font-weight: 600;
 	}
 </style>
