@@ -18,6 +18,8 @@ const writing = defineCollection({
 	loader: glob({ base: './src/content/writing', pattern: '**/*.{md,mdx}' }),
 	schema: z.object({
 		title: z.string().trim().min(1),
+		/** Optional scholarly subtitle; added to the page title and og:title for search engines. */
+		subtitle: optionalText,
 		description: z.string().trim().min(1),
 		published: z.coerce.date(),
 		updated: optionalDate,
