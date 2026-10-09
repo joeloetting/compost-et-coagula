@@ -1,6 +1,6 @@
 ---
 import FormattedDate from './FormattedDate.astro';
-import { type Article, type Project, projectPath, typeLabels } from '../utils/content';
+import { type Article, type Project, articleAuthor, projectPath, typeLabels } from '../utils/content';
 import { url } from '../utils/urls';
 
 interface Props {
@@ -9,7 +9,8 @@ interface Props {
 }
 
 const { article, projects } = Astro.props;
-const { title, description, published, updated, type, correction, draft } = article.data;
+const { title, subtitle, description, published, updated, type, correction, draft } = article.data;
+const author = articleAuthor(article);
 ---
 
 <header class="article-header">
@@ -25,8 +26,15 @@ const { title, description, published, updated, type, correction, draft } = arti
 		}
 		{draft && <span class="badge">Draft</span>}
 	</p>
-	<h1>{title}</h1>
-	<p class="description">{description}</p>
+	<h1>
+		{title}
+		{subtitle && <span class="subtitle">{subtitle}</span>}
+	</h1>
+	{/* Skip the description when it only repeats the subtitle. */}
+	{description !== subtitle && <p class="description">{description}</p>}
+	<p class="byline">
+		By <a href={url(author.path)} rel="author">{author.name}</a>
+	</p>
 	<p class="meta dates">
 		<span>Published <FormattedDate date={published} /></span>
 		{
@@ -39,11 +47,10 @@ const { title, description, published, updated, type, correction, draft } = arti
 	</p>
 	{
 		correction && (
-			<aside class="correction" aria-label="Revision note">
-				<p>
-					<strong>Revision note.</strong> {correction}
-				</p>
-			</aside>
+			<p class="revision-notice">
+				<strong>Revised{updated && <> <FormattedDate date={updated} /></>}.</strong>{' '}
+				<a href="#editorial-note">Read the editorial note</a> for what changed.
+			</p>
 		)
 	}
 </header>
@@ -68,6 +75,18 @@ const { title, description, published, updated, type, correction, draft } = arti
 		letter-spacing: -0.015em;
 	}
 
+	/* Part of the heading, as on a title page, but set smaller and in italic. */
+	.subtitle {
+		display: block;
+		margin-top: 0.5rem;
+		font-size: 0.55em;
+		font-style: italic;
+		font-weight: 400;
+		line-height: 1.3;
+		letter-spacing: 0;
+		color: var(--muted-ink);
+	}
+
 	.description {
 		margin-top: 1rem;
 		font-size: 1.15em;
@@ -75,21 +94,39 @@ const { title, description, published, updated, type, correction, draft } = arti
 		color: var(--muted-ink);
 	}
 
-	.dates {
+	.byline {
 		margin-top: 1.25rem;
+		font-family: var(--sans);
+		font-size: var(--text-small);
+		letter-spacing: 0.01em;
 	}
 
-	.correction {
-		margin-top: 1.5rem;
-		padding: 0.875rem 1.125rem;
+	.byline a {
+		color: var(--ink);
+		text-decoration: none;
+	}
+
+	.byline a:hover {
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+	}
+
+	.dates {
+		margin-top: 0.25rem;
+	}
+
+	/* A substantive revision is announced here and explained at the end. */
+	.revision-notice {
+		margin-top: 1rem;
+		padding: 0.5rem 0.875rem;
 		background: var(--surface);
 		border-left: 2px solid var(--accent);
 		font-family: var(--sans);
 		font-size: var(--text-small);
-		line-height: 1.55;
+		line-height: 1.5;
 	}
 
-	.correction strong {
+	.revision-notice strong {
 		font-weight: 600;
 	}
 </style>

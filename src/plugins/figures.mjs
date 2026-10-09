@@ -6,7 +6,10 @@
 //      order (1, 2, 3, ...) and passes the number to the component.
 //   2. bibliography-keys: in a list directly after a heading named Bibliography,
 //      References, or Works Cited, an entry that starts with a key such as
-//      [@smith-1909] gets the anchor id "ref-smith-1909", and the key is removed.
+//      [smith-1909] gets the anchor id "ref-smith-1909", and the key is removed.
+//      Keys are bare, without Pandoc's "@": in Pandoc and Zettlr, [@smith-1909]
+//      is a citation that citeproc would replace, while [smith-1909] stays
+//      plain text, so an article still reads correctly in those tools.
 //   3. resolve-references: gives each <FigureRef to="..."> the number of its
 //      figure, and each <Figure cite="..."> the text of its bibliography entry.
 //
@@ -14,7 +17,9 @@
 // id used twice, stops the build with a message naming the article.
 
 const BIBLIOGRAPHY_HEADING = /^(bibliography|references|works cited)$/i;
-const BIBLIOGRAPHY_KEY = /^\[@([\w.:-]+)\]\s*/;
+// A key starts with a lowercase letter or digit, so a bracketed editorial note
+// at the start of an entry, such as "[Anonymous]", is left alone.
+const BIBLIOGRAPHY_KEY = /^\[([a-z0-9][\w.:-]*)\]\s+/;
 
 /** @param {any} node @param {string} name */
 function attribute(node, name) {
@@ -83,10 +88,12 @@ const bibliographyKeys = {
 		for (const item of node.children) {
 			const first = item.children[0];
 			const text = first?.type === 'paragraph' ? first.children[0] : undefined;
+			if (text?.type === 'text' && text.value.startsWith('[@'))
+				fail(ctx, `bibliography keys are written without "@", e.g. [smith-1909], so Pandoc does not read them as citations: ${text.value.split(']')[0]}]`);
 			const match = text?.type === 'text' ? BIBLIOGRAPHY_KEY.exec(text.value) : null;
 			if (!text || !match) continue;
 			const key = match[1];
-			if (bibliography.has(key)) fail(ctx, `two bibliography entries have the key [@${key}]`);
+			if (bibliography.has(key)) fail(ctx, `two bibliography entries have the key [${key}]`);
 			bibliography.set(key, ctx.textContent(item).replace(BIBLIOGRAPHY_KEY, '').trim());
 			ctx.replaceNode(text, { type: 'text', value: text.value.slice(match[0].length) });
 			ctx.setProperty(item, 'data', { hProperties: { id: `ref-${key}` } });
@@ -105,7 +112,7 @@ function resolve(node, ctx) {
 	} else if (node.name === 'Figure') {
 		const cite = stringAttribute(node, 'cite', ctx);
 		if (!cite) return;
-		if (!bibliography.has(cite)) fail(ctx, `<Figure cite="${cite}"> does not match any bibliography entry starting with [@${cite}]`);
+		if (!bibliography.has(cite)) fail(ctx, `<Figure cite="${cite}"> does not match any bibliography entry starting with [${cite}]`);
 		ctx.replaceNode(node, withAttributes(node, { citeText: bibliography.get(cite) }));
 	}
 }

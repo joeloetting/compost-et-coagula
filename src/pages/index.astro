@@ -1,80 +1,104 @@
 ---
 import { getEntries } from 'astro:content';
-import ArticleList from '../components/ArticleList.astro';
-import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_DESCRIPTION } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getProjects, getWriting, projectPath, typeLabels, writingPath } from '../utils/content';
+import { type Article, getProjects, getWriting, projectPath, typeLabels, writingPath } from '../utils/content';
 import { url } from '../utils/urls';
 
+// The home page is the volume's table of contents: the most recent pieces, under
+// the year each was published, newest first, with a link to the full archive.
+// Dates are publication dates; there are no volume or issue numbers until there
+// are real collections to number.
+const CONTENTS_LIMIT = 8;
 const writing = await getWriting();
-// Feature the most recent essay; fall back to the most recent piece of any type.
-const featured = writing.find((entry) => entry.data.type === 'essay') ?? writing[0];
-const recent = writing.filter((entry) => entry !== featured).slice(0, 5);
-const featuredProjects = featured ? await getEntries(featured.data.projects) : [];
+const items = await Promise.all(
+	writing.slice(0, CONTENTS_LIMIT).map(async (entry) => ({ entry, projects: await getEntries(entry.data.projects) })),
+);
+const years = new Map<number, typeof items>();
+for (const item of items) {
+	const year = item.entry.data.published.getUTCFullYear();
+	years.set(year, [...(years.get(year) ?? []), item]);
+}
 const projects = await getProjects();
+
+const dayMonth = (date: Date) => date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', timeZone: 'UTC' });
+const isoDate = (date: Date) => date.toISOString().slice(0, 10);
+const typeOf = (entry: Article) => typeLabels[entry.data.type];
 ---
 
 <BaseLayout>
 	<p class="intro">{SITE_DESCRIPTION}</p>
 
-	{
-		featured && (
-			<section class="featured" aria-labelledby="featured-heading">
-				<h2 class="section-title" id="featured-heading">
-					Latest
-				</h2>
-				<article>
-					<p class="eyebrow">
-						{typeLabels[featured.data.type]}
-						{featuredProjects.map((project) => (
-							<>
-								<span aria-hidden="true"> · </span>
-								{project.data.title}
-							</>
-						))}
-						{featured.data.draft && <span class="badge">Draft</span>}
-					</p>
-					<h3>
-						<a href={url(writingPath(featured))}>{featured.data.title}</a>
+	<section class="contents" aria-labelledby="contents-heading">
+		<h2 class="contents-title" id="contents-heading">Contents</h2>
+		{writing.length === 0 && <p class="empty">The first essays are in preparation.</p>}
+		{
+			[...years].map(([year, entries]) => (
+				<section class="year" aria-labelledby={`year-${year}`}>
+					<h3 class="year-title" id={`year-${year}`}>
+						{year}
 					</h3>
-					<p class="description">{featured.data.description}</p>
-					<p class="meta">
-						<FormattedDate date={featured.data.published} />
-					</p>
-				</article>
+					<ol class="toc">
+						{entries.map(({ entry, projects }) => (
+							<li>
+								<p class="toc-line">
+									<a class="toc-title" href={url(writingPath(entry))}>
+										{entry.data.title}
+									</a>
+									{entry.data.draft && <span class="badge">Draft</span>}
+									<span class="leader" aria-hidden="true" />
+									<time class="toc-date" datetime={isoDate(entry.data.published)}>
+										{dayMonth(entry.data.published)}
+									</time>
+								</p>
+								<p class="toc-description">{entry.data.description}</p>
+								<p class="meta">
+									{typeOf(entry)}
+									{projects.map((project) => (
+										<>
+											<span aria-hidden="true"> · </span>
+											<a href={url(projectPath(project))}>{project.data.title}</a>
+										</>
+									))}
+								</p>
+							</li>
+						))}
+					</ol>
+				</section>
+			))
+		}
+		{
+			writing.length > 0 && (
+				<p class="archive-link">
+					<a href={url('/writing/')}>
+						{writing.length > CONTENTS_LIMIT ? `Complete archive (${writing.length} pieces)` : 'Complete archive'}
+					</a>
+				</p>
+			)
+		}
+	</section>
+
+	{
+		projects.length > 0 && (
+			<section class="contents projects" aria-labelledby="projects-heading">
+				<h2 class="contents-title" id="projects-heading">
+					Ongoing projects
+				</h2>
+				<ul class="toc">
+					{projects.map((project) => (
+						<li>
+							<p class="toc-line">
+								<a class="toc-title" href={url(projectPath(project))}>
+									{project.data.title}
+								</a>
+							</p>
+							<p class="toc-description">{project.data.description}</p>
+						</li>
+					))}
+				</ul>
 			</section>
 		)
 	}
-
-	<div class="columns">
-		<section aria-labelledby="recent-heading">
-			<h2 class="section-title" id="recent-heading">Recent writing</h2>
-			{recent.length > 0 && <ArticleList entries={recent} headingLevel={3} />}
-			{writing.length === 0 && <p class="empty">The first essays are in preparation.</p>}
-			{writing.length > 0 && (
-				<p class="more">
-					<a href={url('/writing/')}>All writing</a>
-				</p>
-			)}
-		</section>
-
-		<section aria-labelledby="projects-heading">
-			<h2 class="section-title" id="projects-heading">Ongoing projects</h2>
-			<ul class="projects">
-				{
-					projects.map((project) => (
-						<li>
-							<h3>
-								<a href={url(projectPath(project))}>{project.data.title}</a>
-							</h3>
-							<p>{project.data.description}</p>
-						</li>
-					))
-				}
-			</ul>
-		</section>
-	</div>
 </BaseLayout>
 
 <style>
@@ -85,82 +109,104 @@ const projects = await getProjects();
 		color: var(--muted-ink);
 	}
 
-	.featured {
-		margin-top: var(--space-section);
-	}
-
-	.featured article {
+	.contents {
 		max-width: var(--measure);
-		padding-top: 1.25rem;
-	}
-
-	.featured h3 {
-		margin-top: 0.5rem;
-		font-size: clamp(1.875rem, 1.3rem + 2.2vw, 2.625rem);
-		line-height: 1.15;
-		letter-spacing: -0.01em;
-	}
-
-	.featured h3 a,
-	.projects h3 a {
-		color: var(--ink);
-		text-decoration: none;
-	}
-
-	.featured h3 a:hover,
-	.projects h3 a:hover {
-		text-decoration: underline;
-		text-decoration-thickness: 1px;
-	}
-
-	.featured .description {
-		margin-top: 0.75rem;
-		font-size: 1.1em;
-	}
-
-	.featured .meta {
-		margin-top: 0.75rem;
-	}
-
-	.columns {
-		display: grid;
-		gap: var(--space-section) clamp(2.5rem, 6vw, 5rem);
 		margin-top: var(--space-section);
 	}
 
-	@media (min-width: 60rem) {
-		.columns {
-			grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-		}
+	/* "Contents" set like the heading of a book's contents page: centered, in
+	   spaced capitals, between rules. */
+	.contents-title {
+		padding-block: 0.6rem;
+		border-block: 1px solid var(--rule);
+		font-size: 0.875rem;
+		font-weight: 400;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		text-align: center;
+		color: var(--accent);
 	}
 
-	.more {
-		margin-top: 1.25rem;
-		font-family: var(--sans);
-		font-size: var(--text-small);
+	.year {
+		margin-top: 2rem;
 	}
 
-	.projects {
+	.year-title {
+		font-size: 1.125rem;
+		font-weight: 400;
+		letter-spacing: 0.08em;
+		color: var(--muted-ink);
+	}
+
+	.toc {
 		margin: 0;
 		padding: 0;
 		list-style: none;
 	}
 
-	.projects li {
-		padding-block: 1.25rem;
-		border-bottom: 1px solid var(--rule);
+	.toc li {
+		padding-block: 1.1rem;
 	}
 
-	.projects li:first-child {
+	.toc li + li {
+		border-top: 1px solid var(--rule);
+	}
+
+	/* Title, dotted leader, and date on one line, as in a printed contents
+	   page. The date drops below the title when there is no room. */
+	.toc-line {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		column-gap: 0.5rem;
+	}
+
+	.toc-title {
+		font-size: 1.375rem;
+		font-weight: 600;
+		line-height: 1.3;
+		color: var(--ink);
+		text-decoration: none;
+	}
+
+	.toc-title:hover {
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+	}
+
+	.leader {
+		flex: 1 1 3rem;
+		min-width: 3rem;
+		border-bottom: 2px dotted var(--rule);
+	}
+
+	.toc-date {
+		font-family: var(--sans);
+		font-size: var(--text-meta);
+		color: var(--muted-ink);
+		white-space: nowrap;
+	}
+
+	.toc-description {
+		margin-top: 0.3rem;
+		font-style: italic;
+		line-height: 1.5;
+		color: var(--muted-ink);
+	}
+
+	.meta {
+		margin-top: 0.35rem;
+	}
+
+	.archive-link {
+		margin-top: 1.25rem;
 		padding-top: 1rem;
+		border-top: 1px solid var(--rule);
+		font-family: var(--sans);
+		font-size: var(--text-small);
 	}
 
-	.projects h3 {
-		font-size: 1.25rem;
-	}
-
-	.projects p {
-		margin-top: 0.4rem;
-		font-size: 0.95em;
+	.projects .toc-title {
+		font-size: 1.2rem;
 	}
 </style>
