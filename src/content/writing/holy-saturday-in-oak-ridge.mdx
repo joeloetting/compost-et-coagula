@@ -1,0 +1,80 @@
+---
+title: Holy Saturday in Oak Ridge
+description: A layout fixture for long-form essays. It exercises footnotes, quotations, figures, and a bibliography, and contains no research findings.
+published: 2026-10-08
+updated: 2026-10-09
+type: essay
+topics:
+  - theology
+  - environmental history
+projects:
+  - the-cruciform-ground
+correction: This fixture was revised to test the revision note. A real note would say what changed and whether the change affects the argument.
+draft: true
+---
+
+import Figure from '../../components/Figure.astro';
+import dimensions from './holy-saturday-in-oak-ridge/dimensions.svg';
+import schematicMap from './holy-saturday-in-oak-ridge/schematic-map.svg';
+
+*This page is a demonstration of the essay layout. Its prose is written to test typography and structure. It makes no historical, scientific, or archival claims, and every citation below is a labeled placeholder.*
+
+A landscape can be described through its geology, its industrial history, and the lives of those who inhabited it. Yet none of these descriptions alone settles the question of what happened in a place, and none of them, taken by itself, tells us what the place might mean. The temptation in writing about any landscape that carries a heavy history is to move too quickly from description to verdict: to read a ridge, a stream, or a fenced parcel of ground as though it were already a parable whose moral could be stated in a sentence. This essay, such as it is, is an exercise in resisting that temptation for as long as honesty requires.
+
+To begin with the evidence is not to abandon interpretation. It is to acknowledge that interpretation carries obligations to the people, places, and histories it seeks to understand.[^evidence] The order of operations matters. A theological reading that arrives before the evidence will tend to find only what it brought, and a historical reading that refuses every question of meaning will tend to mistake its own reticence for neutrality. Neither posture is adequate to a place where the record is incomplete, where some of the people most affected left the fewest documents, and where the ground itself continues to change on timescales that do not match the length of any human argument.
+
+## The day between
+
+In the Christian calendar, Holy Saturday is the day between the crucifixion and the resurrection: a day in which, liturgically speaking, very little happens. The tomb is sealed. The disciples are scattered. The narrative pauses.
+
+> So they went, and made the sepulchre sure, sealing the stone, and setting a watch.
+>
+> — Matthew 27:66 (King James Version)
+
+The attraction of Holy Saturday as an interpretive frame is precisely its refusal of resolution.[^frame] It names a condition in which the worst has happened and the meaning of what happened is not yet available. Whether that condition is a fitting lens for a particular landscape is a question the essay must earn the right to ask; it cannot be assumed at the outset. The paragraph you are reading is long on purpose, so that the measure, leading, and paragraph spacing can be judged across the kind of sustained argument that scholarly prose often requires, where a single thought is qualified, extended, and qualified again before the paragraph is allowed to end, and where the reader needs the line length to remain comfortable even as the sentences accumulate clause upon clause.
+
+### Three dimensions of a place
+
+The project to which this fixture belongs organizes its inquiry loosely around space, place, and time.[^dimensions] The diagram below is a stand-in for the kind of explanatory figure an essay might include.
+
+<Figure src={dimensions} alt="Three overlapping circles labeled Space, Place, and Time.">
+  An illustrative diagram of the project's three organizing dimensions. The overlaps carry no analytical meaning in this fixture.
+</Figure>
+
+#### A note on method
+
+Fourth-level headings are rare in essays but useful in long methodological sections. This one exists to show the heading hierarchy: the article title is the first level, and sections in the Markdown begin at the second.
+
+## Reading the ground
+
+A wide figure is used for maps and diagrams that need more room than the text column allows. The image below is a schematic placeholder, not a map of any real place.
+
+<Figure src={schematicMap} alt="Schematic placeholder map showing two ridges, a valley between them, and a watercourse. Not a real place." credit="Drawn for this site as a layout fixture." wide>
+  A schematic of ridge-and-valley terrain, used here to test wide figures, captions, and credits. A real map would carry a source, a scale, and a date.
+
+  <Fragment slot="description">
+    <p>Two roughly parallel ridges run left to right across the upper and middle portions of the image. A valley lies between them. A watercourse crosses the lower portion of the image from left to right. A north arrow points to the top of the image. All features are labeled as schematic, and the drawing is explicitly not a map of any real place.</p>
+  </Fragment>
+</Figure>
+
+The text resumes at its usual width after a wide figure. Nothing about the figure's size should cause the page to scroll sideways on a narrow screen.[^figures]
+
+Some essays will need to discuss quantities: lengths of time, measured values, or counts of documents. In this fixture they are deliberately absent, because inventing them would defeat the purpose of a publication that cares about evidence. Where an essay does report measurements, it should give their source, their units, and enough context for a reader to judge their reliability.
+
+---
+
+The section break above is rendered as a quiet ornament rather than a heavy rule. It marks a change of movement within an essay, not a change of subject.
+
+## Bibliography
+
+- [Placeholder] Author, A. *Title of a Book on Place and Theology*. City: Publisher, Year.
+- [Placeholder] Author, B. "Title of a Journal Article on Environmental History." *Journal Name* Volume, no. Issue (Year): pages.
+- [Placeholder] Author, C., and D. Author. *Title of an Edited Volume That Has a Particularly Long Subtitle, to Test How Hanging Indentation Wraps Across Several Lines*. City: Publisher, Year.
+
+[^evidence]: Placeholder note. A real note would cite the work that informs this sentence, with page numbers.
+
+[^frame]: Placeholder note. This note is longer than the others in order to test how footnote text wraps on narrow screens. Footnotes on this site are ordinary Markdown footnotes: the number in the text links here, and the arrow at the end of this note links back to the place in the text where the reader left off.
+
+[^dimensions]: See the project page for a short description of these dimensions.
+
+[^figures]: Placeholder note.

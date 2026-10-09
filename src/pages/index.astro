@@ -1,59 +1,166 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getEntries } from 'astro:content';
+import ArticleList from '../components/ArticleList.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import { SITE_DESCRIPTION } from '../consts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getProjects, getWriting, projectPath, typeLabels, writingPath } from '../utils/content';
+import { url } from '../utils/urls';
+
+const writing = await getWriting();
+// Feature the most recent essay; fall back to the most recent piece of any type.
+const featured = writing.find((entry) => entry.data.type === 'essay') ?? writing[0];
+const recent = writing.filter((entry) => entry !== featured).slice(0, 5);
+const featuredProjects = featured ? await getEntries(featured.data.projects) : [];
+const projects = await getProjects();
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to
-				build a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your{' '}
-				<code>astro.config.mjs</code> file. You can customize your setup with{' '}
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like
-				Tailwind, React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>
-					Edit this page in <code>src/pages/index.astro</code>
-				</li>
-				<li>
-					Edit the site header items in <code>src/components/Header.astro</code>
-				</li>
-				<li>
-					Add your name to the footer in <code>src/components/Footer.astro</code>
-				</li>
-				<li>
-					Check out the included blog posts in <code>src/content/blog/</code>
-				</li>
-				<li>
-					Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code>
-				</li>
+<BaseLayout>
+	<p class="intro">{SITE_DESCRIPTION}</p>
+
+	{
+		featured && (
+			<section class="featured" aria-labelledby="featured-heading">
+				<h2 class="section-title" id="featured-heading">
+					Latest
+				</h2>
+				<article>
+					<p class="eyebrow">
+						{typeLabels[featured.data.type]}
+						{featuredProjects.map((project) => (
+							<>
+								<span aria-hidden="true"> · </span>
+								{project.data.title}
+							</>
+						))}
+						{featured.data.draft && <span class="badge">Draft</span>}
+					</p>
+					<h3>
+						<a href={url(writingPath(featured))}>{featured.data.title}</a>
+					</h3>
+					<p class="description">{featured.data.description}</p>
+					<p class="meta">
+						<FormattedDate date={featured.data.published} />
+					</p>
+				</article>
+			</section>
+		)
+	}
+
+	<div class="columns">
+		<section aria-labelledby="recent-heading">
+			<h2 class="section-title" id="recent-heading">Recent writing</h2>
+			{recent.length > 0 && <ArticleList entries={recent} headingLevel={3} />}
+			{writing.length === 0 && <p class="empty">The first essays are in preparation.</p>}
+			{writing.length > 0 && (
+				<p class="more">
+					<a href={url('/writing/')}>All writing</a>
+				</p>
+			)}
+		</section>
+
+		<section aria-labelledby="projects-heading">
+			<h2 class="section-title" id="projects-heading">Ongoing projects</h2>
+			<ul class="projects">
+				{
+					projects.map((project) => (
+						<li>
+							<h3>
+								<a href={url(projectPath(project))}>{project.data.title}</a>
+							</h3>
+							<p>{project.data.description}</p>
+						</li>
+					))
+				}
 			</ul>
-			<p>
-				Have fun! If you get stuck, remember to{' '}
-				<a href="https://docs.astro.build/">read the docs</a> or{' '}
-				<a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out{' '}
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a> by{' '}
-				<a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+		</section>
+	</div>
+</BaseLayout>
+
+<style>
+	.intro {
+		max-width: 38rem;
+		font-size: 1.2em;
+		line-height: 1.55;
+		color: var(--muted-ink);
+	}
+
+	.featured {
+		margin-top: var(--space-section);
+	}
+
+	.featured article {
+		max-width: var(--measure);
+		padding-top: 1.25rem;
+	}
+
+	.featured h3 {
+		margin-top: 0.5rem;
+		font-size: clamp(1.875rem, 1.3rem + 2.2vw, 2.625rem);
+		line-height: 1.15;
+		letter-spacing: -0.01em;
+	}
+
+	.featured h3 a,
+	.projects h3 a {
+		color: var(--ink);
+		text-decoration: none;
+	}
+
+	.featured h3 a:hover,
+	.projects h3 a:hover {
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+	}
+
+	.featured .description {
+		margin-top: 0.75rem;
+		font-size: 1.1em;
+	}
+
+	.featured .meta {
+		margin-top: 0.75rem;
+	}
+
+	.columns {
+		display: grid;
+		gap: var(--space-section) clamp(2.5rem, 6vw, 5rem);
+		margin-top: var(--space-section);
+	}
+
+	@media (min-width: 60rem) {
+		.columns {
+			grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+		}
+	}
+
+	.more {
+		margin-top: 1.25rem;
+		font-family: var(--sans);
+		font-size: var(--text-small);
+	}
+
+	.projects {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.projects li {
+		padding-block: 1.25rem;
+		border-bottom: 1px solid var(--rule);
+	}
+
+	.projects li:first-child {
+		padding-top: 1rem;
+	}
+
+	.projects h3 {
+		font-size: 1.25rem;
+	}
+
+	.projects p {
+		margin-top: 0.4rem;
+		font-size: 0.95em;
+	}
+</style>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" width="720" height="360" font-family="'Source Sans 3', 'Helvetica Neue', Arial, sans-serif">
+  <rect width="720" height="360" fill="#EEEAE0"/>
+  <g fill="none" stroke="#5B6348" stroke-width="2">
+    <circle cx="280" cy="150" r="100"/>
+    <circle cx="440" cy="150" r="100"/>
+    <circle cx="360" cy="230" r="100"/>
+  </g>
+  <g fill="#262820" font-size="22" font-weight="600" text-anchor="middle">
+    <text x="235" y="125">Space</text>
+    <text x="485" y="125">Place</text>
+    <text x="360" y="295">Time</text>
+  </g>
+  <text x="360" y="345" text-anchor="middle" font-size="14" fill="#64675D">Layout fixture: illustrative diagram only</text>
+</svg>

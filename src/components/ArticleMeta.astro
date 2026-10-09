@@ -1,0 +1,95 @@
+---
+import FormattedDate from './FormattedDate.astro';
+import { type Article, type Project, projectPath, typeLabels } from '../utils/content';
+import { url } from '../utils/urls';
+
+interface Props {
+	article: Article;
+	projects: Project[];
+}
+
+const { article, projects } = Astro.props;
+const { title, description, published, updated, type, correction, draft } = article.data;
+---
+
+<header class="article-header">
+	<p class="eyebrow">
+		{typeLabels[type]}
+		{
+			projects.map((project) => (
+				<>
+					<span aria-hidden="true"> · </span>
+					<a href={url(projectPath(project))}>{project.data.title}</a>
+				</>
+			))
+		}
+		{draft && <span class="badge">Draft</span>}
+	</p>
+	<h1>{title}</h1>
+	<p class="description">{description}</p>
+	<p class="meta dates">
+		<span>Published <FormattedDate date={published} /></span>
+		{
+			updated && (
+				<span>
+					<span aria-hidden="true"> · </span>Updated <FormattedDate date={updated} />
+				</span>
+			)
+		}
+	</p>
+	{
+		correction && (
+			<aside class="correction" aria-label="Revision note">
+				<p>
+					<strong>Revision note.</strong> {correction}
+				</p>
+			</aside>
+		)
+	}
+</header>
+
+<style>
+	.article-header {
+		max-width: var(--measure);
+		margin-bottom: clamp(2.25rem, 5vw, 3.5rem);
+		padding-bottom: clamp(1.75rem, 4vw, 2.5rem);
+		border-bottom: 1px solid var(--rule);
+	}
+
+	.eyebrow a {
+		color: inherit;
+	}
+
+
+	h1 {
+		margin-top: 0.75rem;
+		font-size: clamp(2.125rem, 1.4rem + 2.6vw, 3.125rem);
+		line-height: 1.12;
+		letter-spacing: -0.015em;
+	}
+
+	.description {
+		margin-top: 1rem;
+		font-size: 1.15em;
+		line-height: 1.5;
+		color: var(--muted-ink);
+	}
+
+	.dates {
+		margin-top: 1.25rem;
+	}
+
+	.correction {
+		margin-top: 1.5rem;
+		padding: 0.875rem 1.125rem;
+		background: var(--surface);
+		border-left: 2px solid var(--accent);
+		font-family: var(--sans);
+		font-size: var(--text-small);
+		line-height: 1.55;
+	}
+
+	.correction strong {
+		font-weight: 600;
+	}
+</style>

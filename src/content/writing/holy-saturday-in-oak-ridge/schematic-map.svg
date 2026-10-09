@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 480" width="1000" height="480" font-family="'Source Sans 3', 'Helvetica Neue', Arial, sans-serif">
+  <rect width="1000" height="480" fill="#EEEAE0"/>
+  <g fill="none" stroke="#5B6348" stroke-width="1.5" opacity="0.9">
+    <path d="M-10 120 C 180 70, 340 150, 520 100 S 860 60, 1010 110"/>
+    <path d="M-10 150 C 180 100, 340 180, 520 130 S 860 90, 1010 140"/>
+    <path d="M-10 300 C 200 250, 380 330, 560 280 S 880 240, 1010 290"/>
+    <path d="M-10 330 C 200 280, 380 360, 560 310 S 880 270, 1010 320"/>
+  </g>
+  <path d="M-10 420 C 160 380, 260 450, 420 410 S 700 360, 820 400 S 960 440, 1010 420" fill="none" stroke="#354E55" stroke-width="5"/>
+  <g fill="#262820" font-size="17">
+    <text x="60" y="95">Ridge (schematic)</text>
+    <text x="60" y="270">Ridge (schematic)</text>
+    <text x="440" y="215">Valley (schematic)</text>
+    <text x="620" y="440" fill="#354E55">Watercourse (schematic)</text>
+  </g>
+  <g fill="#64675D" font-size="15">
+    <text x="980" y="30" text-anchor="end">Layout fixture: not a map of any real place. Not to scale.</text>
+  </g>
+  <g stroke="#262820" stroke-width="1.5" fill="#262820" font-size="14">
+    <line x1="930" y1="120" x2="930" y2="70"/>
+    <path d="M930 60 l-6 14 h12 z" stroke="none"/>
+    <text x="930" y="140" text-anchor="middle" stroke="none">N</text>
+  </g>
+</svg>
