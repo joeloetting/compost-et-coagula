@@ -98,6 +98,28 @@ A sentence that needs a source.[^barth]
 
 Notes are collected under "Notes" at the end of the article, in order of first use. The labels (`barth` above) are only for you; readers see numbers.
 
+### Marginal notes and cross-references
+
+Two kinds of annotation sit in the margin beside the text on wide screens. On phones they become a small "note" or "see" mark that expands the annotation in place (no JavaScript; the mark works from the keyboard). In print they sit in the printed margin. Both are for `.mdx` articles:
+
+```mdx
+import MarginNote from '../../components/MarginNote.astro';
+import CrossRef from '../../components/CrossRef.astro';
+
+To begin with the Manhattan Project is already a decision.<MarginNote>Where should the account begin?</MarginNote>
+
+The valley had earlier owners.<CrossRef to="another-essay" /> <CrossRef project="the-cruciform-ground">on the project's terms.</CrossRef>
+```
+
+- Place the tag right after the sentence it belongs to, and keep its text on one line with no blank lines, because it sits inside the paragraph.
+- **Marginal note:** a short interpretive observation. Numbered automatically (Marginal note 01, 02...). Sources and qualifications belong in footnotes instead.
+- **Cross-reference:** `to` is another article's file name, `project` a project's. The title is filled in for you, a misspelled name fails the build, and a target that is still a draft is named without a link until it is published.
+- Leave most paragraphs without notes. The empty margin is part of the design.
+
+### Editorial marks
+
+Section headings (`##`) get a section sign (§) automatically. Abbreviations written as `<abbr title="...">USACE</abbr>` are set in small capitals, and running text uses old-style figures. Wrap anything else in `<span class="small-caps">` for true small capitals.
+
 ### Block quotations
 
 ```markdown
@@ -184,7 +206,11 @@ Edit the file and push. For a change that matters to the argument, also:
   correction: "An earlier version misdated the survey. The date has been corrected; the argument is unchanged."
   ```
 
-Small fixes such as typos need neither.
+The correction appears as an "Editorial note" at the end of the article, dated by `updated:`, with a link to it beside the dates at the top. Small fixes such as typos need neither.
+
+### Printing
+
+Articles print as book pages: the navigation is dropped, marginal notes sit in the printed margin, web addresses are spelled out, and Chromium-based browsers add running heads (publication and title) and page numbers. Use the browser's Print or Save as PDF.
 
 ## How deployment works
 
@@ -201,11 +227,13 @@ src/
   content.config.ts    metadata schemas
   pages/               routes: home, writing, projects, about, RSS, 404
   layouts/             page and article layouts
-  components/          header, footer, article lists, Figure
+  components/          header, footer, article lists, Figure, MarginNote, CrossRef
   styles/global.css    design tokens and typography
+  styles/edition.css   article margin, marginalia, editorial marks
+  styles/print.css     print layout
   utils/               published-content queries and URL helpers
   assets/fonts/        self-hosted fonts (SIL Open Font License)
 scripts/check-dist.mjs build checks used by `npm test`
 ```
 
-Fonts: Source Serif 4, Source Sans 3, and IBM Plex Mono, self-hosted as Latin and Latin Extended WOFF2 subsets. Their licenses are in `src/assets/fonts/`.
+Fonts: Source Serif 4, Source Sans 3, and IBM Plex Mono, self-hosted as Latin and Latin Extended WOFF2 subsets. The Source Serif 4 roman subsets are cut from Adobe's variable font (the `source-serif` npm package, 4.5.1) with small capitals (`smcp`, `c2sc`) and old-style figures (`onum`) kept. Their licenses are in `src/assets/fonts/`.

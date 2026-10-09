@@ -1,0 +1,18 @@
+---
+/**
+ * Shared markup for MarginNote and CrossRef; use those in articles.
+ *
+ * Everything is a <span> so it can sit inside a paragraph. On narrow screens
+ * the checkbox (inside its label, so no id is needed) shows and hides the body;
+ * src/styles/marginalia.css does the rest.
+ */
+interface Props {
+	kind: 'note' | 'crossref';
+	/** Accessible name and visible label, e.g. "Marginal note". */
+	name: string;
+}
+
+const { kind, name } = Astro.props;
+---
+
+<span class:list={['marginalia', `marginalia--${kind}`]}><label class="marginalia-mark"><input type="checkbox" class="marginalia-toggle" aria-label={`Show ${name.toLowerCase()}`} /><span class="marginalia-mark-text" aria-hidden="true"></span></label><span class="marginalia-body" role="note"><span class="marginalia-label">{name}</span> <slot /></span></span>

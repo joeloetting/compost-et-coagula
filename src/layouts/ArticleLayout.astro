@@ -1,6 +1,8 @@
 ---
 import { getEntries } from 'astro:content';
+import { SITE_TITLE } from '../consts';
 import ArticleMeta from '../components/ArticleMeta.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import BaseLayout from './BaseLayout.astro';
 import { type Article, projectPath } from '../utils/content';
 import { url } from '../utils/urls';
@@ -10,16 +12,38 @@ interface Props {
 }
 
 const { article } = Astro.props;
-const { title, description, published, updated, draft } = article.data;
+const { title, description, published, updated, correction, draft } = article.data;
 const projects = await getEntries(article.data.projects);
+
+// Running heads for printed pages: the publication on the left, the article on
+// the right. Written as CSS strings, with "<" escaped so the title cannot close
+// the style element.
+const cssString = (text: string) => JSON.stringify(text).replaceAll('<', '\\3c ');
+const printHeads = `@page { @top-left { content: ${cssString(SITE_TITLE)}; } @top-right { content: ${cssString(title)}; } }`;
 ---
 
 <BaseLayout title={title} description={description} ogType="article" published={published} updated={updated} noindex={draft}>
+	<style is:inline slot="head" set:html={printHeads} />
 	<article class="article">
 		<ArticleMeta article={article} projects={projects} />
 		<div class="prose">
 			<slot />
 		</div>
+		{
+			correction && (
+				<aside class="editorial-note" id="editorial-note" aria-labelledby="editorial-note-heading">
+					<h2 id="editorial-note-heading">Editorial note</h2>
+					<p>
+						{updated && (
+							<>
+								<FormattedDate date={updated} />.{' '}
+							</>
+						)}
+						{correction}
+					</p>
+				</aside>
+			)
+		}
 		<footer class="article-footer">
 			<p><a href={url('/writing/')}>All writing</a></p>
 			{
@@ -34,12 +58,8 @@ const projects = await getEntries(article.data.projects);
 </BaseLayout>
 
 <style>
-	.article {
-		max-width: var(--measure);
-		margin-inline: auto;
-	}
-
 	.article-footer {
+		clear: both;
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.5rem 2rem;
