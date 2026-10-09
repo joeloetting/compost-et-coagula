@@ -1,0 +1,301 @@
+/*
+ * Critical-edition apparatus: the article page's text-and-margin layout,
+ * marginal notes and cross-references, and editorial marks.
+ * Print rules are in print.css.
+ */
+
+:root {
+	/* The scholarly margin beside the reading column, on wide screens. */
+	--margin-width: 15rem;
+	--margin-gap: 3rem;
+	--margin-layout: calc(var(--measure) + var(--margin-gap) + var(--margin-width));
+}
+
+/* OpenType features: kerning and ligatures everywhere; real small capitals
+   (smcp, c2sc) and old-style figures (onum) from the font, which the browser
+   must never fake (the italic has no small caps); tabular figures in tables. */
+body {
+	font-synthesis-small-caps: none;
+	font-kerning: normal;
+	font-variant-ligatures: common-ligatures contextual;
+}
+
+/* Article page: reading column plus margin --------------------------------- */
+
+/* The article is the reading column and its margin together, centered as a
+   pair. It is a size container, so the margin appears when the article itself
+   has room for it (not merely the window), and otherwise its parts form one
+   centered column. Set here rather than in ArticleLayout so print.css can
+   override it. */
+.article {
+	max-width: var(--margin-layout);
+	margin-inline: auto;
+	container: article / inline-size;
+}
+
+.article > * {
+	max-width: var(--measure);
+	margin-inline: auto;
+}
+
+@container article (min-width: 63rem) {
+	.article > * {
+		margin-inline: 0;
+	}
+
+	/* Wide figures run from the column's left edge into the margin, and start
+	   below any margin note still beside the text. */
+	.article .figure--wide {
+		--figure-width: min(var(--wide), 100cqi);
+		margin-left: 0;
+		clear: right;
+	}
+}
+
+/* Editorial marks ----------------------------------------------------------- */
+
+.prose > p,
+.prose li,
+.prose blockquote {
+	font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
+/* Section sign before each section heading (not the Notes labels). */
+.prose h2:not(.footnotes h2, .editorial-notes h2)::before {
+	content: '§';
+	margin-right: 0.35em;
+	font-weight: 400;
+	color: var(--accent);
+}
+
+/* Abbreviations and acronyms in small capitals, as in a printed edition. */
+.prose abbr {
+	font-variant-caps: all-small-caps;
+	letter-spacing: 0.04em;
+}
+
+.small-caps {
+	font-variant-caps: small-caps;
+	letter-spacing: 0.03em;
+}
+
+/* Marginalia: [margin] and [crossref] footnotes ------------------------------
+   src/plugins/apparatus.mjs places each one where it is referred to, as
+     <button class="note-mark" popovertarget="note-1">  (narrow screens)
+     <span class="note" id="note-1" popover>            (the note itself)
+   Wide screens: the note floats into the margin, level with its line; later
+   notes stack below earlier ones rather than overlapping, which grid rows
+   cannot do without pushing the text apart. Narrow screens: the mark opens the
+   note as a popover anchored beneath it. Where anchor positioning is not
+   supported, the note is shown inline instead, and the mark is hidden. */
+
+.note {
+	/* Undo the browser's popover styles; each layout below sets its own. */
+	position: static;
+	inset: auto;
+	width: auto;
+	height: auto;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	overflow: visible;
+	background: none;
+	color: var(--ink);
+	font-family: var(--serif);
+	font-size: var(--text-small);
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1.5;
+	text-align: left;
+	text-indent: 0;
+	font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
+.note-label {
+	display: block;
+	margin-bottom: 0.15em;
+	font-variant-caps: all-small-caps;
+	font-variant-numeric: lining-nums;
+	letter-spacing: 0.08em;
+	color: var(--accent);
+}
+
+.note-punct {
+	display: none;
+}
+
+.note-para {
+	display: block;
+}
+
+.note-para + .note-para {
+	margin-top: 0.4em;
+}
+
+.note a {
+	color: var(--link);
+}
+
+.crossref-pending {
+	color: var(--muted-ink);
+}
+
+.note-mark {
+	margin: 0 0 0 0.2em;
+	padding: 0.1em 0.35em;
+	border: 1px solid var(--rule);
+	border-radius: 2px;
+	background: var(--surface);
+	color: var(--accent);
+	font-family: var(--sans);
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	line-height: 1;
+	white-space: nowrap;
+	vertical-align: 0.1em;
+	cursor: pointer;
+}
+
+.note-mark:has(+ .note:popover-open) {
+	color: var(--paper);
+	background: var(--accent);
+	border-color: var(--accent);
+}
+
+/* Narrow screens with anchor positioning: a card beneath the mark, flipped
+   above it when there is no room below. Esc or a tap elsewhere closes it. */
+.note:popover-open {
+	position: fixed;
+	left: var(--gutter);
+	right: var(--gutter);
+	top: anchor(bottom);
+	max-width: 32rem;
+	max-height: min(60vh, 24rem);
+	margin: 0.4rem 0;
+	padding: 0.75em 1em;
+	overflow: auto;
+	background: var(--paper);
+	border: 1px solid var(--rule);
+	border-left: 2px solid var(--accent);
+	box-shadow: 0 0.4rem 1.5rem rgb(38 40 32 / 0.18);
+	position-try-fallbacks: flip-block;
+}
+
+/* Without anchor positioning: no popover, the note reads inline. */
+@supports not (anchor-name: --a) {
+	.note-mark {
+		display: none;
+	}
+
+	.note {
+		display: block;
+		margin: 0.6em 0 0.8em;
+		padding: 0.6em 0.9em;
+		background: var(--surface);
+		border-left: 2px solid var(--accent);
+	}
+}
+
+@container article (min-width: 63rem) {
+	.note-mark {
+		display: none;
+	}
+
+	.note,
+	.note:popover-open {
+		display: block;
+		position: static;
+		float: right;
+		clear: right;
+		width: var(--margin-width);
+		max-width: none;
+		max-height: none;
+		margin: 0.3em calc(-1 * (var(--margin-width) + var(--margin-gap))) 1.25em 0;
+		padding: 0.5em 0 0;
+		overflow: visible;
+		background: none;
+		border: 0;
+		border-top: 1px solid var(--rule);
+		box-shadow: none;
+	}
+}
+
+/* Editorial notes: [editorial] footnotes and the `correction` field --------- */
+
+.prose .editorial-ref {
+	font-family: var(--sans);
+	font-size: 0.8em;
+	font-weight: 600;
+	padding-inline: 0.15em;
+	text-decoration: none;
+}
+
+.prose .editorial-ref::before {
+	content: '[';
+}
+
+.prose .editorial-ref::after {
+	content: ']';
+}
+
+.prose .editorial-ref:target,
+.editorial-notes li:target {
+	background: var(--highlight);
+}
+
+.editorial-backref {
+	font-family: var(--sans);
+	text-decoration: none;
+}
+
+.prose .editorial-notes > * + * {
+	margin-top: 0.6em;
+}
+
+.prose .editorial-notes h2 + * {
+	margin-top: 0;
+}
+
+.prose .editorial-notes ol {
+	margin-bottom: 0;
+	padding-left: 1.5em;
+}
+
+.prose .editorial-notes ol:has(> li:only-child) {
+	list-style: none;
+	padding-left: 0;
+}
+
+.prose .editorial-notes li + li {
+	margin-top: 0.5em;
+}
+
+.editorial-notes {
+	max-width: var(--measure);
+	margin-top: var(--space-section);
+	padding: 1rem 1.25rem;
+	background: var(--surface);
+	border-left: 2px solid var(--accent);
+	font-size: 0.9em;
+	line-height: 1.6;
+}
+
+.prose .editorial-notes h2 {
+	margin-top: 0;
+	margin-bottom: 0.4rem;
+	font-family: var(--sans);
+	font-size: 0.875rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--accent);
+}
+
+.prose .editorial-notes {
+	margin-top: 2.5em;
+}
+
+.editorial-notes:target {
+	background: var(--highlight);
+}

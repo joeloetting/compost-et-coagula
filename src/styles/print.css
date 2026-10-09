@@ -1,0 +1,180 @@
+/*
+ * Print: articles print as a page of a book, with the text column, marginal
+ * notes in a printed margin, footnotes, and page numbers, and without the site
+ * navigation. Running heads use @page margin boxes where the browser supports
+ * them (Chromium); elsewhere they are simply omitted.
+ */
+
+@page {
+	size: auto;
+	margin: 2cm 1.8cm 2.2cm;
+
+	/* Margin boxes do not see the page's custom properties, and the self-hosted
+	   font's name is hashed at build time, so they use a common serif. The
+	   running-head text is set per article in ArticleLayout. */
+	@top-left {
+		font-family: Georgia, 'Times New Roman', serif;
+		font-size: 8.5pt;
+		font-variant-caps: small-caps;
+		letter-spacing: 0.06em;
+		color: #555;
+	}
+
+	@top-right {
+		font-family: Georgia, 'Times New Roman', serif;
+		font-size: 8.5pt;
+		font-style: italic;
+		color: #555;
+	}
+
+	@bottom-center {
+		content: '— ' counter(page) ' —';
+		font-family: Georgia, 'Times New Roman', serif;
+		font-size: 9pt;
+		color: #555;
+	}
+}
+
+@media print {
+	:root {
+		--paper: #fff;
+		--ink: #111;
+		--muted-ink: #444;
+		--accent: #333;
+		--surface: #fff;
+		--highlight: transparent;
+		--text-body: 10.5pt;
+		--text-small: 8.5pt;
+		--leading: 1.5;
+		/* 11.4cm column + 0.6cm gap + 4.6cm margin fits A4 and US Letter. */
+		--measure: 11.4cm;
+		--margin-gap: 0.6cm;
+		--margin-width: 4.6cm;
+		--space-section: 1.5rem;
+	}
+
+	html {
+		scroll-behavior: auto;
+	}
+
+	body {
+		background: #fff;
+	}
+
+	.skip-link,
+	.site-header nav,
+	.site-footer,
+	.article-footer,
+	.note-mark {
+		display: none !important;
+	}
+
+	.site-header {
+		border-bottom: 0;
+	}
+
+	main {
+		padding-block: 0.5cm 0;
+	}
+
+	.container {
+		max-width: none;
+		padding-inline: 0;
+	}
+
+	.article {
+		max-width: none;
+		margin: 0;
+	}
+
+	/* The text column sits at the left of the page, leaving room on the right
+	   for the printed margin (centered, the notes would run off the page). */
+	.article > * {
+		margin-inline: 0;
+	}
+
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	/* Spell out web addresses that the reader cannot click on paper. */
+	.prose a[href^='http']::after {
+		content: ' <' attr(href) '>';
+		font-family: var(--mono);
+		font-size: 0.8em;
+		overflow-wrap: anywhere;
+	}
+
+	.prose [data-footnote-backref],
+	.editorial-backref {
+		display: none;
+	}
+
+	/* Marginal notes in the printed margin, as on a wide screen. */
+	.note,
+	.note:popover-open {
+		display: block;
+		position: static;
+		max-width: none;
+		max-height: none;
+		overflow: visible;
+		box-shadow: none;
+		float: right;
+		clear: right;
+		width: var(--margin-width);
+		margin: 0.2em calc(-1 * (var(--margin-width) + var(--margin-gap))) 0.8em 0;
+		padding: 0.3em 0 0;
+		background: none;
+		border: 0;
+		border-top: 0.5pt solid #999;
+		break-inside: avoid;
+	}
+
+	.article .figure--wide {
+		--figure-width: calc(var(--measure) + var(--margin-gap) + var(--margin-width));
+		margin-left: 0;
+		clear: right;
+	}
+
+	.figure img {
+		background: none;
+	}
+
+	/* Keep headings with what follows, and figures, quotations, code, and table
+	   rows in one piece. */
+	h1,
+	h2,
+	h3,
+	h4 {
+		break-after: avoid;
+	}
+
+	figure,
+	blockquote,
+	pre,
+	tr,
+	.editorial-notes,
+	.prose .footnotes li {
+		break-inside: avoid;
+	}
+
+	p,
+	li {
+		orphans: 3;
+		widows: 3;
+	}
+
+	.prose pre {
+		white-space: pre-wrap;
+		border-left: 1pt solid #999;
+	}
+
+	.table-scroll {
+		overflow: visible;
+	}
+
+	.editorial-notes {
+		border-left: 1pt solid #999;
+	}
+}

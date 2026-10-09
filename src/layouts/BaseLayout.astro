@@ -1,6 +1,8 @@
 ---
 import { Font } from 'astro:assets';
 import '../styles/global.css';
+import '../styles/edition.css';
+import '../styles/print.css';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_AUTHOR, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
@@ -70,6 +72,7 @@ const ogImage = absoluteUrl('/og-default.png', Astro.site);
 		{updated && <meta property="article:modified_time" content={updated.toISOString()} />}
 		{schema && <script is:inline type="application/ld+json" set:html={jsonLd(schema)} />}
 		<meta name="twitter:card" content="summary_large_image" />
+		<slot name="head" />
 	</head>
 	<body>
 		<a class="skip-link" href="#main">Skip to content</a>

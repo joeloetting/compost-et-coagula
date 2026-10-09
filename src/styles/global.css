@@ -358,19 +358,24 @@ pre {
 	margin: 1.75em 0;
 }
 
+/* Booktabs: no vertical rules and no rules between rows; a heavy top rule, a
+   light rule under the header, and a heavy bottom rule. Columns aligned right
+   in the Markdown (|--:|) are numeric and line up on tabular figures. */
 .prose table {
 	width: 100%;
 	border-collapse: collapse;
+	border-top: 2px solid var(--ink);
+	border-bottom: 2px solid var(--ink);
 	font-family: var(--sans);
 	font-size: 0.875em;
 	line-height: 1.5;
-	font-variant-numeric: tabular-nums;
+	font-variant-numeric: lining-nums tabular-nums;
 }
 
 .prose th,
 .prose td {
-	padding: 0.55em 0.9em 0.55em 0;
-	border-bottom: 1px solid var(--rule);
+	padding: 0.45em 1em 0.45em 0;
+	border: 0;
 	text-align: left;
 	vertical-align: top;
 	min-width: 8ch;
@@ -378,7 +383,27 @@ pre {
 
 .prose th {
 	font-weight: 600;
-	border-bottom: 1.5px solid var(--ink);
+	vertical-align: bottom;
+}
+
+.prose thead tr:last-child th {
+	border-bottom: 1px solid var(--ink);
+}
+
+.prose tbody tr:first-child td {
+	padding-top: 0.65em;
+}
+
+.prose tbody tr:last-child td {
+	padding-bottom: 0.65em;
+}
+
+.prose :is(th, td)[style*='right'] {
+	text-align: right;
+}
+
+.prose :is(th, td)[style*='center'] {
+	text-align: center;
 }
 
 .prose th:last-child,
