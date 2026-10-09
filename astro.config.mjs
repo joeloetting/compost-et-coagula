@@ -4,6 +4,7 @@ import { satteri } from '@astrojs/markdown-satteri';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
+import { apparatus } from './src/plugins/apparatus.mjs';
 
 // The site is published as a GitHub Pages project site. If a custom domain is
 // added later, change `site` to that domain and remove `base`.
@@ -47,7 +48,16 @@ export default defineConfig({
 	markdown: {
 		processor: satteri({
 			features: { gfm: { footnotes: { label: 'Notes' } } },
-			hastPlugins: [wrapTables],
+			hastPlugins: [
+				wrapTables,
+				// [margin], [crossref], and [editorial] footnotes; base paths on links.
+				apparatus({
+					base: BASE,
+					contentDir: new URL('./src/content/', import.meta.url).pathname,
+					// Drafts are only shown by `astro dev`, so links to them only work there.
+					production: !process.argv.includes('dev'),
+				}),
+			],
 		}),
 		shikiConfig: { theme: 'css-variables' },
 	},

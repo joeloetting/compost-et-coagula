@@ -65,7 +65,7 @@
 	.site-header nav,
 	.site-footer,
 	.article-footer,
-	.marginalia-mark {
+	.note-mark {
 		display: none !important;
 	}
 
@@ -93,28 +93,34 @@
 	}
 
 	/* Spell out web addresses that the reader cannot click on paper. */
-	.prose a[href^='http']:not([data-footnote-ref], [data-footnote-backref])::after {
+	.prose a[href^='http']::after {
 		content: ' <' attr(href) '>';
 		font-family: var(--mono);
 		font-size: 0.8em;
 		overflow-wrap: anywhere;
 	}
 
-	.prose [data-footnote-backref] {
+	.prose [data-footnote-backref],
+	.editorial-backref {
 		display: none;
 	}
 
 	/* Marginal notes in the printed margin, as on a wide screen. */
-	.marginalia-body,
-	.marginalia:has(.marginalia-toggle:checked) .marginalia-body {
+	.note,
+	.note:popover-open {
 		display: block;
+		position: static;
+		max-width: none;
+		max-height: none;
+		overflow: visible;
+		box-shadow: none;
 		float: right;
 		clear: right;
 		width: var(--margin-width);
 		margin: 0.2em calc(-1 * (var(--margin-width) + var(--margin-gap))) 0.8em 0;
 		padding: 0.3em 0 0;
 		background: none;
-		border-left: 0;
+		border: 0;
 		border-top: 0.5pt solid #999;
 		break-inside: avoid;
 	}
