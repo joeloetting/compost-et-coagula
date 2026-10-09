@@ -43,21 +43,32 @@ const projects = await getProjects();
 						<FormattedDate date={featured.data.published} />
 					</p>
 				</article>
+				{recent.length === 0 && (
+					<p class="more">
+						<a href={url('/writing/')}>All writing</a>
+					</p>
+				)}
 			</section>
 		)
 	}
 
 	<div class="columns">
-		<section aria-labelledby="recent-heading">
-			<h2 class="section-title" id="recent-heading">Recent writing</h2>
-			{recent.length > 0 && <ArticleList entries={recent} headingLevel={3} />}
-			{writing.length === 0 && <p class="empty">The first essays are in preparation.</p>}
-			{writing.length > 0 && (
-				<p class="more">
-					<a href={url('/writing/')}>All writing</a>
-				</p>
-			)}
-		</section>
+		{
+			// With only the featured piece published, this section would be a heading
+			// over nothing, so it appears once there is a second piece (or none yet).
+			(recent.length > 0 || writing.length === 0) && (
+				<section aria-labelledby="recent-heading">
+					<h2 class="section-title" id="recent-heading">Recent writing</h2>
+					{recent.length > 0 && <ArticleList entries={recent} headingLevel={3} />}
+					{writing.length === 0 && <p class="empty">The first essays are in preparation.</p>}
+					{writing.length > 0 && (
+						<p class="more">
+							<a href={url('/writing/')}>All writing</a>
+						</p>
+					)}
+				</section>
+			)
+		}
 
 		<section aria-labelledby="projects-heading">
 			<h2 class="section-title" id="projects-heading">Ongoing projects</h2>
