@@ -53,13 +53,8 @@ export default defineConfig({
 			mdastPlugins: figurePlugins,
 			hastPlugins: [
 				wrapTables,
-				// [margin], [crossref], and [editorial] footnotes; base paths on links.
-				apparatus({
-					base: BASE,
-					contentDir: new URL('./src/content/', import.meta.url).pathname,
-					// Drafts are only shown by `astro dev`, so links to them only work there.
-					production: !process.argv.includes('dev'),
-				}),
+				// [margin] footnotes as marginal notes; base paths on links.
+				apparatus({ base: BASE }),
 			],
 		}),
 		shikiConfig: { theme: 'css-variables' },

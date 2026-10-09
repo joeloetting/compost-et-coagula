@@ -19,7 +19,7 @@ Most note-taking tools are organized around documents: a file is created, edited
 
 ## A question as a first-class object
 
-In a question-centered design, a question carries its own state. It might be open, revised, or closed, and it can point to the evidence that bears on it. The `status` field below is the simplest possible version of that idea.[^status]
+In a question-centered design, a question carries its own state. It might be open, revised, or closed, and it can point to the evidence that bears on it. The `status` field below is the simplest possible version of that idea.
 
 ```ts
 type QuestionStatus = 'open' | 'revised' | 'closed';
@@ -70,5 +70,3 @@ npm run build && npx some-very-long-command-name --with-a-flag --and-another-fla
 ## Further reading
 
 The general idea of linking notes is old and widely discussed; Wikipedia's article on the [Zettelkasten](https://en.wikipedia.org/wiki/Zettelkasten) is one starting point. For the HTML used to mark up figures on this site, see MDN's reference for the [`<figure>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure).
-
-[^status]: [editorial] Placeholder editorial note, to test how an [editorial] footnote is marked in the text and collected at the end of the article. A real note would say what was corrected, when, and whether the change affects the argument.
