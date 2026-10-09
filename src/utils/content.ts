@@ -1,4 +1,5 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
+import { SITE_AUTHOR } from '../consts';
 
 export type Article = CollectionEntry<'writing'>;
 export type Project = CollectionEntry<'projects'>;
@@ -32,6 +33,14 @@ export const typeLabels: Record<Article['data']['type'], string> = {
 	'working-note': 'Working note',
 	'development-journal': 'Development journal',
 };
+
+/**
+ * The author of an article. Every article is currently by the site author; a
+ * per-article `author` field for guest writers would be read here.
+ */
+export function articleAuthor(_entry: Article): typeof SITE_AUTHOR {
+	return SITE_AUTHOR;
+}
 
 export function writingPath(entry: Article): string {
 	return `/writing/${entry.id}/`;

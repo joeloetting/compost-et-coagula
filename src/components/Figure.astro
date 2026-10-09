@@ -9,7 +9,11 @@ interface Props {
 	src: ImageMetadata | string;
 	/** Short text alternative. Use alt="" only for purely decorative images. */
 	alt: string;
-	/** Names the figure so the text can refer to it with <FigureRef to="..." />. */
+	/**
+	 * Names the figure so the text can refer to it with <FigureRef to="..." />,
+	 * and gives it a stable link (#figure-<id>). Figures without an id are numbered
+	 * but have no link target, since a number shifts when figures are added.
+	 */
 	id?: string;
 	/** Leave this figure out of the numbering (decorative images). */
 	unnumbered?: boolean;
@@ -24,6 +28,11 @@ interface Props {
 	/** Copyright or license status, e.g. "Public domain" or "CC BY 4.0". */
 	license?: string;
 	licenseUrl?: string;
+	/**
+	 * Add a "View full size" link: true links to the original image file; a URL
+	 * links elsewhere, e.g. an archive's high-resolution scan.
+	 */
+	fullSize?: boolean | string;
 	/** Let the figure extend beyond the text column (maps, diagrams). */
 	wide?: boolean;
 	/** A small figure set to one side, partly in the margin on wide screens (sketches, specimens). */
@@ -36,11 +45,13 @@ interface Props {
 	citeText?: string;
 }
 
-const { src, alt, id, credit, source, sourceUrl, cite, citeText, license, licenseUrl, wide = false, inset = false, width, height, number } = Astro.props;
-const anchor = id ? figureAnchor(id) : number ? `figure-${number}` : undefined;
+const { src, alt, id, credit, source, sourceUrl, cite, citeText, license, licenseUrl, fullSize, wide = false, inset = false, width, height, number } = Astro.props;
+const anchor = id ? figureAnchor(id) : undefined;
+const original = typeof src === 'string' ? (src.startsWith('/') ? url(src) : src) : src.src;
+const fullSizeHref = fullSize === true ? original : fullSize || undefined;
 const sourceText = source ?? citeText;
 const sourceHref = cite ? `#ref-${cite}` : sourceUrl;
-const hasAttribution = Boolean(credit || sourceText || license);
+const hasAttribution = Boolean(credit || sourceText || license || fullSizeHref);
 // Responsive widths for raster images, never larger than the original, which is
 // also the most a raster image is displayed at, so small images are not blurred.
 const widths = typeof src === 'string' ? [] : [640, 1000, 1600, 2000].filter((w) => w < src.width).concat(src.width);
@@ -60,7 +71,7 @@ const hasDescription = Astro.slots.has('description');
 				src={src}
 				alt={alt}
 				widths={widths}
-				sizes={wide ? '(min-width: 1080px) 1000px, 100vw' : inset ? '320px' : '(min-width: 800px) 720px, 100vw'}
+				sizes={wide ? '(min-width: 1080px) 1000px, 100vw' : inset ? '320px' : '(min-width: 700px) 616px, 100vw'}
 				style={`max-width: ${src.width}px`}
 				loading="lazy"
 			/>
@@ -81,6 +92,11 @@ const hasDescription = Astro.slots.has('description');
 								</span>
 							)}
 							{license && <span>{licenseUrl ? <a href={licenseUrl}>{license}</a> : license}</span>}
+							{fullSizeHref && (
+								<span>
+									<a href={fullSizeHref}>View full size</a>
+								</span>
+							)}
 						</p>
 					)
 				}

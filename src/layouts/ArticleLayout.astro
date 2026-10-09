@@ -4,7 +4,7 @@ import { SITE_TITLE } from '../consts';
 import ArticleMeta from '../components/ArticleMeta.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import BaseLayout from './BaseLayout.astro';
-import { type Article, projectPath } from '../utils/content';
+import { type Article, articleAuthor, projectPath } from '../utils/content';
 import { articleSchema } from '../utils/seo';
 import { url } from '../utils/urls';
 
@@ -31,6 +31,7 @@ const printHeads = `@page { @top-left { content: ${cssString(SITE_TITLE)}; } @to
 	published={published}
 	updated={updated}
 	noindex={draft}
+	author={articleAuthor(article).name}
 	schema={articleSchema(article, Astro.site)}
 >
 	<style is:inline slot="head" set:html={printHeads} />
