@@ -4,6 +4,7 @@ import { satteri } from '@astrojs/markdown-satteri';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
+import { apparatus } from './src/plugins/apparatus.mjs';
 import { figurePlugins } from './src/plugins/figures.mjs';
 
 // The site is published as a GitHub Pages project site. If a custom domain is
@@ -50,7 +51,16 @@ export default defineConfig({
 			features: { gfm: { footnotes: { label: 'Notes' } } },
 			// Figure numbers, figure references, and bibliography anchors.
 			mdastPlugins: figurePlugins,
-			hastPlugins: [wrapTables],
+			hastPlugins: [
+				wrapTables,
+				// [margin], [crossref], and [editorial] footnotes; base paths on links.
+				apparatus({
+					base: BASE,
+					contentDir: new URL('./src/content/', import.meta.url).pathname,
+					// Drafts are only shown by `astro dev`, so links to them only work there.
+					production: !process.argv.includes('dev'),
+				}),
+			],
 		}),
 		shikiConfig: { theme: 'css-variables' },
 	},
