@@ -59,20 +59,11 @@ const makers = [
 			<details class="sn-source">
 				<summary>Source</summary>
 				<p>
-					{
-						data.fixture ? (
-							<>
-								<strong>Test data.</strong> {source.title}.
-							</>
-						) : (
-							<>
-								{data.title}
-								{data.voice && ` (${data.voice})`}. {makers.length > 0 && <>{makers.join('; ')}. </>}
-								{source.url ? <a href={source.url}><cite>{source.title}</cite></a> : <cite>{source.title}</cite>}
-								{sourceLine && `, ${sourceLine}`}.
-							</>
-						)
-					}
+					{data.fixture && <strong>Demo, not for publication. </strong>}
+					{data.title}
+					{data.voice && ` (${data.voice})`}. {makers.length > 0 && <>{makers.join('; ')}. </>}
+					{source.url ? <a href={source.url}><cite>{source.title}</cite></a> : <cite>{source.title}</cite>}
+					{sourceLine && `, ${sourceLine}`}.
 					{data.editorial.length > 0 && <span class="sn-editorial"> {data.editorial.join(' ')}</span>}
 				</p>
 			</details>

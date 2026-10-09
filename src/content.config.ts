@@ -52,7 +52,7 @@ const shapeNotes = defineCollection({
 	schema: z
 		.object({
 			title: z.string().trim().min(1),
-			/** Synthetic data for tests and layout fixtures; `npm test` fails if one is published. */
+			/** Demonstration data (synthetic notes or a placeholder citation); `npm test` fails if one is published. */
 			fixture: z.boolean().default(false),
 			notation: z.enum(['four-shape', 'seven-shape']),
 			key: z.object({ tonic: z.string().regex(/^[A-G](#|b)?$/), mode: z.enum(['major', 'minor']) }),
