@@ -18,7 +18,8 @@ interface Props {
 }
 
 const { src, alt, credit, wide = false, width, height } = Astro.props;
-// Responsive widths for raster images, never larger than the original.
+// Responsive widths for raster images, never larger than the original, which is
+// also the most a raster image is displayed at, so small images are not blurred.
 const widths = typeof src === 'string' ? [] : [640, 1000, 1600, 2000].filter((w) => w < src.width).concat(src.width);
 const hasCaption = Astro.slots.has('default');
 // Slot "description": a longer explanation for maps and diagrams, shown on request.
@@ -37,6 +38,7 @@ const hasDescription = Astro.slots.has('description');
 				alt={alt}
 				widths={widths}
 				sizes={wide ? '(min-width: 1080px) 1000px, 100vw' : '(min-width: 800px) 720px, 100vw'}
+				style={`max-width: ${src.width}px`}
 				loading="lazy"
 			/>
 		)
