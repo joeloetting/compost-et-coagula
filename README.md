@@ -99,6 +99,37 @@ A sentence that needs a source.[^barth]
 
 Notes are collected under "Notes" at the end of the article, in order of first use. The labels (`barth` above) are only for you; readers see numbers.
 
+### Marginal notes, cross-references, and editorial notes
+
+These are ordinary Markdown footnotes with a prefix at the start of the note. They work in `.md` and `.mdx` alike, with no HTML or components:
+
+```markdown
+To begin with the Manhattan Project is already a decision.[^start]
+The valley had earlier owners.[^norris]
+The survey date was corrected.[^survey]
+
+[^start]: [margin] Where should the historical account begin?
+[^norris]: [crossref] See [](/writing/another-essay/) on the valley's earlier history.
+[^survey]: [editorial] Corrected 12 November 2026. An earlier version misdated the survey; the argument is unchanged.
+```
+
+| Prefix | What it is | Where it appears |
+| --- | --- | --- |
+| none, or `[footnote]` | Sources, qualifications, clarifications | Numbered, under Notes at the end |
+| `[margin]` | A short interpretive observation | Beside the line that refers to it |
+| `[crossref]` | A link to another article or project | Beside the line that refers to it |
+| `[editorial]` | A substantive correction or revision | Marked "ed." in the text, listed at the end |
+
+- On wide screens, `[margin]` and `[crossref]` notes sit in the margin, level with their reference. On phones they become a small "note 1" or "see" mark that opens the note as a pop-up beneath it (tap elsewhere or press Esc to close). Browsers without CSS anchor positioning show the note inline instead. In print they sit in the printed margin.
+- Marginal notes are numbered automatically (Marginal note 01, 02...), and the remaining footnotes are renumbered so they stay consecutive.
+- Keep margin notes short and to one or more plain paragraphs (no lists or quotations), and refer to each one only once. Leave most paragraphs without notes. The empty margin is part of the design.
+- In a `[crossref]`, link to `/writing/<file-name>/` or `/projects/<file-name>/`. Leave the link text empty, as in `[](/writing/another-essay/)`, and the title is filled in. A misspelled name stops the build, and a target that is still a draft is named without a link until it is published.
+- Any link that starts with `/` gets the site's base path automatically.
+
+### Editorial marks
+
+Section headings (`##`) get a section sign (§) automatically. Abbreviations written as `<abbr title="...">USACE</abbr>` are set in small capitals, and running text uses old-style figures. Wrap anything else in `<span class="small-caps">` for true small capitals.
+
 ### Block quotations
 
 ```markdown
@@ -120,7 +151,7 @@ Write a heading named `## Bibliography`, `## References`, or `## Works Cited`, f
 
 ### Tables and code
 
-Ordinary Markdown tables and fenced code blocks (with a language, e.g. ` ```ts `) work as expected. Wide tables and long code lines scroll sideways inside their own box on small screens.
+Ordinary Markdown tables and fenced code blocks (with a language, e.g. ` ```ts `) work as expected. Tables are set in the booktabs style, with no vertical lines and a rule above, below, and under the header. Align a numeric column right (`|--:|`) and its figures line up. Wide tables and long code lines scroll sideways inside their own box on small screens.
 
 ### Images and figures
 
@@ -213,7 +244,11 @@ Edit the file and push. For a change that matters to the argument, also:
   correction: "An earlier version misdated the survey. The date has been corrected; the argument is unchanged."
   ```
 
-Small fixes such as typos need neither.
+The correction appears as an "Editorial note" at the end of the article, dated by `updated:`, with a link to it beside the dates at the top. To tie a correction to a particular passage instead, use an `[editorial]` footnote there (see above). Both kinds are listed together in one section at the end. Small fixes such as typos need neither.
+
+### Printing
+
+Articles print as book pages: the navigation is dropped, marginal notes sit in the printed margin, web addresses are spelled out, and Chromium-based browsers add running heads (publication and title) and page numbers. Use the browser's Print or Save as PDF.
 
 ## How deployment works
 
@@ -239,10 +274,13 @@ src/
   components/          header, footer, article lists, Figure, FigureRef
   plugins/figures.mjs  figure numbers, figure references, bibliography keys
   styles/global.css    design tokens and typography
+  styles/edition.css   article margin, marginalia, editorial marks
+  plugins/apparatus.mjs  footnote prefixes into marginalia and editorial notes
+  styles/print.css     print layout
   utils/               content queries, URL, metadata, and feed helpers
   assets/fonts/        self-hosted fonts (SIL Open Font License)
 scripts/check-dist.mjs build checks used by `npm test`
 pagefind.yml           search index settings
 ```
 
-Fonts: Source Serif 4, Source Sans 3, and IBM Plex Mono, self-hosted as Latin and Latin Extended WOFF2 subsets. Their licenses are in `src/assets/fonts/`.
+Fonts: Source Serif 4, Source Sans 3, and IBM Plex Mono, self-hosted as Latin and Latin Extended WOFF2 subsets. The Source Serif 4 roman subsets are cut from Adobe's variable font (the `source-serif` npm package, 4.5.1) with small capitals (`smcp`, `c2sc`) and old-style figures (`onum`) kept. Their licenses are in `src/assets/fonts/`.
