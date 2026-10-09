@@ -1,0 +1,97 @@
+# Musical phrases for shape-note dividers (<ShapeNoteDivider ref="..." />).
+# The fields are documented in README.md under "Shape-note dividers", and
+# checked by the `shapeNotes` collection in src/content.config.ts.
+#
+# Pitches are written as they stand in the source (scientific pitch names,
+# middle C = C4); durations are in quarter notes. Shapes are worked out from
+# the key, never written by hand.
+#
+# Records marked `fixture: true` are demonstration data: synthetic phrases,
+# or a real phrase with a placeholder citation. They must not appear in a
+# published article, and `npm test` fails if one is used on a published page.
+# To publish Idumea, replace its placeholder source with the real tunebook,
+# edition, year, and page, and remove `fixture: true`.
+
+- id: idumea-opening
+  # The notes and words are real; the citation below is a placeholder.
+  fixture: true
+  title: Idumea
+  notation: four-shape
+  key: { tonic: A, mode: minor } # "Flat Key on A"
+  meter: '3/2'
+  voice: tenor
+  # Read from the author's scan of a four-part printing (heading "IDUMEA. S.M.
+  # Flat Key on A."). Every shape agrees with the key, and the pitches agree
+  # with the incipit hymnary.org gives for IDUMEA.
+  notes:
+    - { pitch: A4, dur: 2, syl: My }
+    - { pitch: A4, dur: 4, syl: 'God,' }
+    - { pitch: G4, dur: 1, syl: my }
+    - { pitch: A4, dur: 1, syl: 'life,' }
+    - { pitch: C5, dur: 4, syl: my }
+    - { pitch: D5, dur: 1, syl: love }
+    - { pitch: C5, dur: 1 }
+  tune: { composer: Ananias Davisson (attributed) }
+  words: { author: Isaac Watts, firstLine: 'My God, my life, my love' }
+  source:
+    # PLACEHOLDER CITATION for the demo: an invented title, not a real book.
+    title: The Example Harmony
+    edition: demonstration edition
+    year: 1844
+    page: 47
+  editorial:
+    - 'Excerpt: the first line of the tenor, which carries the melody.'
+    - Pitches as printed in the treble clef; men sing them an octave lower.
+
+- id: fixture-minor-phrase
+  fixture: true
+  title: Synthetic test phrase (minor)
+  notation: four-shape
+  key: { tonic: A, mode: minor }
+  meter: '3/2'
+  voice: melody
+  notes:
+    - { pitch: A3, dur: 2, syl: These }
+    - { pitch: A3, dur: 2, syl: notes }
+    - { pitch: C4, dur: 2, syl: are }
+    - { pitch: B3, dur: 2, syl: a }
+    - { pitch: E4, dur: 4, syl: test }
+    - { rest: 2 }
+    - { pitch: D4, dur: 2, syl: and }
+    - { pitch: C4, dur: 1, syl: not }
+    - { pitch: B3, dur: 1 }
+    - { pitch: G#3, dur: 2, syl: a }
+    - { pitch: A3, dur: 4, syl: hymn. }
+  source:
+    title: Synthetic test data
+  editorial:
+    - Not a historical tune; tests a minor key, a rest, a slur, and the raised seventh.
+
+- id: fixture-long-lyric
+  fixture: true
+  title: Synthetic test phrase (long lyric)
+  notation: four-shape
+  key: { tonic: G, mode: major }
+  meter: '4/4'
+  voice: melody
+  notes:
+    - { pitch: D4, dur: 1, syl: Long }
+    - { pitch: G4, dur: 0.5, syl: 'words,' }
+    - { pitch: A4, dur: 0.5, syl: then }
+    - { pitch: B4, dur: 1.5, syl: long- }
+    - { pitch: A4, dur: 0.5, syl: er }
+    - { pitch: G4, dur: 1, syl: 'ones,' }
+    - { pitch: F#4, dur: 1, syl: test }
+    - { pitch: E4, dur: 0.5, syl: how }
+    - { pitch: G4, dur: 0.5, syl: the }
+    - { pitch: B4, dur: 1, syl: lyr- }
+    - { pitch: D5, dur: 1, syl: ic }
+    - { pitch: C5, dur: 0.5, syl: wraps }
+    - { pitch: A4, dur: 0.5, syl: on }
+    - { pitch: F#4, dur: 0.5, syl: nar- }
+    - { pitch: E4, dur: 0.5, syl: row }
+    - { pitch: G4, dur: 2, syl: screens. }
+  source:
+    title: Synthetic test data
+  editorial:
+    - Not a historical tune; tests a long lyric, eighth notes, and a major key.
