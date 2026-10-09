@@ -1,0 +1,72 @@
+---
+title: Designing a Research Assistant Around Questions
+description: A layout fixture for technical writing. It exercises code, tables, lists, and diagrams, and describes no actual software.
+published: 2026-10-01
+type: development-journal
+topics:
+  - software
+projects:
+  - deftere
+draft: true
+---
+
+import Figure from '../../components/Figure.astro';
+import architecture from './designing-a-research-assistant-around-questions/architecture.svg';
+
+*This page is a demonstration of the technical layout. The design ideas and code below are generic illustrations written for this fixture. They do not describe how Deftere is, or will be, implemented.*
+
+Most note-taking tools are organized around documents: a file is created, edited, and filed. A research assistant organized around **questions** would make a different object primary. This fixture sketches what that might mean, so that the site's handling of technical material can be tested.
+
+## A question as a first-class object
+
+In a question-centered design, a question carries its own state. It might be open, revised, or closed, and it can point to the evidence that bears on it. The `status` field below is the simplest possible version of that idea.
+
+```ts
+type QuestionStatus = 'open' | 'revised' | 'closed';
+
+interface Question {
+	id: string;
+	text: string;
+	status: QuestionStatus;
+	/** Identifiers of notes that bear on this question. */
+	evidence: string[];
+	createdAt: Date;
+}
+
+function revise(question: Question, text: string): Question {
+	return { ...question, text, status: 'revised' };
+}
+```
+
+Long lines in code blocks scroll horizontally inside the block rather than widening the page:
+
+```sh
+npm run build && npx some-very-long-command-name --with-a-flag --and-another-flag --and-one-more-flag-to-force-horizontal-scrolling
+```
+
+## How the parts relate
+
+<Figure src={architecture} alt="Diagram: Sources lead to Notes, Notes to Questions, Questions to Writing; Questions also lead back to Notes." wide>
+  An illustrative flow from sources to writing. The return arrow is the point: questions send the reader back to the evidence.
+</Figure>
+
+### Comparing two organizing principles
+
+| Aspect | Document-centered | Question-centered |
+|---|---|---|
+| Primary object | The file or page | The question |
+| What changes over time | The text of the document | The status of the question and its evidence |
+| Typical navigation | Folders, tags, and search | Open questions and the notes linked to them |
+| Risk | Notes accumulate without direction | Questions multiply without being closed |
+
+### Principles for the fixture
+
+1. Keep the reader's own words distinct from quoted sources.
+2. Record where every piece of evidence came from.
+3. Let questions remain open for as long as they need to.
+   - Closing a question should be a deliberate act.
+   - A closed question can be reopened.
+
+## Further reading
+
+The general idea of linking notes is old and widely discussed; Wikipedia's article on the [Zettelkasten](https://en.wikipedia.org/wiki/Zettelkasten) is one starting point. For the HTML used to mark up figures on this site, see MDN's reference for the [`<figure>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure).

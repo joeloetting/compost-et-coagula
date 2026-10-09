@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getProjects, projectPath } from '../../utils/content';
+import { url } from '../../utils/urls';
+
+const projects = await getProjects();
+---
+
+<BaseLayout title="Projects" description="Long-term research projects at Compost et Coagula.">
+	<header class="page-header">
+		<h1>Projects</h1>
+		<p class="lede">Long-term lines of inquiry that gather related writing over time.</p>
+	</header>
+	<ul class="project-list">
+		{
+			projects.map((project) => (
+				<li>
+					<h2>
+						<a href={url(projectPath(project))}>{project.data.title}</a>
+					</h2>
+					<p>{project.data.description}</p>
+				</li>
+			))
+		}
+	</ul>
+</BaseLayout>
+
+<style>
+	.project-list {
+		max-width: var(--measure);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		border-top: 1px solid var(--rule);
+	}
+
+	li {
+		padding-block: 1.75rem;
+		border-bottom: 1px solid var(--rule);
+	}
+
+	h2 {
+		font-size: 1.625rem;
+	}
+
+	h2 a {
+		color: var(--ink);
+		text-decoration: none;
+	}
+
+	h2 a:hover {
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+	}
+
+	p {
+		margin-top: 0.5rem;
+	}
+</style>

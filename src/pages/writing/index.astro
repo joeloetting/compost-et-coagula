@@ -1,0 +1,15 @@
+---
+import ArticleList from '../../components/ArticleList.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getWriting } from '../../utils/content';
+
+const entries = await getWriting();
+---
+
+<BaseLayout title="Writing" description="Essays, working notes, and development journals from Compost et Coagula, newest first.">
+	<header class="page-header">
+		<h1>Writing</h1>
+		<p class="lede">Essays, working notes, and development journals, newest first.</p>
+	</header>
+	{entries.length > 0 ? <ArticleList entries={entries} /> : <p class="empty">Nothing has been published yet.</p>}
+</BaseLayout>

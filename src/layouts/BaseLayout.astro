@@ -1,0 +1,73 @@
+---
+import { Font } from 'astro:assets';
+import '../styles/global.css';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { absoluteUrl, url } from '../utils/urls';
+
+interface Props {
+	/** Page title; the site name is appended unless this is the home page. */
+	title?: string;
+	description?: string;
+	/** Open Graph type. Articles also pass their dates. */
+	ogType?: 'website' | 'article';
+	published?: Date;
+	updated?: Date;
+	/** Set on drafts and the 404 page to keep them out of search engines. */
+	noindex?: boolean;
+}
+
+const { title, description = SITE_DESCRIPTION, ogType = 'website', published, updated, noindex = false } = Astro.props;
+
+const fullTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
+// Astro.url.pathname already includes the base path.
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = absoluteUrl('/og-default.png', Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{fullTitle}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		{noindex && <meta name="robots" content="noindex" />}
+
+		<link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
+		<link rel="sitemap" href={url('/sitemap-index.xml')} />
+		<link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={absoluteUrl('/rss.xml', Astro.site)} />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="theme-color" content="#f6f3ec" />
+
+		<Font cssVariable="--font-serif" />
+		<Font cssVariable="--font-sans" />
+		<Font cssVariable="--font-mono" />
+
+		<meta property="og:site_name" content={SITE_TITLE} />
+		<meta property="og:type" content={ogType} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:title" content={title ?? SITE_TITLE} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={SITE_TITLE} />
+		<meta property="og:locale" content="en_US" />
+		{published && <meta property="article:published_time" content={published.toISOString()} />}
+		{updated && <meta property="article:modified_time" content={updated.toISOString()} />}
+		<meta name="twitter:card" content="summary_large_image" />
+	</head>
+	<body>
+		<a class="skip-link" href="#main">Skip to content</a>
+		<Header />
+		<main id="main" tabindex="-1">
+			<div class="container">
+				<slot />
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>

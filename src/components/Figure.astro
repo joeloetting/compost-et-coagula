@@ -1,0 +1,60 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import { url } from '../utils/urls';
+
+interface Props {
+	/** An imported image (preferred), or a path to a file in public/, e.g. "/images/map.png". */
+	src: ImageMetadata | string;
+	/** Short text alternative. Use alt="" only for purely decorative images. */
+	alt: string;
+	/** Source or credit line, shown after the caption. */
+	credit?: string;
+	/** Let the figure extend beyond the text column (maps, diagrams). */
+	wide?: boolean;
+	/** Intrinsic size; needed only for public/ paths, to prevent layout shift. */
+	width?: number;
+	height?: number;
+}
+
+const { src, alt, credit, wide = false, width, height } = Astro.props;
+// Responsive widths for raster images, never larger than the original.
+const widths = typeof src === 'string' ? [] : [640, 1000, 1600, 2000].filter((w) => w < src.width).concat(src.width);
+const hasCaption = Astro.slots.has('default');
+// Slot "description": a longer explanation for maps and diagrams, shown on request.
+const hasDescription = Astro.slots.has('description');
+---
+
+<figure class:list={['figure', { 'figure--wide': wide }]}>
+	{
+		typeof src === 'string' ? (
+			<img src={src.startsWith('/') ? url(src) : src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+		) : src.format === 'svg' ? (
+			<Image src={src} alt={alt} loading="lazy" />
+		) : (
+			<Image
+				src={src}
+				alt={alt}
+				widths={widths}
+				sizes={wide ? '(min-width: 1080px) 1000px, 100vw' : '(min-width: 800px) 720px, 100vw'}
+				loading="lazy"
+			/>
+		)
+	}
+	{
+		(hasCaption || credit || hasDescription) && (
+			<figcaption>
+				{hasCaption && <slot />}
+				{credit && <span class="credit">{credit}</span>}
+				{hasDescription && (
+					<details>
+						<summary>Full description</summary>
+						<div>
+							<slot name="description" />
+						</div>
+					</details>
+				)}
+			</figcaption>
+		)
+	}
+</figure>

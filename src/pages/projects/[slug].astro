@@ -1,0 +1,66 @@
+---
+import { render } from 'astro:content';
+import ArticleList from '../../components/ArticleList.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getProjects, getWritingForProject, type Project } from '../../utils/content';
+
+export async function getStaticPaths() {
+	const projects = await getProjects();
+	return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props as { project: Project };
+const { Content } = await render(project);
+const writing = await getWritingForProject(project.id);
+---
+
+<BaseLayout title={project.data.title} description={project.data.description}>
+	<article class="project">
+		<header class="page-header">
+			<p class="eyebrow">Project</p>
+			<h1>{project.data.title}</h1>
+		</header>
+		<div class="prose">
+			<Content />
+		</div>
+
+		{
+			project.data.links.length > 0 && (
+				<section class="section" aria-labelledby="links-heading">
+					<h2 class="section-title" id="links-heading">Links</h2>
+					<ul class="links">
+						{project.data.links.map((link) => (
+							<li>
+								<a href={link.url}>{link.label}</a>
+							</li>
+						))}
+					</ul>
+				</section>
+			)
+		}
+
+		<section class="section" aria-labelledby="writing-heading">
+			<h2 class="section-title" id="writing-heading">Related writing</h2>
+			{writing.length > 0 ? <ArticleList entries={writing} headingLevel={3} showProjects={false} /> : <p class="empty">No writing has been published for this project yet.</p>}
+		</section>
+	</article>
+</BaseLayout>
+
+<style>
+	.project {
+		max-width: var(--measure);
+		margin-inline: auto;
+	}
+
+	.page-header h1 {
+		margin-top: 0.75rem;
+	}
+
+	.section {
+		margin-top: var(--space-section);
+	}
+
+	.links {
+		padding-left: 1.25em;
+	}
+</style>
