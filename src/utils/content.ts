@@ -3,6 +3,7 @@ import { SITE_AUTHOR } from '../consts';
 
 export type Article = CollectionEntry<'writing'>;
 export type Project = CollectionEntry<'projects'>;
+export type Note = CollectionEntry<'notes'>;
 
 /**
  * Drafts are visible while running `npm run dev` so they can be previewed, and
@@ -28,6 +29,12 @@ export async function getProjects(): Promise<Project[]> {
 	return entries.sort((a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title));
 }
 
+/** Published notes, in their set order, then by title. Drafts as for writing. */
+export async function getNotes(): Promise<Note[]> {
+	const entries = await getCollection('notes', ({ data }) => showDrafts || !data.draft);
+	return entries.sort((a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title));
+}
+
 export const typeLabels: Record<Article['data']['type'], string> = {
 	essay: 'Essay',
 	'working-note': 'Working note',
@@ -48,4 +55,8 @@ export function writingPath(entry: Article): string {
 
 export function projectPath(entry: Project | { id: string }): string {
 	return `/projects/${entry.id}/`;
+}
+
+export function notePath(entry: Note | { id: string }): string {
+	return `/notes/${entry.id}/`;
 }

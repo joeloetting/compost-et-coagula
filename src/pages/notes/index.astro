@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getNotes, notePath } from '../../utils/content';
+import { url } from '../../utils/urls';
+
+const notes = await getNotes();
+---
+
+<BaseLayout title="Notes" description="Short notes on the conventions and making of Compost et Coagula.">
+	<header class="page-header">
+		<h1>Notes</h1>
+		<p class="lede">Short notes on how this publication is made, and why it looks as it does.</p>
+	</header>
+	{
+		notes.length > 0 ? (
+			<ul class="note-list">
+				{notes.map((note) => (
+					<li>
+						<h2>
+							<a href={url(notePath(note))}>{note.data.title}</a>
+							{note.data.draft && <span class="badge">Draft</span>}
+						</h2>
+						<p>{note.data.description}</p>
+					</li>
+				))}
+			</ul>
+		) : (
+			<p class="empty">No notes have been published yet.</p>
+		)
+	}
+</BaseLayout>
+
+<style>
+	.note-list {
+		max-width: var(--measure);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		border-top: 1px solid var(--rule);
+	}
+
+	li {
+		padding-block: 1.75rem;
+		border-bottom: 1px solid var(--rule);
+	}
+
+	h2 {
+		font-size: 1.625rem;
+	}
+
+	h2 a {
+		color: var(--ink);
+		text-decoration: none;
+	}
+
+	h2 a:hover {
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+	}
+
+	.badge {
+		margin-left: 0.5rem;
+		vertical-align: middle;
+	}
+
+	p {
+		margin-top: 0.5rem;
+	}
+</style>

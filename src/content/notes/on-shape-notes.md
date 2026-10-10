@@ -4,8 +4,6 @@ description: "A note on the musical typography of this site."
 draft: true
 ---
 
-# On Shape Notes
-
 The small musical figures appearing throughout
 this site are drawn from the tradition of
 American shape-note singing.

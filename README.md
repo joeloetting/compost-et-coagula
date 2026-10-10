@@ -296,6 +296,30 @@ import ShapeNoteDivider from '../../components/ShapeNoteDivider.astro';
 
 `src/content/writing/the-printers-ornament.mdx` is a working example (a draft).
 
+## Notes
+
+A note is a short standing page about the publication itself, such as *On Shape Notes*, which explains the musical figures in the dividers. Notes are not essays: they have no date, do not appear in the writing list or the RSS feed, and are listed at `/notes/`. Each is one Markdown file in `src/content/notes/`, and the file name becomes the URL (`on-shape-notes.md` -> `/notes/on-shape-notes/`).
+
+```markdown
+---
+title: "On Shape Notes"
+description: "A note on the musical typography of this site."
+draft: true
+---
+
+The text of the note. The title is printed above it, so start any sections at `##`.
+```
+
+| Field | Required | Notes |
+|---|---|---|
+| `title` | yes | |
+| `description` | yes | Shown in the list of notes and in link previews. |
+| `order` | no | A number; notes are listed in this order, then by title. |
+| `links` | no | A list of `{ label, url }` shown under the note. |
+| `draft` | no | As for articles: shown with a "Draft" label in `npm run dev`, left out of production builds, and checked by `npm test`. |
+
+The footer links to the notes once at least one is published.
+
 ## Publishing
 
 1. Set `draft: false` (or remove the line).
@@ -371,9 +395,10 @@ The author's name is set once, as `SITE_AUTHOR` in `src/consts.ts`. It appears i
 src/
   content/writing/     articles (Markdown)
   content/projects/    project pages (Markdown)
+  content/notes/       notes about the publication (Markdown)
   content.config.ts    metadata schemas
   consts.ts            site title, description, and author name
-  pages/               routes: home, writing, projects, about, search, RSS, 404
+  pages/               routes: home, writing, projects, notes, about, search, RSS, 404
   layouts/             page and article layouts
   components/          header, footer, article lists, Figure, FigureRef, ShapeNoteDivider
   data/shapeNotes/     musical phrases quoted by shape-note dividers
