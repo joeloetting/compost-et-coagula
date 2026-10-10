@@ -28,6 +28,8 @@ jobs:
       - run: npm ci
       - name: Type and Astro diagnostics
         run: npm run check
+      - name: Unit tests
+        run: npm run test:unit
       - name: Build
         run: npm run build
       - name: Check links and draft exclusion

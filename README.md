@@ -20,7 +20,8 @@ Other commands:
 | `npm run build` | Build the production site into `dist/`, then build the search index |
 | `npm run preview` | Serve the built `dist/` locally, exactly as it will be published |
 | `npm run check` | Type and Astro diagnostics |
-| `npm test` | Diagnostics, build, then check links and draft exclusion |
+| `npm run test:unit` | Unit tests (shape-note notation and drawing) |
+| `npm test` | Diagnostics, unit tests, build, then check links and draft exclusion |
 
 ## Writing an article
 
@@ -256,6 +257,45 @@ This renders as **Figure 1.** followed by the caption, then a line reading *Draw
 
 `src/content/writing/holy-saturday-in-oak-ridge.mdx` is a working example of every element above.
 
+### Shape-note dividers
+
+A section divider can quote a short phrase of shape-note music: a fine rule with the notes set in a gap at its centre. The notes fade in as the reader scrolls to them, and activating them (click, tap, Enter, or Space) shows the words and the source beneath. Rename the article to `.mdx` and write:
+
+```mdx
+import ShapeNoteDivider from '../../components/ShapeNoteDivider.astro';
+
+<ShapeNoteDivider ref="idumea-opening" />
+```
+
+`ref` is the id of a phrase in `src/data/shapeNotes/phrases.yaml`. Each phrase records its notes once; shapes, spacing, and the drawing are worked out from them:
+
+```yaml
+- id: idumea-opening
+  title: Idumea
+  notation: four-shape          # seven-shape can be stored but is not drawn yet
+  key: { tonic: A, mode: minor }
+  meter: '3/2'
+  voice: tenor
+  notes:                        # pitches as printed; durations in quarter notes
+    - { pitch: A3, dur: 2, syl: And }
+    - { pitch: C4, dur: 1, syl: be- }   # "-" joins a syllable to the next one
+    - { pitch: B3, dur: 1 }             # no syllable: a slur from the note before
+    - { rest: 2 }
+  tune: { composer: …, year: … }
+  words: { author: …, year: … }
+  source: { title: …, edition: …, year: …, page: …, url: … }
+  editorial:
+    - Excerpt: the opening phrase of the tenor. Not transposed.
+```
+
+- The shapes follow the four-shape (fasola) system from the key: fa triangle, sol oval, la square, mi diamond. An accidental does not change a shape.
+- A historical phrase must give a source URL or identifier, and its edition, year, and page when known; record any excerpting, transposition, or simplification under `editorial`. The tune, the words, the arrangement, and the printed edition are recorded separately because they often differ in maker and date.
+- Phrases marked `fixture: true` are demonstration data (synthetic notes, or a placeholder citation, as for Idumea at present). They can be used in drafts, but `npm test` fails if one appears on a published page.
+- A divider quotes a phrase of at most 16 notes and rests. A bad pitch, a duration that is not a note value, or a missing phrase stops the build with a message naming the phrase.
+- The staffless phrase is a quotation, not a full transcription: it keeps the order of pitches, their contour, the rhythm, and the words, but not exact pitch. The source is where the music can be read in full.
+
+`src/content/writing/the-printers-ornament.mdx` is a working example (a draft).
+
 ## Publishing
 
 1. Set `draft: false` (or remove the line).
@@ -335,7 +375,9 @@ src/
   consts.ts            site title, description, and author name
   pages/               routes: home, writing, projects, about, search, RSS, 404
   layouts/             page and article layouts
-  components/          header, footer, article lists, Figure, FigureRef
+  components/          header, footer, article lists, Figure, FigureRef, ShapeNoteDivider
+  data/shapeNotes/     musical phrases quoted by shape-note dividers
+  lib/shapeNotes/      shape-note notation, SVG drawing, and their unit tests
   plugins/figures.mjs  figure numbers, figure references, bibliography keys, citations
   styles/global.css    design tokens and typography
   styles/edition.css   article margin, marginal notes, later notes, editorial note
