@@ -43,7 +43,18 @@ const projects = defineCollection({
 			.transform((value) => value ?? []),
 	}),
 });
-
+const notes = defineCollection({
+	loader: glob({ base: './src/content/notes', pattern: '**/*.md' }),
+	schema: z.object({
+		title: z.string().trim().min(1),
+		description: z.string().trim().min(1),
+		order: z.number().int().default(0),
+		links: z
+			.array(z.object({ label: z.string().trim().min(1), url: z.url() }))
+			.nullish()
+			.transform((value) => value ?? []),
+	}),
+});
 // Musical phrases quoted by shape-note dividers. Shapes and lyrics are worked
 // out from these records in src/lib/shapeNotes/; see that folder.
 const optionalYear = z.number().int().min(1000).max(2100).nullish();
@@ -88,4 +99,4 @@ const shapeNotes = defineCollection({
 		}),
 });
 
-export const collections = { writing, projects, shapeNotes };
+export const collections = { writing, projects, notes, shapeNotes };
