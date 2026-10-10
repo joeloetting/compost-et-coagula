@@ -1,0 +1,143 @@
+{
+  // Authoring snippets for essays in src/content/writing/. See .vscode/README.md.
+  // Conventions follow README.md ("Writing an article") and src/plugins/.
+
+  // Imports: put them immediately after the YAML frontmatter.
+
+  "Import Figure": {
+    "prefix": ";impfigure",
+    "description": "Import the Figure component (once per article)",
+    "body": ["import Figure from '../../components/Figure.astro';"]
+  },
+  "Import FigureRef": {
+    "prefix": ";impfigref",
+    "description": "Import the FigureRef component (once per article)",
+    "body": ["import FigureRef from '../../components/FigureRef.astro';"]
+  },
+  "Import ShapeNoteDivider": {
+    "prefix": ";impshape",
+    "description": "Import the ShapeNoteDivider component (once per article)",
+    "body": ["import ShapeNoteDivider from '../../components/ShapeNoteDivider.astro';"]
+  },
+  "Import Excursus": {
+    "prefix": ";impexcursus",
+    "description": "Import the Excursus component (once per article)",
+    "body": ["import Excursus from '../../components/Excursus.astro';"]
+  },
+  "Import an image": {
+    "prefix": ";image",
+    "description": "Import a local image from the folder named after this article",
+    "body": ["import ${1:image} from './${TM_FILENAME_BASE}/${2:file.png}';"]
+  },
+
+  // Figures
+
+  "Figure": {
+    "prefix": ";figure",
+    "description": "A numbered figure with alt text, credit, source, citation, and rights (needs ;impfigure and ;image)",
+    "body": [
+      "<Figure",
+      "  id=\"${1:figure-id}\"",
+      "  src={${2:image}}",
+      "  alt=\"${3:Short description of the image.}\"",
+      "  credit=\"${4:Drawn by Jane Doe.}\"",
+      "  source=\"${5:Archive, collection, or publication}\"",
+      "  cite=\"${6:bibliography-key}\"",
+      "  license=\"${7:Public domain}\"",
+      ">",
+      "  ${8:The caption, which may contain *Markdown*.}",
+      "</Figure>",
+      "$0"
+    ]
+  },
+  "Figure reference": {
+    "prefix": ";figref",
+    "description": "Refer to a figure by id: renders as \"Figure 2\" (needs ;impfigref)",
+    "body": ["<FigureRef to=\"${1:figure-id}\" />"]
+  },
+
+  // Shape-note dividers
+
+  "Shape-note divider": {
+    "prefix": ";shape",
+    "description": "A shape-note section divider; ref is an id in src/data/shapeNotes/phrases.yaml (needs ;impshape)",
+    "body": ["<ShapeNoteDivider ref=\"${1:phrase-id}\" />", "$0"]
+  },
+  "Shape-note divider with a note": {
+    "prefix": ";shapefn",
+    "description": "A shape-note divider citing its music in a footnote (needs ;impshape)",
+    "body": [
+      "<ShapeNoteDivider ref=\"${1:phrase-id}\">[^${2:label}]</ShapeNoteDivider>",
+      "",
+      "[^${2:label}]: ${3:Tune}, ${4:voice}. Tune by ${5:composer}; words by ${6:author}. *${7:Tunebook}*, ${8:edition} (${9:year}), ${10:page}.",
+      "$0"
+    ]
+  },
+
+  // Footnotes, citations, and the bibliography
+
+  "Footnote (reference and definition)": {
+    "prefix": ";foot",
+    "description": "Footnote reference and its definition together, at the cursor",
+    "body": ["[^${1:label}]", "", "[^${1:label}]: ${2:Note text.}$0"]
+  },
+  "Footnote reference": {
+    "prefix": ";fnref",
+    "description": "Footnote reference in the text",
+    "body": ["[^${1:label}]$0"]
+  },
+  "Footnote definition": {
+    "prefix": ";fndef",
+    "description": "Footnote definition, for the end of the essay",
+    "body": ["[^${1:label}]: ${0:Note text.}"]
+  },
+  "Citation": {
+    "prefix": ";cite",
+    "description": "Cite a bibliography entry by key, inside a footnote; delete the locator if there is none",
+    "body": ["[${1:key}${2:, ${3:45}}]$0"]
+  },
+  "Bibliography entry": {
+    "prefix": ";bib",
+    "description": "A keyed entry for a hand-written list under ## Bibliography, ## References, or ## Works Cited",
+    "body": ["- [${1:surname-year}] ${2:Surname}, ${3:First}. *${4:Title of Book}*. ${5:City}: ${6:Publisher}, ${7:Year}.$0"]
+  },
+
+  // Marginal notes and research questions
+
+  "Research question (reference)": {
+    "prefix": ";question",
+    "description": "Reference to a research question in the margin; define it with ;questiondef",
+    "body": ["[^${1:q-label}]$0"]
+  },
+  "Research question (definition)": {
+    "prefix": ";questiondef",
+    "description": "A research question set in the margin, labelled Quaestio",
+    "body": ["[^${1:q-label}]: [margin: ? Quaestio] ${0:The open question?}"]
+  },
+  "Marginal note": {
+    "prefix": ";margin",
+    "description": "A marginal note definition: commentary only, never a citation",
+    "body": ["[^${1:label}]: [margin] ${0:A short interpretive observation.}"]
+  },
+  "Marginal note with an editorial mark": {
+    "prefix": ";marginmark",
+    "description": "A marginal note with its own label and editorial mark",
+    "body": ["[^${1:label}]: [margin: ${2|☞ Obs.,? Quaestio,↗ See also,† Qualification,※ Commentary|}] ${0:Note text.}"]
+  },
+
+  // Later notes, added after publication
+
+  "Later note": {
+    "prefix": ";later",
+    "description": "A dated later note: ? question, ↺ reconsideration, + addition, × correction. Keep its [^label] in the passage.",
+    "body": ["[^${1:label}]: [${2|?,↺,+,×|} $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE] ${0:Note text.}"]
+  },
+
+  // Excursus
+
+  "Excursus": {
+    "prefix": ";excursus",
+    "description": "A digression set within the reading column (needs ;impexcursus)",
+    "body": ["<Excursus title=\"${1:On the word “compost”}\">", "  ${0:The digression.}", "</Excursus>"]
+  }
+}
