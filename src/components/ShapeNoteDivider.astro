@@ -208,21 +208,11 @@ const makers = [
 			opacity: 1 !important;
 		}
 
-		/* Print the words: closed disclosures are opened where the browser allows it. */
-		.sn-disclosure::details-content {
-			content-visibility: visible;
-			display: block;
-		}
-
-		.sn-disclosure:not([open])::after {
-			display: none;
-		}
-
-		/* A static composition: rule, notes, rule; the words beneath as a small
-		   inscription. No interface: the Source disclosure gives way to the
-		   essay's own footnote, when the author has referred to one. */
+		/* A static composition: rule, notes, rule. The words and the source stay
+		   on screen; the citation, if the author gave one, prints with the
+		   article's notes. */
 		.shapenote {
-			margin: 2.25em auto 1.75em;
+			margin: 2em auto;
 		}
 
 		.shapenote::before {
@@ -239,17 +229,8 @@ const makers = [
 			filter: none;
 		}
 
-		.sn-words {
-			min-height: 0;
-			padding-top: 0.15rem;
-		}
-
-		.sn-lyric {
-			color: var(--muted-ink);
-			font-size: 8.5pt;
-		}
-
-		.sn-source {
+		.sn-words,
+		.sn-disclosure:not([open])::after {
 			display: none;
 		}
 	}
