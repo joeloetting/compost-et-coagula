@@ -1,7 +1,7 @@
 // Checks the production build in dist/ after `astro build`:
 //   1. every internal link and asset reference resolves to a built file, and
 //      includes the configured base path;
-//   2. no draft article appears anywhere: no page, no RSS item, no sitemap entry;
+//   2. no draft article or note appears anywhere: no page, no RSS item, no sitemap entry;
 //   3. no published page quotes a synthetic shape-note fixture as music.
 // Run with `npm run check:dist`. Exits non-zero on any problem.
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
@@ -9,7 +9,9 @@ import { join, relative } from 'node:path';
 
 const BASE = '/compost-et-coagula/';
 const dist = new URL('../dist/', import.meta.url).pathname;
-const content = new URL('../src/content/writing/', import.meta.url).pathname;
+const content = new URL('../src/content/', import.meta.url).pathname;
+// Collections with drafts; each is published under a URL folder of the same name.
+const draftCollections = ['writing', 'notes'];
 const problems = [];
 
 function walk(dir) {
@@ -36,13 +38,14 @@ for (const file of htmlFiles) {
 }
 
 // 2. Drafts
-const drafts = walk(content)
+const drafts = draftCollections
+	.flatMap((collection) => walk(join(content, collection)))
 	.filter((file) => /\.mdx?$/.test(file))
 	.filter((file) => /^draft:\s*true\s*$/m.test(readFileSync(file, 'utf8').split(/^---$/m)[1] ?? ''))
 	.map((file) => relative(content, file).replace(/\.mdx?$/, '').replace(/\/index$/, ''));
 const feeds = ['rss.xml', 'sitemap-0.xml'].filter((name) => existsSync(join(dist, name)));
 for (const slug of drafts) {
-	const path = `writing/${slug}/`;
+	const path = `${slug}/`;
 	if (existsSync(join(dist, path))) problems.push(`draft page was built: ${path}`);
 	for (const file of [...htmlFiles, ...feeds.map((name) => join(dist, name))]) {
 		if (readFileSync(file, 'utf8').includes(path)) problems.push(`${relative(dist, file)}: mentions draft ${path}`);

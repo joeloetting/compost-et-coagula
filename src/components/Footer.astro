@@ -1,6 +1,10 @@
 ---
 import { SITE_TITLE } from '../consts';
+import { getNotes } from '../utils/content';
 import { url } from '../utils/urls';
+
+// Linked only once a note is published, so the link never leads to an empty list.
+const hasNotes = (await getNotes()).length > 0;
 ---
 
 <footer class="site-footer">
@@ -9,6 +13,7 @@ import { url } from '../utils/urls';
 		<ul>
 			<li><a href={url('/writing/')}>Writing</a></li>
 			<li><a href={url('/projects/')}>Projects</a></li>
+			{hasNotes && <li><a href={url('/notes/')}>Notes</a></li>}
 			<li><a href={url('/about/')}>About</a></li>
 			<li><a href={url('/search/')}>Search</a></li>
 			<li><a href={url('/rss.xml')}>RSS</a></li>

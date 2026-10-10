@@ -12,14 +12,24 @@
 //      plain text, so an article still reads correctly in those tools.
 //   3. resolve-references: gives each <FigureRef to="..."> the number of its
 //      figure, and each <Figure cite="..."> the text of its bibliography entry.
+//      In a footnote, a citation written as [smith-1909] or [smith-1909, 45]
+//      becomes a short note ("Smith, *Title*, 45") built from the entry and
+//      linked to it; src/plugins/apparatus.mjs links the entry back.
 //
 // A reference to a figure or bibliography key that does not exist, or a figure
-// id used twice, stops the build with a message naming the article.
+// id used twice, stops the build with a message naming the article. So does a
+// figure without alt text. A figure in a published article with no credit or
+// source, or a source but no rights statement, is reported as a warning.
 
 const BIBLIOGRAPHY_HEADING = /^(bibliography|references|works cited)$/i;
 // A key starts with a lowercase letter or digit, so a bracketed editorial note
 // at the start of an entry, such as "[Anonymous]", is left alone.
 const BIBLIOGRAPHY_KEY = /^\[([a-z0-9][\w.:-]*)\]\s+/;
+// A citation in a footnote: a key, then optionally a comma and a locator.
+// Bracketed text that is not a key, such as [sic], is left alone; a key-like
+// word with a digit or hyphen that matches no entry stops the build.
+const CITATION = /\[([a-z0-9][\w.:-]*)(?:,\s*([^\]]+?))?\s*\]/g;
+const KEY_LIKE = /[\d-]/;
 
 /** @param {any} node @param {string} name */
 function attribute(node, name) {
@@ -53,6 +63,12 @@ function fail(/** @type {any} */ ctx, /** @type {string} */ message) {
 	throw new Error(`${file}: ${message}`);
 }
 
+/** A warning naming the article, for problems that should not stop the build. */
+function warn(/** @type {any} */ ctx, /** @type {string} */ message) {
+	const file = ctx.fileURL ? ctx.fileURL.pathname.replace(/^.*\/src\//, 'src/') : 'an article';
+	console.warn(`[warn] ${file}: ${message}`);
+}
+
 /** @param {any} ctx */
 function state(ctx) {
 	ctx.data.figures ??= { count: 0, ids: new Map() };
@@ -60,11 +76,28 @@ function state(ctx) {
 	return { figures: ctx.data.figures, bibliography: ctx.data.bibliography };
 }
 
+/**
+ * Alt text is required everywhere. In a published article, a numbered figure
+ * should also say who made it or where it comes from, and a figure taken from
+ * a source should state its rights, so it can be attributed and verified.
+ */
+function checkFigure(/** @type {any} */ node, /** @type {any} */ ctx) {
+	const id = stringAttribute(node, 'id', ctx);
+	const name = id ? `<Figure id="${id}">` : 'a <Figure> without an id';
+	if (!attribute(node, 'alt')) fail(ctx, `${name} needs alt="..." describing the image (alt="" only if it is purely decorative)`);
+	if (ctx.data.astro?.frontmatter?.draft === true || attribute(node, 'unnumbered')) return;
+	const sourced = ['source', 'sourceUrl', 'cite'].some((a) => attribute(node, a));
+	if (!sourced && !attribute(node, 'credit')) warn(ctx, `${name} has no credit or source; add credit="..." and source/sourceUrl/cite`);
+	else if (sourced && !attribute(node, 'license')) warn(ctx, `${name} has a source but no rights statement; add license="..." (e.g. "Public domain")`);
+}
+
 /** @type {import('satteri').MdastPluginInstance & { name: string }} */
 const numberFigures = {
 	name: 'number-figures',
 	mdxJsxFlowElement(node, ctx) {
-		if (node.name !== 'Figure' || attribute(node, 'unnumbered')) return;
+		if (node.name !== 'Figure') return;
+		checkFigure(node, ctx);
+		if (attribute(node, 'unnumbered')) return;
 		const { figures } = state(ctx);
 		const number = ++figures.count;
 		const id = stringAttribute(node, 'id', ctx);
@@ -94,10 +127,70 @@ const bibliographyKeys = {
 			if (!text || !match) continue;
 			const key = match[1];
 			if (bibliography.has(key)) fail(ctx, `two bibliography entries have the key [${key}]`);
-			bibliography.set(key, ctx.textContent(item).replace(BIBLIOGRAPHY_KEY, '').trim());
+			bibliography.set(key, { text: ctx.textContent(item).replace(BIBLIOGRAPHY_KEY, '').trim(), short: shortForm(first, match[0].length, ctx) });
 			ctx.replaceNode(text, { type: 'text', value: text.value.slice(match[0].length) });
 			ctx.setProperty(item, 'data', { hProperties: { id: `ref-${key}` } });
 		}
+	},
+};
+
+/**
+ * The short form of a bibliography entry for notes: the author's surname and a
+ * short title, e.g. "Morton, *Humankind*" from "Morton, Timothy. *Humankind:
+ * Solidarity with Nonhuman People*. London: Verso, 2017." Titles are the first
+ * italic text or the first quoted text. Undefined when no title is found; the
+ * note then shows the whole entry.
+ * @returns {{ author: string, title: string, italic: boolean } | undefined}
+ */
+function shortForm(/** @type {any} */ paragraph, /** @type {number} */ keyLength, /** @type {any} */ ctx) {
+	const lead = paragraph.children[0].value.slice(keyLength);
+	const author = /^([^,.]+)/.exec(lead)?.[1].trim();
+	if (!author) return undefined;
+	const closed = author.startsWith('[') && !author.includes(']') ? `${author}]` : author;
+	const emphasis = paragraph.children.find((/** @type {any} */ c) => c.type === 'emphasis');
+	const quoted = /[“"]([^”"]+?)[.,]?[”"]/.exec(ctx.textContent(paragraph));
+	if (emphasis) return { author: closed, title: ctx.textContent(emphasis).split(':')[0].trim(), italic: true };
+	if (quoted) return { author: closed, title: `“${quoted[1].split(':')[0].trim()}”`, italic: false };
+	return undefined;
+}
+
+/** Whether a node sits inside a footnote definition. */
+function inFootnote(/** @type {any} */ node, /** @type {any} */ ctx) {
+	for (let p = ctx.parent(node); p; p = ctx.parent(p)) if (p.type === 'footnoteDefinition') return true;
+	return false;
+}
+
+/** @type {import('satteri').MdastPluginInstance & { name: string }} */
+const resolveCitations = {
+	name: 'resolve-citations',
+	text(node, ctx) {
+		if (!node.value.includes('[') || !inFootnote(node, ctx)) return;
+		const { bibliography } = state(ctx);
+		/** @type {any[]} */
+		const parts = [];
+		let last = 0;
+		for (const match of node.value.matchAll(CITATION)) {
+			const [whole, key, locator] = match;
+			const entry = bibliography.get(key);
+			if (!entry) {
+				if (KEY_LIKE.test(key)) fail(ctx, `the citation [${key}] in a footnote does not match any bibliography entry starting with [${key}]`);
+				continue;
+			}
+			if (match.index > last) parts.push({ type: 'text', value: node.value.slice(last, match.index) });
+			const tail = locator ? `, ${locator.trim()}` : '';
+			const children = entry.short
+				? [
+						{ type: 'text', value: `${entry.short.author}, ` },
+						entry.short.italic ? { type: 'emphasis', children: [{ type: 'text', value: entry.short.title }] } : { type: 'text', value: entry.short.title },
+						...(tail ? [{ type: 'text', value: tail }] : []),
+					]
+				: [{ type: 'text', value: entry.text.replace(/\.$/, '') + tail }];
+			parts.push({ type: 'link', url: `#ref-${key}`, children, data: { hProperties: { className: ['citation'], dataCite: key } } });
+			last = match.index + whole.length;
+		}
+		if (!parts.length) return;
+		if (last < node.value.length) parts.push({ type: 'text', value: node.value.slice(last) });
+		ctx.replaceNode(node, parts);
 	},
 };
 
@@ -113,7 +206,7 @@ function resolve(node, ctx) {
 		const cite = stringAttribute(node, 'cite', ctx);
 		if (!cite) return;
 		if (!bibliography.has(cite)) fail(ctx, `<Figure cite="${cite}"> does not match any bibliography entry starting with [${cite}]`);
-		ctx.replaceNode(node, withAttributes(node, { citeText: bibliography.get(cite) }));
+		ctx.replaceNode(node, withAttributes(node, { citeText: bibliography.get(cite).text }));
 	}
 }
 
@@ -124,4 +217,4 @@ const resolveReferences = {
 	mdxJsxTextElement: resolve,
 };
 
-export const figurePlugins = [numberFigures, bibliographyKeys, resolveReferences];
+export const figurePlugins = [numberFigures, bibliographyKeys, resolveReferences, resolveCitations];

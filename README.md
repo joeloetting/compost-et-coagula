@@ -162,6 +162,28 @@ Write a heading named `## Bibliography`, `## References`, or `## Works Cited`, f
 - Surname, First. "Title of Article." *Journal* 12, no. 3 (Year): 45–67.
 ```
 
+### Citations
+
+Give a bibliography entry a key in brackets at its start (see **Bibliography keys** below), then cite it in a footnote by that key, with page numbers or another locator after a comma:
+
+```markdown
+The whole is less than the sum of its parts.[^morton]
+
+[^morton]: [morton-2017, 45–47]. Compare [turner-1969, chap. 3].
+
+## Bibliography
+
+- [morton-2017] Morton, Timothy. *Humankind: Solidarity with Nonhuman People*. London: Verso, 2017.
+- [turner-1969] Turner, Victor. *The Ritual Process: Structure and Anti-Structure*. Chicago: Aldine, 1969.
+```
+
+The note then reads *Morton, Humankind, 45–47. Compare Turner, The Ritual Process, chap. 3.*, each citation a link to its bibliography entry, and each entry ends with links back to the notes that cite it ("Cited in note 2"). The short form is the surname and the italic (or quoted) title up to any colon, which is Chicago's short-note style for an article that has a full bibliography.
+
+- The locator is kept exactly as written: `45`, `45–47`, `chap. 3`, `fol. 12r`.
+- A citation key that matches no entry stops the build, naming the article and the key. Bracketed words that are not keys, such as `[sic]`, are left alone.
+- Writing the whole citation by hand in a footnote still works; it just isn't linked.
+- In Zettlr or Pandoc a citation like `[morton-2017, 45]` stays plain, readable text.
+
 ### Tables and code
 
 Ordinary Markdown tables and fenced code blocks (with a language, e.g. ` ```ts `) work as expected. Tables are set in the booktabs style, with no vertical lines and a rule above, below, and under the header. Align a numeric column right (`|--:|`) and its figures line up. Wide tables and long code lines scroll sideways inside their own box on small screens.
@@ -220,13 +242,16 @@ This renders as **Figure 1.** followed by the caption, then a line reading *Draw
 - `credit` names who made the image (photographer, illustrator, cartographer).
 - `source` says where the image comes from. Link it with either `cite`, the key of an entry in the article's bibliography, or `sourceUrl`, for a source online. With `cite` alone, the source line shows the whole bibliography entry.
 - `license` states the copyright or license status, e.g. "Public domain" or "CC BY 4.0"; add `licenseUrl` to link it.
+- `date`, `medium`, `holder`, and `accession` describe the original when it matters, above all when an image is evidence: when it was made (`date="c. 1760"`), how (`medium="Woodcut"`), who holds it (`holder="Bibliothèque nationale de France"`), and under what number (`accession="Kh-34-4"`). They appear in the credit line, in that order. None is required.
+
+**What every figure needs.** `alt` is required, and the build stops without it. In a published article, a numbered figure should also have a `credit` or a source (`source`, `sourceUrl`, or `cite`), and a figure taken from a source should have a `license`; when one is missing, `npm run dev` and `npm run build` print a warning naming the figure. Drafts are not checked, so placeholders can stay until publication.
 - `fullSize` adds a "View full size" link to the original image file, for maps and photographs with detail too fine for the page. Give it a URL instead (`fullSize="https://…"`) to link to a larger copy elsewhere, such as an archive's scan.
 - `wide` lets the figure extend beyond the text column (up to about 1000px). Leave it off for ordinary figures.
 - `inset` sets a small figure (a sketch, a specimen) to the right with the text running beside it; with a margin it reaches halfway into the margin, and on phones it is centered. It occupies the margin beside it, so keep marginal notes away from the paragraphs it sits next to.
 - `unnumbered` leaves a decorative image out of the numbering.
 - SVG, PNG, JPEG, and WebP all work. Raster images are resized and converted to WebP automatically at several widths, never larger than the original; nothing is cropped.
 
-**Bibliography keys.** In a list directly under a heading named *Bibliography*, *References*, or *Works Cited*, start an entry with a key in brackets, like `[survey-1942]`. The key is removed from the page and the entry becomes a link target for `cite`. Keys start with a lowercase letter or digit and use letters, digits, `-`, `_`, `.`, and `:`. Don't write `[@survey-1942]`: in Pandoc and Zettlr that is a citation, which their citation processor would replace, so the build rejects it. A bare `[survey-1942]` stays plain text in those tools. This works in `.md` articles too.
+**Bibliography keys.** In a list directly under a heading named *Bibliography*, *References*, or *Works Cited*, start an entry with a key in brackets, like `[survey-1942]`. The key is removed from the page and the entry becomes a link target for `cite` and for citations in footnotes. Keys start with a lowercase letter or digit and use letters, digits, `-`, `_`, `.`, and `:`. Don't write `[@survey-1942]`: in Pandoc and Zettlr that is a citation, which their citation processor would replace, so the build rejects it. A bare `[survey-1942]` stays plain text in those tools. This works in `.md` articles too.
 
 **Mistakes stop the build.** A `FigureRef` or `cite` that matches nothing, or two figures with the same `id`, is reported with the article's file name when you run `npm run dev` or `npm run build`, so a broken reference cannot be published.
 
@@ -271,6 +296,30 @@ import ShapeNoteDivider from '../../components/ShapeNoteDivider.astro';
 
 `src/content/writing/the-printers-ornament.mdx` is a working example (a draft).
 
+## Notes
+
+A note is a short standing page about the publication itself, such as *On Shape Notes*, which explains the musical figures in the dividers. Notes are not essays: they have no date, do not appear in the writing list or the RSS feed, and are listed at `/notes/`. Each is one Markdown file in `src/content/notes/`, and the file name becomes the URL (`on-shape-notes.md` -> `/notes/on-shape-notes/`).
+
+```markdown
+---
+title: "On Shape Notes"
+description: "A note on the musical typography of this site."
+draft: true
+---
+
+The text of the note. The title is printed above it, so start any sections at `##`.
+```
+
+| Field | Required | Notes |
+|---|---|---|
+| `title` | yes | |
+| `description` | yes | Shown in the list of notes and in link previews. |
+| `order` | no | A number; notes are listed in this order, then by title. |
+| `links` | no | A list of `{ label, url }` shown under the note. |
+| `draft` | no | As for articles: shown with a "Draft" label in `npm run dev`, left out of production builds, and checked by `npm test`. |
+
+The footer links to the notes once at least one is published.
+
 ## Publishing
 
 1. Set `draft: false` (or remove the line).
@@ -299,6 +348,29 @@ Edit the file and push. For a change that matters to the argument, also:
 
 A "Revised" notice then appears under the dates at the top of the article, linking to an "Editorial note" at the end that gives the correction, dated by `updated:`. Small fixes such as typos need neither.
 
+### Later notes
+
+A later note comments on a passage of an essay after it has been published, without rewriting it, so the development of the argument stays visible. Write it as a footnote whose text starts with a type and the date you wrote it:
+
+```markdown
+Hope is perhaps the last and most seductive false god.[^hope]
+
+[^hope]: [? 2026-10-09] Is the hope refused here hope as such, or only the hope that defers justice?
+```
+
+| Symbol | Or write | Type | Use it for |
+|---|---|---|---|
+| `?` | `question` | Open question | Something unresolved, or needing more thought |
+| `↺` | `reconsideration` | Reconsideration | An interpretation you would now approach differently |
+| `+` | `addition` | Addition | Evidence or scholarship you found later |
+| `×` | `correction` | Correction | A factual error, corrected explicitly |
+
+- The passage gets a small red symbol. It links to the note in a **Later notes** list at the end of the article, which gives the type, the date, and a link back to the passage. On wide screens the note also sits in the margin beside the passage. In print it sits in the printed margin. In the RSS feed it appears once, in the list.
+- A **correction** is also announced at the top of the article ("Corrected October 9, 2026. Read the correction."), so it is found by readers who never open the notes. For a revision of the whole essay, use the `correction:` field instead (below).
+- The footnote label (`hope` above) becomes the note's permanent link, `#later-hope`. Only the passages you annotate get one.
+- If the passage is deleted along with its `[^hope]`, the build stops and says so rather than dropping the note or guessing where it belongs. A missing or malformed date also stops the build.
+- Later notes may cite sources like any footnote, e.g. `[+ 2026-11-02] See [smith-2025, 12].` Keep them to plain paragraphs.
+
 ### Printing
 
 Articles print as book pages: the navigation is dropped, marginal notes sit in the printed margin, web addresses are spelled out, and Chromium-based browsers add running heads (publication and title) and page numbers. Use the browser's Print or Save as PDF.
@@ -323,17 +395,18 @@ The author's name is set once, as `SITE_AUTHOR` in `src/consts.ts`. It appears i
 src/
   content/writing/     articles (Markdown)
   content/projects/    project pages (Markdown)
+  content/notes/       notes about the publication (Markdown)
   content.config.ts    metadata schemas
   consts.ts            site title, description, and author name
-  pages/               routes: home, writing, projects, about, search, RSS, 404
+  pages/               routes: home, writing, projects, notes, about, search, RSS, 404
   layouts/             page and article layouts
   components/          header, footer, article lists, Figure, FigureRef, ShapeNoteDivider
   data/shapeNotes/     musical phrases quoted by shape-note dividers
   lib/shapeNotes/      shape-note notation, SVG drawing, and their unit tests
-  plugins/figures.mjs  figure numbers, figure references, bibliography keys
+  plugins/figures.mjs  figure numbers, figure references, bibliography keys, citations
   styles/global.css    design tokens and typography
-  styles/edition.css   article margin, marginal notes, editorial note
-  plugins/apparatus.mjs  [margin] footnotes into marginal notes
+  styles/edition.css   article margin, marginal notes, later notes, editorial note
+  plugins/apparatus.mjs  [margin] footnotes into marginal notes; later notes
   styles/print.css     print layout
   utils/               content queries, URL, metadata, and feed helpers
   assets/fonts/        self-hosted fonts (SIL Open Font License)

@@ -35,6 +35,10 @@ export async function feedHtml(article: Article, pageUrl: string): Promise<strin
 		nonTextTags: ['script', 'style', 'textarea', 'option', 'noscript', 'svg', 'template', 'button'],
 		allowedSchemes: ['http', 'https', 'mailto'],
 		transformTags: {
+			// The margin copy of a later note repeats the "Later notes" list; as a
+			// template (a non-text tag above) it is dropped with its contents.
+			span: (tagName, attribs) =>
+				/\blater-margin\b/.test(attribs.class ?? '') ? { tagName: 'template', attribs: {} } : { tagName, attribs },
 			a: (tagName, attribs) => ({
 				tagName,
 				attribs: attribs.href ? { ...attribs, href: absolute(attribs.href) } : attribs,

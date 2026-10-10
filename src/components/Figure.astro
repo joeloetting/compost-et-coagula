@@ -19,6 +19,14 @@ interface Props {
 	unnumbered?: boolean;
 	/** Credit for the maker of the image, e.g. "Photograph by Jane Doe." */
 	credit?: string;
+	/** When the work was made, as it should read, e.g. "c. 1760" or "1942". */
+	date?: string;
+	/** Medium or technique, e.g. "Woodcut" or "Albumen print". */
+	medium?: string;
+	/** The institution that holds the original, e.g. "Bibliothèque nationale de France". */
+	holder?: string;
+	/** The holder's accession or call number, e.g. "Kh-34-4". */
+	accession?: string;
 	/** Where the image comes from: archive, publication, or dataset. */
 	source?: string;
 	/** Link for the source, when it is online. */
@@ -45,13 +53,14 @@ interface Props {
 	citeText?: string;
 }
 
-const { src, alt, id, credit, source, sourceUrl, cite, citeText, license, licenseUrl, fullSize, wide = false, inset = false, width, height, number } = Astro.props;
+const { src, alt, id, credit, date, medium, holder, accession, source, sourceUrl, cite, citeText, license, licenseUrl, fullSize, wide = false, inset = false, width, height, number } = Astro.props;
 const anchor = id ? figureAnchor(id) : undefined;
 const original = typeof src === 'string' ? (src.startsWith('/') ? url(src) : src) : src.src;
 const fullSizeHref = fullSize === true ? original : fullSize || undefined;
 const sourceText = source ?? citeText;
 const sourceHref = cite ? `#ref-${cite}` : sourceUrl;
-const hasAttribution = Boolean(credit || sourceText || license || fullSizeHref);
+const holding = [holder, accession].filter(Boolean).join(', ');
+const hasAttribution = Boolean(credit || date || medium || holding || sourceText || license || fullSizeHref);
 // Responsive widths for raster images, never larger than the original, which is
 // also the most a raster image is displayed at, so small images are not blurred.
 const widths = typeof src === 'string' ? [] : [640, 1000, 1600, 2000].filter((w) => w < src.width).concat(src.width);
@@ -86,6 +95,9 @@ const hasDescription = Astro.slots.has('description');
 					hasAttribution && (
 						<p class="attribution">
 							{credit && <span>{credit}</span>}
+							{date && <span>{date}</span>}
+							{medium && <span>{medium}</span>}
+							{holding && <span>{holding}</span>}
 							{sourceText && (
 								<span>
 									Source: {sourceHref ? <a href={sourceHref}>{sourceText}</a> : sourceText}
