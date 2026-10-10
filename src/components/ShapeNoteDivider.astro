@@ -55,7 +55,7 @@ const makers = [
 			<span class="sr-only">{label}. Words and source</span>
 		</summary>
 		<div class="sn-words">
-			<p class="sn-lyric" lang="en">{phrase.lyric}</p>
+			<p class="sn-lyric"><span lang="en">{phrase.lyric}</span>{Astro.slots.has('default') && <slot />}</p>
 			<details class="sn-source">
 				<summary>Source</summary>
 				<p>
@@ -215,6 +215,41 @@ const makers = [
 		}
 
 		.sn-disclosure:not([open])::after {
+			display: none;
+		}
+
+		/* A static composition: rule, notes, rule; the words beneath as a small
+		   inscription. No interface: the Source disclosure gives way to the
+		   essay's own footnote, when the author has referred to one. */
+		.shapenote {
+			margin: 2.25em auto 1.75em;
+		}
+
+		.shapenote::before {
+			border-top: 0.5pt solid #9a9a94;
+		}
+
+		.sn-phrase {
+			padding-inline: 0.625rem;
+			cursor: auto;
+		}
+
+		/* At about 1.8 mm a notehead needs its clean outline more than ink texture. */
+		.sn-phrase :global(.sn-svg g) {
+			filter: none;
+		}
+
+		.sn-words {
+			min-height: 0;
+			padding-top: 0.15rem;
+		}
+
+		.sn-lyric {
+			color: var(--muted-ink);
+			font-size: 8.5pt;
+		}
+
+		.sn-source {
 			display: none;
 		}
 	}

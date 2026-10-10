@@ -242,7 +242,17 @@ import ShapeNoteDivider from '../../components/ShapeNoteDivider.astro';
 <ShapeNoteDivider ref="idumea-opening" />
 ```
 
-`ref` is the id of a phrase in `src/data/shapeNotes/phrases.yaml`. Each phrase records its notes once; shapes, spacing, and the drawing are worked out from them:
+`ref` is the id of a phrase in `src/data/shapeNotes/phrases.yaml`. To cite the music in the article's notes, put an ordinary footnote reference inside the divider; its number follows the words, and in print it replaces the divider's own "Source" link:
+
+```mdx
+<ShapeNoteDivider ref="idumea-opening">[^idumea]</ShapeNoteDivider>
+
+[^idumea]: Idumea, tenor. Tune attributed to Ananias Davisson; words by Isaac Watts. *Tunebook*, edition (year), page.
+```
+
+In print the divider is static: the rule, the notes without ink texture, and the words in small italic.
+
+Each phrase records its notes once; shapes, spacing, and the drawing are worked out from them:
 
 ```yaml
 - id: idumea-opening
