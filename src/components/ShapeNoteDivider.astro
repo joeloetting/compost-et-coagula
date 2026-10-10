@@ -55,7 +55,7 @@ const makers = [
 			<span class="sr-only">{label}. Words and source</span>
 		</summary>
 		<div class="sn-words">
-			<p class="sn-lyric" lang="en">{phrase.lyric}</p>
+			<p class="sn-lyric"><span lang="en">{phrase.lyric}</span>{Astro.slots.has('default') && <slot />}</p>
 			<details class="sn-source">
 				<summary>Source</summary>
 				<p>
@@ -208,12 +208,28 @@ const makers = [
 			opacity: 1 !important;
 		}
 
-		/* Print the words: closed disclosures are opened where the browser allows it. */
-		.sn-disclosure::details-content {
-			content-visibility: visible;
-			display: block;
+		/* A static composition: rule, notes, rule. The words and the source stay
+		   on screen; the citation, if the author gave one, prints with the
+		   article's notes. */
+		.shapenote {
+			margin: 2em auto;
 		}
 
+		.shapenote::before {
+			border-top: 0.5pt solid #9a9a94;
+		}
+
+		.sn-phrase {
+			padding-inline: 0.625rem;
+			cursor: auto;
+		}
+
+		/* At about 1.8 mm a notehead needs its clean outline more than ink texture. */
+		.sn-phrase :global(.sn-svg g) {
+			filter: none;
+		}
+
+		.sn-words,
 		.sn-disclosure:not([open])::after {
 			display: none;
 		}
