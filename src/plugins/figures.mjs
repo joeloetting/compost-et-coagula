@@ -30,7 +30,9 @@
 // figure without alt text. A figure in a published article with no credit or
 // source, or a source but no rights statement, is reported as a warning.
 
+import { readFileSync } from 'node:fs';
 import { decode, library } from './bibtex.mjs';
+import { where } from './where.mjs';
 
 const BIBLIOGRAPHY_HEADING = /^(bibliography|references|works cited)$/i;
 // A key starts with a lowercase letter or digit, so a bracketed editorial note
@@ -57,7 +59,7 @@ function attribute(node, name) {
 function stringAttribute(/** @type {any} */ node, /** @type {string} */ name, /** @type {any} */ ctx) {
 	const attr = attribute(node, name);
 	if (!attr || attr.value == null) return undefined;
-	if (typeof attr.value !== 'string') fail(ctx, `<${node.name} ${name}={...}> must be a plain string, e.g. ${name}="map"`);
+	if (typeof attr.value !== 'string') fail(ctx, `<${node.name} ${name}={...}> must be a plain string, e.g. ${name}="map"`, node);
 	return attr.value;
 }
 
@@ -75,9 +77,8 @@ function withAttributes(/** @type {any} */ node, /** @type {Record<string, strin
 }
 
 /** @returns {never} */
-function fail(/** @type {any} */ ctx, /** @type {string} */ message) {
-	const file = ctx.fileURL ? ctx.fileURL.pathname.replace(/^.*\/src\//, 'src/') : 'an article';
-	throw new Error(`${file}: ${message}`);
+function fail(/** @type {any} */ ctx, /** @type {string} */ message, /** @type {any} */ node = undefined) {
+	throw new Error(`${where(ctx, node)}: ${message}`);
 }
 
 /** A warning naming the article, for problems that should not stop the build. */
@@ -102,7 +103,7 @@ function state(ctx) {
 function checkFigure(/** @type {any} */ node, /** @type {any} */ ctx) {
 	const id = stringAttribute(node, 'id', ctx);
 	const name = id ? `<Figure id="${id}">` : 'a <Figure> without an id';
-	if (!attribute(node, 'alt')) fail(ctx, `${name} needs alt="..." describing the image (alt="" only if it is purely decorative)`);
+	if (!attribute(node, 'alt')) fail(ctx, `${name} needs alt="..." describing the image (alt="" only if it is purely decorative)`, node);
 	if (ctx.data.astro?.frontmatter?.draft === true || attribute(node, 'unnumbered')) return;
 	const sourced = ['source', 'sourceUrl', 'cite'].some((a) => attribute(node, a));
 	if (!sourced && !attribute(node, 'credit')) warn(ctx, `${name} has no credit or source; add credit="..." and source/sourceUrl/cite`);
@@ -112,6 +113,7 @@ function checkFigure(/** @type {any} */ node, /** @type {any} */ ctx) {
 /** @type {import('satteri').MdastPluginInstance & { name: string }} */
 const numberFigures = {
 	name: 'number-figures',
+	options: { position: true },
 	mdxJsxFlowElement(node, ctx) {
 		if (node.name !== 'Figure') return;
 		checkFigure(node, ctx);
@@ -120,7 +122,7 @@ const numberFigures = {
 		const number = ++figures.count;
 		const id = stringAttribute(node, 'id', ctx);
 		if (id) {
-			if (figures.ids.has(id)) fail(ctx, `two figures have id="${id}"`);
+			if (figures.ids.has(id)) fail(ctx, `two figures have id="${id}"`, node);
 			figures.ids.set(id, number);
 		}
 		ctx.replaceNode(node, withAttributes(node, { number: String(number) }));
@@ -130,6 +132,7 @@ const numberFigures = {
 /** @type {import('satteri').MdastPluginInstance & { name: string }} */
 const bibliographyKeys = {
 	name: 'bibliography-keys',
+	options: { position: true },
 	list(node, ctx) {
 		const parent = ctx.parent(node);
 		const index = ctx.indexOf(node);
@@ -140,11 +143,11 @@ const bibliographyKeys = {
 			const first = item.children[0];
 			const text = first?.type === 'paragraph' ? first.children[0] : undefined;
 			if (text?.type === 'text' && text.value.startsWith('[@'))
-				fail(ctx, `bibliography keys are written without "@", e.g. [smith-1909], so Pandoc does not read them as citations: ${text.value.split(']')[0]}]`);
+				fail(ctx, `bibliography keys are written without "@", e.g. [smith-1909], so Pandoc does not read them as citations: ${text.value.split(']')[0]}]`, item);
 			const match = text?.type === 'text' ? BIBLIOGRAPHY_KEY.exec(text.value) : null;
 			if (!text || !match) continue;
 			const key = match[1];
-			if (bibliography.has(key)) fail(ctx, `two bibliography entries have the key [${key}]`);
+			if (bibliography.has(key)) fail(ctx, `two bibliography entries have the key [${key}]`, item);
 			bibliography.set(key, { text: ctx.textContent(item).replace(BIBLIOGRAPHY_KEY, '').trim(), short: shortForm(first, match[0].length, ctx) });
 			ctx.replaceNode(text, { type: 'text', value: text.value.slice(match[0].length) });
 			ctx.setProperty(item, 'data', { hProperties: { id: `ref-${key}` } });
@@ -227,7 +230,7 @@ function citationLink(/** @type {string} */ key, /** @type {any} */ entry, /** @
  * The items of a Pandoc citation, or undefined when the brackets hold
  * something else. Stops the build on a key found nowhere.
  */
-function pandocCitation(/** @type {string} */ inner, /** @type {string} */ whole, /** @type {any} */ ctx, end = '') {
+function pandocCitation(/** @type {string} */ inner, /** @type {string} */ whole, /** @type {any} */ ctx, end = '', /** @type {any} */ at = undefined) {
 	const items = inner.split(';').map((item) => PANDOC_ITEM.exec(item));
 	if (items.some((item) => !item)) return undefined;
 	/** @type {any[]} */
@@ -236,7 +239,7 @@ function pandocCitation(/** @type {string} */ inner, /** @type {string} */ whole
 		const [, prefix, key, locator] = /** @type {RegExpExecArray} */ (match);
 		const entry = lookup(key, ctx);
 		if (!entry) {
-			fail(ctx, `the citation ${whole} names @${key}, which is in neither the article's bibliography nor a .bib file in src/data/. Check the key, or export it again from the library.`);
+			fail(ctx, `the citation ${whole} names @${key}, which is in neither the article's bibliography nor a .bib file in src/data/. Check the key, or export it again from the library.`, at);
 		}
 		if (i > 0) nodes.push({ type: 'text', value: '; ' });
 		if (prefix) nodes.push({ type: 'text', value: `${prefix} ` });
@@ -248,6 +251,7 @@ function pandocCitation(/** @type {string} */ inner, /** @type {string} */ whole
 /** @type {import('satteri').MdastPluginInstance & { name: string }} */
 const resolveCitations = {
 	name: 'resolve-citations',
+	options: { position: true },
 	text(node, ctx) {
 		if (!node.value.includes('[')) return;
 		const footnote = inFootnote(node, ctx);
@@ -263,7 +267,7 @@ const resolveCitations = {
 			/** @type {any[] | undefined} */
 			let nodes;
 			if (inner.includes('@')) {
-				nodes = pandocCitation(inner, whole, ctx, footnote ? '' : '.');
+				nodes = pandocCitation(inner, whole, ctx, footnote ? '' : '.', node);
 				if (!nodes) continue;
 				if (!footnote) {
 					// In the text, a citation becomes a note of its own, as in Pandoc
@@ -283,7 +287,7 @@ const resolveCitations = {
 			} else {
 				const entry = state(ctx).bibliography.get(inner);
 				if (!entry) {
-					if (KEY_LIKE.test(inner)) fail(ctx, `the citation [${inner}] in a footnote does not match any bibliography entry starting with [${inner}]`);
+					if (KEY_LIKE.test(inner)) fail(ctx, `the citation [${inner}] in a footnote does not match any bibliography entry starting with [${inner}]`, node);
 					continue;
 				}
 				nodes = [citationLink(inner, entry, locator)];
@@ -354,19 +358,36 @@ function htmlToMdast(/** @type {string} */ html) {
 	return out;
 }
 
+const PHRASES = new URL('../data/shapeNotes/phrases.yaml', import.meta.url);
+
+/** The ids in phrases.yaml, read as written, so a divider's ref can be checked with its line. */
+function phraseIds() {
+	try {
+		return new Set([...readFileSync(PHRASES, 'utf8').matchAll(/^-\s+id:\s*['"]?([^'"\s#]+)/gm)].map((match) => match[1]));
+	} catch {
+		return undefined;
+	}
+}
+
 /** @param {any} node @param {any} ctx */
 function resolve(node, ctx) {
 	const { figures } = state(ctx);
-	if (node.name === 'FigureRef') {
+	if (node.name === 'ShapeNoteDivider') {
+		const ref = stringAttribute(node, 'ref', ctx);
+		const ids = phraseIds();
+		if (ids && (!ref || !ids.has(ref))) {
+			fail(ctx, `<ShapeNoteDivider ref="${ref ?? ''}"> names no phrase in src/data/shapeNotes/phrases.yaml. The ids there are: ${[...ids].join(', ')}`, node);
+		}
+	} else if (node.name === 'FigureRef') {
 		const to = stringAttribute(node, 'to', ctx);
-		if (!to) fail(ctx, '<FigureRef> needs to="..." naming a figure id');
-		if (!figures.ids.has(to)) fail(ctx, `<FigureRef to="${to}"> does not match any <Figure id="${to}">`);
+		if (!to) fail(ctx, '<FigureRef> needs to="..." naming a figure id', node);
+		if (!figures.ids.has(to)) fail(ctx, `<FigureRef to="${to}"> does not match any <Figure id="${to}">`, node);
 		ctx.replaceNode(node, withAttributes(node, { number: String(figures.ids.get(to)) }));
 	} else if (node.name === 'Figure') {
 		const cite = stringAttribute(node, 'cite', ctx);
 		if (!cite) return;
 		const entry = lookup(cite, ctx);
-		if (!entry) fail(ctx, `<Figure cite="${cite}"> does not match any bibliography entry starting with [${cite}], or any key in a .bib file in src/data/`);
+		if (!entry) fail(ctx, `<Figure cite="${cite}"> does not match any bibliography entry starting with [${cite}], or any key in a .bib file in src/data/`, node);
 		ctx.replaceNode(node, withAttributes(node, { citeText: entry.text }));
 	}
 }
@@ -374,6 +395,7 @@ function resolve(node, ctx) {
 /** @type {import('satteri').MdastPluginInstance & { name: string }} */
 const resolveReferences = {
 	name: 'resolve-references',
+	options: { position: true },
 	mdxJsxFlowElement: resolve,
 	mdxJsxTextElement: resolve,
 };

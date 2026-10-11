@@ -25,7 +25,7 @@ interface Props {
 const { ref, open = false, replay = false, still = false } = Astro.props;
 const entry = ref ? await getEntry('shapeNotes', ref) : undefined;
 if (!entry) {
-	throw new Error(`<ShapeNoteDivider ref="${ref ?? ''}" />: no phrase with that id in src/data/shapeNotes/phrases.yaml`);
+	throw new Error(`<ShapeNoteDivider ref="${ref ?? ''}" /> names no phrase in src/data/shapeNotes/phrases.yaml. Check the id against the phrases there.`);
 }
 const data = entry.data;
 const phrase = resolvePhrase({ id: entry.id, ...data });
