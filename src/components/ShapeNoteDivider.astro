@@ -28,11 +28,15 @@ const { svg, width, height, ruleY } = renderPhraseSvg(phrase);
 const shapes = phrase.events.map((event) => (event.kind === 'rest' ? 'rest' : event.syllable)).join(', ');
 const { source, tune, words } = data;
 const label = data.fixture ? `Shape notes: ${data.title}` : `Shape notes from ${data.title}`;
+const systemName = data.system === 'swan-seven' ? 'seven shapes' : 'four shapes';
+// "Staffless adaptation of the tenor, verse 3, of Old Hundred": the notes are
+// set without a staff, and both they and the words come from one cited voice.
+const adaptation = `Staffless adaptation of the ${source.voice}${source.verse ? `, verse ${source.verse},` : ''} of ${source.tune}, in ${systemName}`;
 const sourceLine = [
 	source.edition,
 	source.year,
 	source.page != null && (/^\d/.test(String(source.page)) ? `p. ${source.page}` : String(source.page)),
-	source.identifier,
+	source.locator,
 ]
 	.filter(Boolean)
 	.join(', ');
@@ -60,9 +64,9 @@ const makers = [
 				<summary>Source</summary>
 				<p>
 					{data.fixture && <strong>Demo, not for publication. </strong>}
-					{data.title}
-					{data.voice && ` (${data.voice})`}. {makers.length > 0 && <>{makers.join('; ')}. </>}
-					{source.url ? <a href={source.url}><cite>{source.title}</cite></a> : <cite>{source.title}</cite>}
+					{adaptation}. {makers.length > 0 && <>{makers.join('; ')}. </>}
+					{source.compiler && `${source.compiler}, `}
+					{source.url ? <a href={source.url}><cite>{source.tunebook}</cite></a> : <cite>{source.tunebook}</cite>}
 					{sourceLine && `, ${sourceLine}`}.
 					{data.editorial.length > 0 && <span class="sn-editorial"> {data.editorial.join(' ')}</span>}
 				</p>

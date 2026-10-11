@@ -264,45 +264,58 @@ A section divider can quote a short phrase of shape-note music: a fine rule with
 ```mdx
 import ShapeNoteDivider from '../../components/ShapeNoteDivider.astro';
 
-<ShapeNoteDivider ref="idumea-opening" />
+<ShapeNoteDivider ref="old-hundred-tenor" />
 ```
 
 `ref` is the id of a phrase in `src/data/shapeNotes/phrases.yaml`. To cite the music in the article's notes, put an ordinary footnote reference inside the divider; its number follows the words:
 
 ```mdx
-<ShapeNoteDivider ref="idumea-opening">[^idumea]</ShapeNoteDivider>
+<ShapeNoteDivider ref="old-hundred-tenor">[^old-hundred]</ShapeNoteDivider>
 
-[^idumea]: Idumea, tenor. Tune attributed to Ananias Davisson; words by Isaac Watts. *Tunebook*, edition (year), page.
+[^old-hundred]: Old Hundred, tenor, verse 3. Words by Isaac Watts. M. L. Swan, *The New Harp of Columbia* (Nashville, 1919), 11.
 ```
 
 In print the divider is only the rule and the notes, without ink texture; the words and the Source link stay on screen, and a footnote prints with the article's other notes.
 
-Each phrase records its notes once; shapes, spacing, and the drawing are worked out from them:
+Each phrase is a staffless adaptation of one cited voice, in the shape system of the book it comes from. It records its notes once; shapes, spacing, and the drawing are worked out from them:
 
 ```yaml
-- id: idumea-opening
-  title: Idumea
-  notation: four-shape          # seven-shape can be stored but is not drawn yet
-  key: { tonic: A, mode: minor }
-  meter: '3/2'
-  voice: tenor
-  notes:                        # pitches as printed; durations in quarter notes
-    - { pitch: A3, dur: 2, syl: And }
-    - { pitch: C4, dur: 1, syl: be- }   # "-" joins a syllable to the next one
-    - { pitch: B3, dur: 1 }             # no syllable: a slur from the note before
-    - { rest: 2 }
-  tune: { composer: …, year: … }
-  words: { author: …, year: … }
-  source: { title: …, edition: …, year: …, page: …, url: … }
+- id: old-hundred-tenor
+  title: Old Hundred
+  system: swan-seven             # or fasola-four; never converted between them
+  key: { tonic: A, mode: major }
+  meter: '2/2'
+  notes:                         # pitches as printed, with written note values
+    - { pitch: A4, dur: half, syl: "We'll", sourceHead: swan-do }
+    - { pitch: B4, dur: { value: quarter, dots: 1 }, syl: thank- }  # "-" joins a syllable to the next
+    - { pitch: C#5, dur: eighth, continues: true }                  # sung to the syllable before
+    - { rest: half }
+  spans:                         # slurs, ties, and beams as printed, counting notes from 1
+    - { kind: beam, from: 2, to: 3 }
+  tune: { composer: … }
+  words: { author: …, firstLine: … }
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 11
+    tune: Old Hundred
+    voice: tenor                 # the notes and the words both come from this voice
+    verse: 3
+    locator: first line
   editorial:
-    - Excerpt: the opening phrase of the tenor. Not transposed.
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
 ```
 
-- The shapes follow the four-shape (fasola) system from the key: fa triangle, sol oval, la square, mi diamond. An accidental does not change a shape.
-- A historical phrase must give a source URL or identifier, and its edition, year, and page when known; record any excerpting, transposition, or simplification under `editorial`. The tune, the words, the arrangement, and the printed edition are recorded separately because they often differ in maker and date.
-- Phrases marked `fixture: true` are demonstration data (synthetic notes, or a placeholder citation, as for Idumea at present). They can be used in drafts, but `npm test` fails if one appears on a published page.
-- A divider quotes a phrase of at most 16 notes and rests. A bad pitch, a duration that is not a note value, or a missing phrase stops the build with a message naming the phrase.
-- The staffless phrase is a quotation, not a full transcription: it keeps the order of pitches, their contour, the rhythm, and the words, but not exact pitch. The source is where the music can be read in full.
+- `system` names the tunebook's shape system. `fasola-four` is the four shapes of The Southern Harmony and The Sacred Harp (fa triangle, sol oval, la square, mi diamond, sung fa sol la fa sol la mi from the major tonic). `swan-seven` is the seven shapes of The New Harp of Columbia (do hourglass, ra half disc, mi diamond, fa right triangle, sol oval, la square, si isosceles triangle). In both, a minor tune's tonic is la. Shapes are read from each pitch's letter in the key, so an accidental does not change a shape.
+- Durations are written note values (`whole` to `thirty-second`), with `dots` and a `tuplet` such as `{ actual: 3, normal: 2 }`; the spacing follows the time they take. Whole and half notes are drawn open, shorter values filled. Tuplet numerals and holds are not drawn.
+- Every note gives its syllable (`syl`) or says `continues: true`; a missing syllable is an error, not an implied slur. Slurs, ties, and beams are recorded separately in `spans`, only where the source prints them; a beam is drawn in place of flags.
+- `sourceHead` records the head printed in the source. If the key gives a different head, the build stops and asks for the transcription to be checked.
+- A published phrase must give the tunebook, the tune, the voice, the verse, and a page (or a URL); record any excerpting, transposition, or simplification under `editorial`. The tune, the words, the arrangement, and the printed edition are recorded separately because they often differ in maker and date.
+- Phrases marked `fixture: true` are demonstration data (synthetic notes, or an incomplete or placeholder citation, as for Liverpool and Idumea at present). They can be used in drafts, but `npm test` fails if one appears on a published page.
+- A divider quotes a phrase of at most 16 notes and rests. A bad pitch, a duration that is not a written note value, or a missing phrase stops the build with a message naming the phrase.
+- The staffless phrase is an adaptation, not a full transcription: it keeps the order of pitches, their contour, the rhythm, and the words, but not exact pitch. The source is where the music can be read in full.
 
 `src/content/writing/the-printers-ornament.mdx` is a working example (a draft).
 

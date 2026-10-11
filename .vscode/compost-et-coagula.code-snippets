@@ -69,7 +69,7 @@
     "body": [
       "<ShapeNoteDivider ref=\"${1:phrase-id}\">[^${2:label}]</ShapeNoteDivider>",
       "",
-      "[^${2:label}]: ${3:Tune}, ${4:voice}. Tune by ${5:composer}; words by ${6:author}. *${7:Tunebook}*, ${8:edition} (${9:year}), ${10:page}.",
+      "[^${2:label}]: ${3:Tune}, ${4:voice}, verse ${5:1}. Tune by ${6:composer}; words by ${7:author}. ${8:Compiler}, *${9:Tunebook}*, ${10:edition} (${11:year}), ${12:page}.",
       "$0"
     ]
   },
