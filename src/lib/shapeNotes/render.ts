@@ -10,7 +10,7 @@
 // SVG filter roughens edges and drops out a few specks of ink. The same
 // phrase always produces byte-identical SVG.
 
-import type { ResolvedEvent, ResolvedNote, ResolvedPhrase, Shape } from './notation.ts';
+import type { HeadId, ResolvedEvent, ResolvedNote, ResolvedPhrase } from './notation.ts';
 
 /** Notehead size and spacing, in SVG units (1 unit = 1 CSS px at the default size). */
 const HEAD_W = 8.4;
@@ -61,48 +61,189 @@ const n = (value: number) => {
 	return Object.is(rounded, -0) ? '0' : String(rounded);
 };
 
-/** The outline of a notehead, centred on (0, 0), before irregularity. */
-function outline(shape: Shape, stemUp: boolean): Point[] {
-	const w = HEAD_W / 2;
-	const h = HEAD_H / 2;
-	switch (shape) {
-		case 'triangle':
-			// Fa: a right triangle on a flat base, its upright side towards the stem.
-			return stemUp
-				? [[-w, h], [w, h], [w, -h]]
-				: [[-w, -h], [-w, h], [w, h]];
-		case 'square':
-			return [[-w * 0.8, -h * 0.82], [w * 0.8, -h * 0.82], [w * 0.8, h * 0.82], [-w * 0.8, h * 0.82]];
-		case 'diamond':
-			return [[0, -h * 1.08], [w, 0], [0, h * 1.08], [-w, 0]];
-		case 'oval': {
-			// Sol: a slightly tilted oval, as in the round notes of the period.
-			const points: Point[] = [];
-			const tilt = -0.32;
-			for (let i = 0; i < 20; i++) {
-				const a = (i / 20) * Math.PI * 2;
-				const x = Math.cos(a) * w * 0.96;
-				const y = Math.sin(a) * h * 0.8;
-				points.push([x * Math.cos(tilt) - y * Math.sin(tilt), x * Math.sin(tilt) + y * Math.cos(tilt)]);
-			}
-			return points;
-		}
-	}
+type Stem = 'up' | 'down' | 'none';
+
+/**
+ * A notehead's geometry, centred on (0, 0), before irregularity.
+ * `counters` are the white of an open note when it needs its own shape (Swan
+ * do is two counters, one in each half of the hourglass); otherwise the
+ * counter is the outline scaled down by `counterScale`. `solid` parts are
+ * drawn in addition to the outline, such as the upright of Swan ra.
+ */
+interface HeadShape {
+	outline: Point[];
+	counters?: Point[][];
+	counterScale?: [number, number];
+	solid?: Point[][];
+	/** Where a stem meets the head, by direction. */
+	anchor: { up: Point; down: Point };
 }
 
-/** Where a stem meets the head: x offset from the centre, and y. */
-function stemAnchor(shape: Shape, stemUp: boolean): Point {
+function ellipse(rx: number, ry: number, tilt: number, count = 20): Point[] {
+	const points: Point[] = [];
+	for (let i = 0; i < count; i++) {
+		const a = (i / count) * Math.PI * 2;
+		const x = Math.cos(a) * rx;
+		const y = Math.sin(a) * ry;
+		points.push([x * Math.cos(tilt) - y * Math.sin(tilt), x * Math.sin(tilt) + y * Math.cos(tilt)]);
+	}
+	return points;
+}
+
+/** The leftmost and rightmost points of an outline: where a stem meets a round head. */
+function sides(points: Point[]): { left: Point; right: Point } {
+	let left = points[0];
+	let right = points[0];
+	for (const p of points) {
+		if (p[0] < left[0]) left = p;
+		if (p[0] > right[0]) right = p;
+	}
+	return { left, right };
+}
+
+/**
+ * Move each edge of a convex polygon inwards by its own distance, so a
+ * counter can have thick and thin sides like cast type.
+ */
+function inset(points: Point[], distance: (edge: number) => number): Point[] {
+	let area = 0;
+	points.forEach((p, i) => {
+		const q = points[(i + 1) % points.length];
+		area += p[0] * q[1] - q[0] * p[1];
+	});
+	const sign = area > 0 ? 1 : -1;
+	const lines = points.map((p, i) => {
+		const q = points[(i + 1) % points.length];
+		const length = Math.hypot(q[0] - p[0], q[1] - p[1]);
+		const nx = (-(q[1] - p[1]) / length) * sign;
+		const ny = ((q[0] - p[0]) / length) * sign;
+		return { nx, ny, c: nx * p[0] + ny * p[1] + distance(i) };
+	});
+	return lines.map((b, i) => {
+		const a = lines[(i - 1 + lines.length) % lines.length];
+		const det = a.nx * b.ny - a.ny * b.nx;
+		return [(a.c * b.ny - a.ny * b.c) / det, (a.nx * b.c - a.c * b.nx) / det];
+	});
+}
+
+/**
+ * Noteheads. The four fasola shapes are drawn after The Southern Harmony and
+ * The Sacred Harp; the seven Swan shapes after the scale on page 4 of The New
+ * Harp of Columbia and the tunes printed in it (Old Hundred, Albion), where
+ * the heads are cast type with heavy horizontals and hairline sides.
+ */
+function headShape(head: HeadId, stem: Stem): HeadShape {
 	const w = HEAD_W / 2;
 	const h = HEAD_H / 2;
-	switch (shape) {
-		case 'triangle':
-			return stemUp ? [w, -h] : [-w, h];
-		case 'square':
-			return stemUp ? [w * 0.8, -h * 0.5] : [-w * 0.8, h * 0.5];
-		case 'diamond':
-			return stemUp ? [w, 0] : [-w, 0];
-		case 'oval':
-			return stemUp ? [w * 0.86, -h * 0.3] : [-w * 0.86, h * 0.3];
+	const stemUp = stem === 'up';
+	switch (head) {
+		case 'fasola-fa':
+			// A right triangle on a flat base, its upright side towards the stem.
+			return {
+				outline: stemUp || stem === 'none' ? [[-w, h], [w, h], [w, -h]] : [[-w, -h], [-w, h], [w, h]],
+				counterScale: [0.5, 0.46],
+				anchor: { up: [w, -h], down: [-w, h] },
+			};
+		case 'fasola-la':
+			return {
+				outline: [[-w * 0.8, -h * 0.82], [w * 0.8, -h * 0.82], [w * 0.8, h * 0.82], [-w * 0.8, h * 0.82]],
+				anchor: { up: [w * 0.8, -h * 0.5], down: [-w * 0.8, h * 0.5] },
+			};
+		case 'fasola-mi':
+			return {
+				outline: [[0, -h * 1.08], [w, 0], [0, h * 1.08], [-w, 0]],
+				anchor: { up: [w, 0], down: [-w, 0] },
+			};
+		case 'fasola-sol':
+			// A slightly tilted oval, as in the round notes of the period.
+			return {
+				outline: ellipse(w * 0.96, h * 0.8, -0.32),
+				anchor: { up: [w * 0.86, -h * 0.3], down: [-w * 0.86, h * 0.3] },
+			};
+		case 'swan-do': {
+			// An hourglass: two triangles meeting point to point, closed by
+			// heavy bars at top and bottom. The stem leaves from the middle of a bar.
+			const a = w * 0.8;
+			const neck = 0.35;
+			const upper: Point[] = [[-a, -h], [a, -h], [0, 0]];
+			const lower: Point[] = [[a, h], [-a, h], [0, 0]];
+			const bar = 1.05;
+			const side = 0.62;
+			return {
+				outline: [[-a, -h], [a, -h], [neck, 0], [a, h], [-a, h], [-neck, 0]],
+				counters: [inset(upper, (i) => (i === 0 ? bar : side)), inset(lower, (i) => (i === 0 ? bar : side))],
+				anchor: { up: [0, -h], down: [0, h] },
+			};
+		}
+		case 'swan-ra': {
+			// A half disc whose flat side stands on the left as an upright; the
+			// stem continues the upright, up or down. The bowl is heaviest at the right.
+			const x0 = -2.5;
+			const rx = 5;
+			const ry = h * 0.95;
+			const bowl: Point[] = [];
+			const inner: Point[] = [];
+			const flat = 0.8;
+			for (let i = 0; i <= 12; i++) {
+				const t = -Math.PI / 2 + (i / 12) * Math.PI;
+				bowl.push([x0 + rx * Math.cos(t), ry * Math.sin(t)]);
+				inner.push([x0 + flat + (rx - flat - 1.5) * Math.cos(t), (ry - 0.7) * Math.sin(t)]);
+			}
+			const over = 0.7;
+			return {
+				outline: bowl,
+				counters: [inner],
+				solid: [[[x0 - 0.05, -ry - over], [x0 + flat, -ry - over], [x0 + flat, ry + over], [x0 - 0.05, ry + over]]],
+				anchor: { up: [x0 + 0.4, -ry], down: [x0 + 0.4, ry] },
+			};
+		}
+		case 'swan-mi': {
+			// A diamond leaning to the right, longer than it is tall.
+			const L: Point = [-4.4, 0.99];
+			const R: Point = [4.4, -0.99];
+			return {
+				outline: [L, [0.7, -3.1], R, [-0.7, 3.1]],
+				counterScale: [0.56, 0.4],
+				anchor: { up: R, down: L },
+			};
+		}
+		case 'swan-fa': {
+			// A right triangle: upright on the left, flat base, the long side
+			// falling to the right. The stem runs on from the upright.
+			const a = w * 0.9;
+			const b = h * 0.94;
+			return {
+				outline: [[-a, -b], [-a, b], [a, b]],
+				counterScale: [0.48, 0.44],
+				anchor: { up: [-a, -b], down: [-a, b] },
+			};
+		}
+		case 'swan-sol': {
+			// A long oval rising to the right.
+			const outline = ellipse(w * 1.02, h * 0.62, -0.38);
+			const { left, right } = sides(outline);
+			return { outline, counterScale: [0.62, 0.4], anchor: { up: right, down: left } };
+		}
+		case 'swan-la': {
+			// A square with heavy top and bottom and hairline sides.
+			const s = h * 0.88;
+			const square: Point[] = [[-s, -s], [s, -s], [s, s], [-s, s]];
+			return {
+				outline: square,
+				counters: [inset(square, (i) => (i % 2 === 0 ? 1.25 : 0.7))],
+				anchor: { up: [s, -s * 0.5], down: [-s, s * 0.5] },
+			};
+		}
+		case 'swan-si': {
+			// An isosceles triangle pointing away from its stem; with no stem it points up.
+			const a = w * 0.9;
+			const b = h * 0.86;
+			return {
+				outline: stemUp ? [[-a, -b], [a, -b], [0, b]] : [[0, -b], [a, b], [-a, b]],
+				counterScale: [0.5, 0.42],
+				anchor: { up: [0, -b], down: [0, b] },
+			};
+		}
 	}
 }
 
@@ -144,30 +285,42 @@ function path(points: Point[], dx: number, dy: number): string {
 	return `M${points.map(([x, y]) => `${n(x + dx)} ${n(y + dy)}`).join('L')}Z`;
 }
 
-function headPath(note: ResolvedNote, stemUp: boolean, x: number, y: number, rand: () => number): string {
-	const base = subdivide(outline(note.shape, stemUp), 3);
+/** The head's paths: the outline with any counters cut out (evenodd), then solid parts. */
+function headPaths(shape: HeadShape, open: boolean, x: number, y: number, rand: () => number): string[] {
+	const base = subdivide(shape.outline, 3);
 	const outer = soften(roughen(base, rand, 0.16), 0.14);
 	let d = path(outer, x, y);
-	if (note.glyph === 'whole' || note.glyph === 'half') {
-		// Open notes: an inner counter, a little irregular too, cut out with evenodd.
-		const sx = note.shape === 'triangle' ? 0.5 : 0.54;
-		const sy = note.shape === 'triangle' ? 0.46 : 0.46;
-		const cx = outer.reduce((s, p) => s + p[0], 0) / outer.length;
-		const cy = outer.reduce((s, p) => s + p[1], 0) / outer.length;
-		const inner = roughen(base, rand, 0.1).map(([px, py]): Point => [cx + (px - cx) * sx, cy + (py - cy) * sy]);
-		d += path(soften(inner, 0.2), x, y);
+	if (open) {
+		if (shape.counters) {
+			for (const counter of shape.counters) d += path(soften(roughen(subdivide(counter, 2), rand, 0.05), 0.2), x, y);
+		} else {
+			// The outline scaled down, a little irregular too.
+			const [sx, sy] = shape.counterScale ?? [0.54, 0.46];
+			const cx = outer.reduce((s, p) => s + p[0], 0) / outer.length;
+			const cy = outer.reduce((s, p) => s + p[1], 0) / outer.length;
+			const inner = roughen(base, rand, 0.1).map(([px, py]): Point => [cx + (px - cx) * sx, cy + (py - cy) * sy]);
+			d += path(soften(inner, 0.2), x, y);
+		}
 	}
-	return d;
+	return [d, ...(shape.solid ?? []).map((part) => path(roughen(part, rand, 0.06), x, y))];
 }
 
-/** Advance after an event, in units: grows with duration, but less than proportionally. */
-function advance(dur: number): number {
-	return 6.5 + 4.6 * Math.sqrt(dur);
+/** Advance after an event, in units: grows with elapsed time, but less than proportionally. */
+function advance(quarters: number): number {
+	return 6.5 + 4.6 * Math.sqrt(quarters);
 }
 
 interface Placed {
 	event: ResolvedEvent;
 	x: number;
+}
+
+/** A thin crescent from one point to another, bowed up (-1) or down (1). */
+function arc(x1: number, y1: number, x2: number, y2: number, dir: number): string {
+	const mx = (x1 + x2) / 2;
+	const my = (y1 + y2) / 2;
+	const lift = Math.min(3.2, 1.2 + (x2 - x1) * 0.08);
+	return `<path d="M${n(x1)} ${n(y1)}Q${n(mx)} ${n(my + dir * lift)} ${n(x2)} ${n(y2)}Q${n(mx)} ${n(my + dir * (lift - 0.9))} ${n(x1)} ${n(y1)}Z"/>`;
 }
 
 export function renderPhraseSvg(phrase: ResolvedPhrase, options: { filterId?: string } = {}): RenderedPhrase {
@@ -185,13 +338,14 @@ export function renderPhraseSvg(phrase: ResolvedPhrase, options: { filterId?: st
 	let x = 0;
 	for (const event of phrase.events) {
 		placed.push({ event, x });
-		x += advance(event.dur);
+		x += advance(event.dur.quarters);
 	}
 	const natural = placed.length ? placed[placed.length - 1].x : 0;
 	const available = MAX_WIDTH - HEAD_W - PAD * 2 - 3;
-	const tightest = Math.min(...phrase.events.slice(0, -1).map((e) => advance(e.dur)));
+	const tightest = Math.min(...phrase.events.slice(0, -1).map((e) => advance(e.dur.quarters)));
 	const scale = natural > available ? Math.max(available / natural, MIN_ADVANCE / tightest) : 1;
 	const left = PAD + HEAD_W / 2;
+	const xOf = (index: number) => left + placed[index].x * scale;
 
 	// Contour: the highest note sits STEM + PAD from the top, so a downward
 	// stem on a low note and an upward stem on a high note both fit.
@@ -200,43 +354,102 @@ export function renderPhraseSvg(phrase: ResolvedPhrase, options: { filterId?: st
 	const ruleY = (yOf(maxStep) + yOf(minStep)) / 2;
 	const height = yOf(minStep) + STEM + PAD;
 
+	// Stem directions: by contour, except that a beamed group shares one
+	// direction, and its stems end on the beam.
+	const stemUp = new Map<number, boolean>();
+	const beamEnd = new Map<number, number>();
+	const beams: string[] = [];
+	for (const event of notes) stemUp.set(event.index, event.step <= midStep);
+	for (const span of phrase.spans.filter((s) => s.kind === 'beam')) {
+		const group = notes.filter((e) => e.index >= span.from && e.index <= span.to);
+		const up = group.reduce((sum, e) => sum + e.step, 0) / group.length <= midStep;
+		const stemX = group.map((e) => xOf(e.index) + headShape(e.head, up ? 'up' : 'down').anchor[up ? 'up' : 'down'][0]);
+		const ends = group.map((e) => yOf(e.step) + (up ? -STEM : STEM));
+		const first = 0;
+		const last = group.length - 1;
+		const slope = Math.max(-0.2, Math.min(0.2, (ends[last] - ends[first]) / (stemX[last] - stemX[first] || 1)));
+		// Shift the beam so that no stem is shorter than three quarters of a full stem.
+		let shift = 0;
+		group.forEach((e, i) => {
+			const lineY = ends[first] + slope * (stemX[i] - stemX[first]);
+			const shortest = yOf(e.step) + (up ? -STEM * 0.75 : STEM * 0.75);
+			shift = up ? Math.min(shift, shortest - lineY) : Math.max(shift, shortest - lineY);
+		});
+		const beamY = (sx: number) => ends[first] + shift + slope * (sx - stemX[first]);
+		group.forEach((e, i) => {
+			stemUp.set(e.index, up);
+			beamEnd.set(e.index, beamY(stemX[i]));
+		});
+		const count = Math.min(...group.map((e) => e.dur.flags));
+		const x1 = stemX[first] - 0.4;
+		const x2 = stemX[last] + 0.4;
+		for (let b = 0; b < count; b++) {
+			const off = (up ? 1 : -1) * b * 2.4;
+			const t = up ? 1.5 : -1.5;
+			beams.push(
+				`<path d="M${n(x1)} ${n(beamY(x1) + off)}L${n(x2)} ${n(beamY(x2) + off)}L${n(x2)} ${n(beamY(x2) + off + t)}L${n(x1)} ${n(beamY(x1) + off + t)}Z"/>`,
+			);
+		}
+	}
+
 	const parts: string[] = [];
-	placed.forEach(({ event, x: px }, i) => {
-		const cx = left + px * scale;
+	placed.forEach(({ event }, i) => {
+		const cx = xOf(i);
 		const rand = random(hash(`${phrase.id}:${event.index}`));
 		const ink = 0.86 + rand() * 0.12;
 		let body = '';
 		if (event.kind === 'rest') {
-			body = restPath(event.glyph, cx, ruleY, rand);
+			body = restPath(event.dur.value, cx, ruleY, rand);
+			for (let d = 0; d < event.dur.dots; d++) body += `<circle cx="${n(cx + 4 + d * 2)}" cy="${n(ruleY - STEP / 2)}" r="0.85"/>`;
 		} else {
 			const cy = yOf(event.step);
-			const stemUp = event.step <= midStep;
-			body = `<path d="${headPath(event, stemUp, cx, cy, rand)}" fill-rule="evenodd"/>`;
-			if (event.glyph !== 'whole') {
-				const [ax, ay] = stemAnchor(event.shape, stemUp);
+			const up = stemUp.get(event.index) ?? true;
+			const stem: Stem = event.dur.stem ? (up ? 'up' : 'down') : 'none';
+			const shape = headShape(event.head, stem);
+			body = headPaths(shape, event.dur.open, cx, cy, rand)
+				.map((d) => `<path d="${d}" fill-rule="evenodd"/>`)
+				.join('');
+			if (event.dur.stem) {
+				const [ax, ay] = shape.anchor[up ? 'up' : 'down'];
 				const sw = 0.7 + rand() * 0.22;
-				const lean = (rand() - 0.5) * 0.2;
+				const beamed = beamEnd.get(event.index);
+				const lean = beamed === undefined ? (rand() - 0.5) * 0.2 : 0;
 				const x0 = cx + ax;
 				const y0 = cy + ay;
-				const y1 = stemUp ? cy - STEM : cy + STEM;
+				const y1 = beamed ?? (up ? cy - STEM : cy + STEM);
 				const half = sw / 2;
 				body += `<path d="M${n(x0 - half)} ${n(y0)}L${n(x0 + lean - half)} ${n(y1)}L${n(x0 + lean + half)} ${n(y1)}L${n(x0 + half)} ${n(y0)}Z"/>`;
-				const flags = event.glyph === 'eighth' ? 1 : event.glyph === 'sixteenth' ? 2 : 0;
+				const flags = beamed === undefined ? event.dur.flags : 0;
 				for (let f = 0; f < flags; f++) {
-					const fy = y1 + (stemUp ? f * 2.6 : -f * 2.6);
-					const dir = stemUp ? 1 : -1;
+					const fy = y1 + (up ? f * 2.6 : -f * 2.6);
+					const dir = up ? 1 : -1;
 					const fx = x0 + lean;
 					body += `<path d="M${n(fx)} ${n(fy)}C${n(fx + 1.4)} ${n(fy + dir * 2.4)} ${n(fx + 4.4)} ${n(fy + dir * 3.2)} ${n(fx + 3.4)} ${n(fy + dir * 6.4)}C${n(fx + 3.6)} ${n(fy + dir * 4)} ${n(fx + 1.6)} ${n(fy + dir * 3.2)} ${n(fx)} ${n(fy + dir * 2.4)}Z"/>`;
 				}
 			}
-			if (event.dotted) {
+			for (let d = 0; d < event.dur.dots; d++) {
 				// A dot sits in a space: raise it half a step when the note is on a line.
 				const onLine = event.step % 2 === 0;
-				body += `<circle cx="${n(cx + HEAD_W / 2 + 2.2)}" cy="${n(cy - (onLine ? STEP / 2 : 0))}" r="0.85"/>`;
+				body += `<circle cx="${n(cx + HEAD_W / 2 + 2.2 + d * 2)}" cy="${n(cy - (onLine ? STEP / 2 : 0))}" r="0.85"/>`;
 			}
 		}
 		parts.push(`<g class="sn-note" style="--i:${i}" fill-opacity="${n(ink)}">${body}</g>`);
 	});
+
+	// Slurs and ties, as transcribed: a thin arc on the side away from the stems.
+	const arcs: string[] = [];
+	for (const span of phrase.spans.filter((s) => s.kind !== 'beam')) {
+		const a = phrase.events[span.from];
+		const b = phrase.events[span.to];
+		if (a.kind !== 'note' || b.kind !== 'note') continue;
+		const below = stemUp.get(a.index) ?? true;
+		const dir = below ? 1 : -1;
+		const gap = HEAD_H / 2 + 1.2;
+		arcs.push(arc(xOf(span.from) + 1, yOf(a.step) + dir * gap, xOf(span.to) - 1, yOf(b.step) + dir * gap, dir));
+	}
+	if (beams.length || arcs.length) {
+		parts.push(`<g class="sn-note sn-spans" style="--i:${placed.length}">${beams.join('')}${arcs.join('')}</g>`);
+	}
 
 	const width = left + natural * scale + HEAD_W / 2 + PAD + 3;
 	const seed = hash(phrase.id) % 1000;
@@ -256,11 +469,11 @@ export function renderPhraseSvg(phrase: ResolvedPhrase, options: { filterId?: st
 }
 
 /** Rests, kept simple at this size: a block for whole and half, a stroke for shorter values. */
-function restPath(glyph: string, cx: number, y: number, rand: () => number): string {
+function restPath(value: string, cx: number, y: number, rand: () => number): string {
 	const j = (rand() - 0.5) * 0.2;
-	if (glyph === 'whole' || glyph === 'half') {
+	if (value === 'whole' || value === 'half') {
 		// The whole rest hangs below its line, the half rest sits on it.
-		const y0 = glyph === 'whole' ? y : y - 1.8;
+		const y0 = value === 'whole' ? y : y - 1.8;
 		return `<path d="M${n(cx - 2.6)} ${n(y0 + j)}L${n(cx + 2.6)} ${n(y0 - j)}L${n(cx + 2.6)} ${n(y0 + 1.8 - j)}L${n(cx - 2.6)} ${n(y0 + 1.8 + j)}Z"/>`;
 	}
 	// Quarter and shorter: a small slanted hook, the shape of the period's crotchet rest.
