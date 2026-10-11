@@ -52,6 +52,41 @@
     - Pitches as printed in the treble clef; tenors sing them an octave lower.
     - The hold over the last note is not drawn.
 
+- id: old-hundred-tenor-verse-1
+  title: Old Hundred
+  system: swan-seven
+  key: { tonic: A, mode: major } # three sharps; do on A
+  meter: '2/2'
+  # The same tenor notes as old-hundred-tenor, from the author's scan of page
+  # 11, sung to verse 1. The book prints verse 1 under the top staff and
+  # verse 3 under the tenor; every voice sings every verse to its own notes.
+  notes:
+    - { pitch: A4, dur: half, syl: Be-, sourceHead: swan-do }
+    - { pitch: A4, dur: half, syl: fore, sourceHead: swan-do }
+    - { pitch: G#4, dur: half, syl: Je-, sourceHead: swan-si }
+    - { pitch: F#4, dur: half, syl: ho-, sourceHead: swan-la }
+    - { pitch: E4, dur: half, syl: "vah's", sourceHead: swan-sol }
+    - { pitch: A4, dur: half, syl: aw-, sourceHead: swan-do }
+    - { pitch: B4, dur: half, syl: ful, sourceHead: swan-ra }
+    - { pitch: C#5, dur: half, syl: 'throne,', sourceHead: swan-mi }
+  tune: { composer: M. Luther (as printed) }
+  words: { author: "Isaac Watts (1719), altered by John Wesley (1737)", firstLine: "Before Jehovah's awful throne" }
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 11
+    tune: Old Hundred
+    voice: tenor
+    verse: 1
+    locator: first line
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - The words of verse 1 are printed under the top staff and set here to the tenor's notes.
+    - The hold over the last note is not drawn.
+    - "Before Jehovah's awful throne" is Wesley's alteration of Watts's second stanza, first printed in his Collection of Psalms and Hymns (Charlestown, 1737).
+
 - id: liverpool-tenor
   # Notes, words, and shapes are checked against the scan. The page number
   # below is a PLACEHOLDER for the demo, not read from the book, so the

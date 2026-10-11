@@ -1,0 +1,133 @@
+---
+// A notation key: the eight degrees of a major scale in one shape system, each
+// notehead drawn by the same code as the dividers, with its degree number and
+// syllable. It is a key to the shapes, not a quotation of a tune.
+import { resolvePhrase, type ShapeSystem } from '../lib/shapeNotes/notation';
+import { renderPhraseSvg } from '../lib/shapeNotes/render';
+
+interface Props {
+	system: ShapeSystem;
+	/** A heading for the key, e.g. "Seven shapes: The New Harp of Columbia". */
+	title: string;
+}
+
+const { system, title } = Astro.props;
+// C major, so the key needs no sharps or flats: degree 1 is C4, degree 8 is C5.
+const pitches = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5'];
+const degrees = pitches.map((pitch, i) => {
+	const phrase = resolvePhrase({
+		id: `scale-${system}-${i + 1}`,
+		title,
+		// Not a quotation, so it carries no citation of its own.
+		fixture: true,
+		system,
+		key: { tonic: 'C', mode: 'major' },
+		source: { tunebook: title, tune: 'scale', voice: 'scale' },
+		notes: [{ pitch, dur: 'whole', syl: 'x' }],
+	});
+	const note = phrase.events[0];
+	const syllable = note.kind === 'note' ? note.syllable : '';
+	return { degree: i + 1, syllable, ...renderPhraseSvg(phrase) };
+});
+---
+
+<figure class="shape-scale">
+	<figcaption class="shape-scale-title">{title}</figcaption>
+	<ol class="shape-scale-row">
+		{
+			degrees.map(({ degree, syllable, svg, width, height }) => (
+				<li style={`--w: ${width}; --h: ${height};`}>
+					<span class="shape-scale-degree">{degree}</span>
+					<span class="shape-scale-head" aria-hidden="true">
+						<Fragment set:html={svg} />
+					</span>
+					<span class="shape-scale-syllable">{syllable}</span>
+				</li>
+			))
+		}
+	</ol>
+	{Astro.slots.has('default') && <div class="shape-scale-note"><slot /></div>}
+</figure>
+
+<style>
+	.shape-scale {
+		margin: 1.25rem 0;
+	}
+
+	.shape-scale-title {
+		margin-bottom: 0.35rem;
+		font-family: var(--sans);
+		font-size: 0.75rem;
+		letter-spacing: 0.02em;
+		color: var(--muted-ink);
+	}
+
+	.shape-scale-row {
+		display: grid;
+		grid-template-columns: repeat(8, minmax(0, 1fr));
+		margin: 0;
+		padding: 0.5rem 0;
+		border-block: 1px solid color-mix(in srgb, var(--muted-ink) 35%, var(--paper));
+		list-style: none;
+	}
+
+	.shape-scale-row li {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.15rem;
+		margin: 0;
+		padding: 0;
+	}
+
+	.shape-scale-degree,
+	.shape-scale-syllable {
+		font-family: var(--sans);
+		font-size: 0.6875rem;
+		line-height: 1.2;
+		color: var(--muted-ink);
+	}
+
+	.shape-scale-syllable {
+		font-style: italic;
+		font-family: inherit;
+		font-size: 0.8125rem;
+		color: var(--ink);
+	}
+
+	.shape-scale-head {
+		display: block;
+		line-height: 0;
+		color: var(--ink);
+	}
+
+	/* Twice the divider's size, so each shape can be read on its own. */
+	.shape-scale-head :global(.sn-svg) {
+		display: block;
+		width: calc(var(--w) * 2px);
+		height: calc(var(--h) * 2px);
+		max-width: none;
+	}
+
+	.shape-scale-note {
+		margin-top: 0.4rem;
+		font-family: var(--sans);
+		font-size: 0.75rem;
+		line-height: 1.45;
+		color: var(--muted-ink);
+	}
+
+	.shape-scale-note :global(p) {
+		margin: 0;
+	}
+
+	@media print {
+		.shape-scale {
+			break-inside: avoid;
+		}
+
+		.shape-scale-head :global(.sn-svg g) {
+			filter: none;
+		}
+	}
+</style>

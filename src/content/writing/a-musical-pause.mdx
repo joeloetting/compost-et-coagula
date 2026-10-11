@@ -1,0 +1,113 @@
+---
+title: A Musical Pause
+subtitle: On the Shape-Note Dividers
+description: Why the section breaks on this site quote a line of shape-note music, told through one phrase of Old Hundred from The New Harp of Columbia.
+published: 2026-10-11
+type: essay
+topics:
+  - music
+draft: true
+---
+
+import Excursus from '../../components/Excursus.astro';
+import Figure from '../../components/Figure.astro';
+import FigureRef from '../../components/FigureRef.astro';
+import ShapeNoteDivider from '../../components/ShapeNoteDivider.astro';
+import ShapeScale from '../../components/ShapeScale.astro';
+import oldHundredPage from './a-musical-pause/old-hundred-p11.png';
+import oldHundredTenor from './a-musical-pause/old-hundred-tenor-line1.png';
+import swanScale from './a-musical-pause/swan-scale-p4.png';
+
+A paragraph ends. Before the next one begins there is a little white space, and in it a fine rule. Most of the time the eye passes over it without a thought, which is what a section break is for: it marks a turn in the argument without naming it. A heading would announce the turn. The space only lets it happen.
+
+On this site the rule is interrupted. At its centre sits a short row of small, unfamiliar shapes: hourglasses, a triangle, a square, a diamond. I wanted the interval between sections to have a little character, something that rewards a second look without asking for the first.
+
+<ShapeNoteDivider ref="old-hundred-tenor">[^verse-3]</ShapeNoteDivider>
+
+Those shapes are notes. They are the first line of the hymn tune Old Hundred, as the tenor sings it in *The New Harp of Columbia*, set without a staff. A reader who keeps going loses nothing. A reader who stops will find that the notes have words, and the words have a source.
+
+## Why this music
+
+Point at the notes, tab to them, or tap them, and the words open beneath: *We’ll crowd thy gates with thankful songs.* Here is the same divider, already open.
+
+<ShapeNoteDivider ref="old-hundred-tenor" open />
+
+Shape-note music holds together three things I care about: singing in company, religious language, and the printed book. The tunebooks were made for singing schools, where people who had never learned to read a staff were taught to sing in parts from the shapes alone. Their words are hymns and metrical psalms, old texts about praise, judgment, mortality, and grace. And the music survives because it was printed, cheaply and in quantity, by job printers whose worn type and uneven ink left their marks on every page.
+
+Those are also the materials of this site: writing done in public, a long argument with theological language, and some care for how a page is set. A shape-note phrase at a section break acknowledges that kinship. It is not an ornament borrowed from a tradition. It is a quotation, and it is treated like one.
+
+## Two books, two sets of shapes
+
+Two tunebooks stand behind the dividers. William Walker’s *The Southern Harmony*, first published in 1835, uses four shapes, and sings the major scale fa, sol, la, fa, sol, la, mi. M. L. Swan’s *The New Harp of Columbia*, first published in 1867, gives each degree of the scale its own shape and syllable: do, ra, mi, fa, sol, la, si. Swan’s book belongs to East Tennessee, where it is still sung at Old Harp singings, and it is the book this essay quotes.
+
+<ShapeScale system="swan-seven" title="Seven shapes: The New Harp of Columbia">
+  Drawn by this site and checked against the scale printed on page 4 of the 1919 printing (<FigureRef to="swan-scale" />).
+</ShapeScale>
+
+<ShapeScale system="fasola-four" title="Four shapes: The Southern Harmony">
+  Drawn by this site from the four-shape scale. It has not yet been checked against a page of *The Southern Harmony*; a scan of the book’s rudiments would let all four shapes be checked.
+</ShapeScale>
+
+<Figure id="swan-scale" src={swanScale} alt="A one-line staff from a printed music primer, headed Numbers of the Scale 1 to 8. Each degree has its notehead on the staff: an hourglass, a half disc on a staff line, a diamond, a right triangle, an oval, a rectangle, a triangle, and an hourglass again. Below are the syllables Do, Ra, Mi, Fa, Sol, La, Si, Do, with their pronunciations." source="M. L. Swan, The New Harp of Columbia (1919), 4" license="Public domain">
+  Swan’s own key to his seven shapes.
+</Figure>
+
+Each phrase is drawn in the shapes of the book it comes from and is never converted from one system to the other. The two systems name the same pitches differently, but that is not the only difference between books. When a tune appears in both, its harmony, rhythm, and voicing often differ as well, so a comparison of shapes alone would mislead. Keeping each source’s notation keeps the quotation honest.
+
+## From score to divider
+
+<Figure id="old-hundred" src={oldHundredPage} wide fullSize alt="A printed page of four-part music headed Old Hundred, L. M., M. Luther. Four staves are bracketed together, each with a key signature of three sharps and a time signature of two-two, written in shaped noteheads. A verse of the hymn is printed under each staff, numbered 1 to 4." source="M. L. Swan, The New Harp of Columbia (1919), 11" license="Public domain">
+  Old Hundred in *The New Harp of Columbia*. The tenor, third from the top, carries the melody, with verse 3 printed beneath it.
+</Figure>
+
+The divider begins from this page (<FigureRef to="old-hundred" />). The book prints Old Hundred in four parts, and, as was usual in these books, the melody is in the tenor, the third staff from the top. The divider quotes that voice’s first line: eight half notes, sung to the opening of verse 3.
+
+<Figure id="old-hundred-tenor" src={oldHundredTenor} alt="Detail of the tenor staff: a treble clef, three sharps, two-two time, and eight half notes in shaped heads, an hourglass, an hourglass, a triangle, a rectangle, an oval, an hourglass, a half disc on the middle line, and a diamond under a hold. Beneath: 3. We’ll crowd thy gates with thankful songs." source="M. L. Swan, The New Harp of Columbia (1919), 11" license="Public domain">
+  The quoted phrase: the tenor’s first line, verse 3.
+</Figure>
+
+<ShapeNoteDivider ref="old-hundred-tenor" open />
+
+Set side by side, the adaptation is plain to see. The divider keeps the notes in their order, each in the shape the book prints. It keeps the contour, so that a higher note sits higher, and the relative lengths, so that the spacing follows the rhythm. It keeps the words of the verse and the page they come from. It sets aside the staff, the clef, and the key signature, so the exact pitches cannot be read from it, along with the other three voices and the hold over the last note. The divider is a reminder of the music, not a substitute for it. The page is where the music can be read in full.
+
+## Printed form on a screen
+
+The divider is built from a few restrained choices. The rule is a single fine line, light enough to read as a pause rather than a wall. The notes are smaller than a lowercase letter, so they sit in the reading column like an ornament rather than a figure. Their outlines are slightly irregular, as if pressed from worn type, enough to recall a printed page without imitating damage. When a divider first scrolls into view its notes appear one after another, briefly, and then stay.
+
+<ShapeNoteDivider ref="old-hundred-tenor" replay />
+
+Each choice serves the reading on either side. A heavier rule would end a section too firmly; larger notes would ask to be read before the next paragraph; a longer animation would hold the eye where it should pass. If a device asks for reduced motion, the notes appear complete at once.
+
+## Words at the break
+
+Choosing a passage is an editorial act, and the same notes can carry different words. Here is the opening line of Old Hundred twice, under two verses of the hundredth psalm as Isaac Watts paraphrased it and John Wesley revised it.
+
+> The singing school met in whatever room would hold it: a church, a courthouse, a schoolhouse with the desks pushed back. What mattered was that people came, and that once they came they sang together.
+>
+> <ShapeNoteDivider ref="old-hundred-tenor" open />
+
+> Some arguments end in a kind of humility. The evidence runs out, and what is left is the size of the question.
+>
+> <ShapeNoteDivider ref="old-hundred-tenor-verse-1" open>[^verse-1]</ShapeNoteDivider>
+
+The first passage turns toward gathering, and verse 3 answers it: *We’ll crowd thy gates with thankful songs.* The second turns toward smallness, and verse 1 seems to answer it too: *Before Jehovah’s awful throne.* But the verse goes on to bid the nations bow “with sacred joy,” and *awful* means full of awe, not dread. The words do not simply confirm the prose. They ask whether humility and joy are as far apart as the paragraph assumed. A hymn is not a label for a mood, and the association is mine to make and to answer for.
+
+## A small, reusable practice
+
+I worried at the start that the motif could become a research project of its own. The boundary is practical. The catalog is short: a few passages, each transcribed from a page I can cite and checked note by note against the scan. Placing one takes a single line in an essay that names the passage. A few accurately transcribed passages, reused thoughtfully, are enough.
+
+Every divider carries its source, and the source goes with the essay into print. On paper the divider becomes only its rule and notes:
+
+<ShapeNoteDivider ref="old-hundred-tenor" still />
+
+The words and the citation move to the notes at the end of the essay, where a printed page keeps its sources.
+
+That is all the motif needs to do. A pause in the prose now has a musical source, and readers who are curious have another layer to examine: a line of a tune, the words it carried, and the page where both were printed.
+
+<Excursus title="How the dividers work" label="Optional note">
+  Each passage is recorded once, as the pitches, note values, and syllables printed in the source, with the page it comes from. The shapes are worked out from the key and each pitch, never drawn by hand, and the build stops if a computed shape disagrees with the one the book prints. The words sit in an ordinary disclosure, so they open by keyboard, touch, or pointer without any script, and the gradual reveal is the only effect that needs one.
+</Excursus>
+
+[^verse-3]: “We’ll crowd thy gates with thankful songs.” Old Hundred, tenor, verse 3, first line; words by Isaac Watts. M. L. Swan, *The New Harp of Columbia* (Nashville: Publishing House of the M. E. Church, South, 1919), 11. The book credits the tune to “M. Luther,” as many nineteenth-century books did; it is now usually traced to the Genevan Psalter.
+
+[^verse-1]: “Before Jehovah’s awful throne.” Old Hundred, tenor, first line, sung to verse 1, which the book prints under the top staff; words by Isaac Watts (1719), altered by John Wesley (1737). Swan, *The New Harp of Columbia* (1919), 11.
