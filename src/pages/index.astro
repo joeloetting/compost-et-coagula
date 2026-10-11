@@ -1,8 +1,7 @@
 ---
-import { getEntries } from 'astro:content';
 import { SITE_DESCRIPTION } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { type Article, getProjects, getWriting, projectPath, typeLabels, writingPath } from '../utils/content';
+import { type Article, articleProjects, getProjects, getWriting, projectPath, typeLabels, writingPath } from '../utils/content';
 import { url } from '../utils/urls';
 
 // The home page is the volume's table of contents: the most recent pieces, under
@@ -12,7 +11,7 @@ import { url } from '../utils/urls';
 const CONTENTS_LIMIT = 8;
 const writing = await getWriting();
 const items = await Promise.all(
-	writing.slice(0, CONTENTS_LIMIT).map(async (entry) => ({ entry, projects: await getEntries(entry.data.projects) })),
+	writing.slice(0, CONTENTS_LIMIT).map(async (entry) => ({ entry, projects: await articleProjects(entry) })),
 );
 const years = new Map<number, typeof items>();
 for (const item of items) {

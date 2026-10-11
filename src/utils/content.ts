@@ -1,4 +1,4 @@
-import { type CollectionEntry, getCollection, render } from 'astro:content';
+import { type CollectionEntry, getCollection, getEntries, render } from 'astro:content';
 import { SITE_AUTHOR } from '../consts';
 
 export type Article = CollectionEntry<'writing'>;
@@ -22,6 +22,18 @@ export async function getWriting(): Promise<Article[]> {
 export async function getWritingForProject(projectId: string): Promise<Article[]> {
 	const entries = await getWriting();
 	return entries.filter((entry) => entry.data.projects.some((project) => project.id === projectId));
+}
+
+/** The projects an article lists, stopping the build on a name that matches no project. */
+export async function articleProjects(article: Article): Promise<Project[]> {
+	const projects = await getEntries(article.data.projects);
+	const missing = article.data.projects.filter((_, i) => !projects[i]).map((project) => project.id);
+	if (missing.length) {
+		throw new Error(
+			`${article.filePath ?? article.id}: projects lists ${missing.map((id) => `"${id}"`).join(', ')}, but there is no such file in src/content/projects/. Check the spelling against the project file names.`,
+		);
+	}
+	return projects;
 }
 
 export async function getProjects(): Promise<Project[]> {

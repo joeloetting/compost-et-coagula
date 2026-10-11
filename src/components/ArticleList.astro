@@ -1,7 +1,6 @@
 ---
-import { getEntries } from 'astro:content';
 import FormattedDate from './FormattedDate.astro';
-import { type Article, projectPath, typeLabels, writingPath } from '../utils/content';
+import { type Article, articleProjects, projectPath, typeLabels, writingPath } from '../utils/content';
 import { url } from '../utils/urls';
 
 interface Props {
@@ -18,7 +17,7 @@ const Heading = `h${headingLevel}` as const;
 const items = await Promise.all(
 	entries.map(async (entry) => ({
 		entry,
-		projects: showProjects ? await getEntries(entry.data.projects) : [],
+		projects: showProjects ? await articleProjects(entry) : [],
 	})),
 );
 ---

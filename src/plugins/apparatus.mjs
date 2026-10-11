@@ -37,6 +37,8 @@
 // in footnotes (src/plugins/figures.mjs) are linked back from their
 // bibliography entries ("Cited in note 2").
 
+import { lineOf } from './where.mjs';
+
 const PREFIX = /^\s*\[(footnote|margin)(?::\s*([^\]]*?)\s*)?\]\s*/i;
 // Editorial marks, and the class each gives its note (see edition.css).
 const MARKS = new Map([
@@ -107,33 +109,37 @@ function unlinked(/** @type {any} */ node) {
  */
 export const footnoteTargets = {
 	name: 'footnote-targets',
+	options: { position: true },
 	before(root, ctx) {
 		/** @type {Set<string>} */
 		const referenced = new Set();
-		/** @type {{ label: string, later: boolean }[]} */
+		/** @type {{ label: string, later: boolean, line?: number }[]} */
 		const definitions = [];
-		/** @type {Set<string>} */
-		const unmatched = new Set();
+		/** @type {Map<string, number | undefined>} */
+		const unmatched = new Map();
 		const walk = (/** @type {any} */ node) => {
 			if (node.type === 'footnoteReference') referenced.add(node.identifier);
 			if (node.type === 'footnoteDefinition') {
 				const lead = node.children[0]?.children?.[0];
-				definitions.push({ label: node.identifier, later: lead?.type === 'text' && LATER.test(lead.value) });
+				definitions.push({ label: node.identifier, later: lead?.type === 'text' && LATER.test(lead.value), line: lineOf(ctx, node) });
 			}
-			if (node.type === 'text') for (const [, label] of node.value.matchAll(/\[\^([^\]\s]+)\]/g)) unmatched.add(label);
+			if (node.type === 'text')
+				for (const [, label] of node.value.matchAll(/\[\^([^\]\s]+)\]/g)) if (!unmatched.has(label)) unmatched.set(label, lineOf(ctx, node));
 			for (const child of node.children ?? []) walk(child);
 		};
 		walk(root);
 		const problems = [];
-		for (const label of unmatched) {
-			problems.push(`the text refers to [^${label}], but there is no footnote [^${label}]: … (check the spelling of both labels)`);
+		const at = (/** @type {number | undefined} */ line) => (line ? `line ${line}: ` : '');
+		for (const [label, line] of unmatched) {
+			problems.push(`${at(line)}the text refers to [^${label}], but there is no footnote [^${label}]: … (check the spelling of both labels)`);
 		}
-		for (const { label, later } of definitions) {
+		for (const { label, later, line } of definitions) {
 			if (referenced.has(label)) continue;
 			problems.push(
-				later
+				at(line) +
+				(later
 					? `the later note [^${label}] is no longer attached to any passage. Put [^${label}] back in the passage it comments on, or delete the note.`
-					: `the footnote [^${label}] is never referred to in the text, so it would be dropped. Put [^${label}] where it belongs, or delete the footnote.`,
+					: `the footnote [^${label}] is never referred to in the text, so it would be dropped. Put [^${label}] where it belongs, or delete the footnote.`),
 			);
 		}
 		if (problems.length) fail(ctx, problems.join('\n  '));
