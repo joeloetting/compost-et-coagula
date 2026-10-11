@@ -349,7 +349,7 @@ Each phrase is a staffless adaptation of one cited voice, in the shape system of
 
 ## Notes
 
-A note is a short standing page about the publication itself, such as *On Shape Notes*, which explains the musical figures in the dividers. Notes are not essays: they have no date, do not appear in the writing list or the RSS feed, and are listed at `/notes/`. Each is one Markdown file in `src/content/notes/`, and the file name becomes the URL (`on-shape-notes.md` -> `/notes/on-shape-notes/`).
+A note is a short standing page about the publication itself, such as *On Shape Notes*, which explains the musical figures in the dividers. Notes are not essays: they have no date, do not appear in the writing list or the RSS feed, and are listed at `/notes/`. Each is one Markdown file in `src/content/notes/`, and the file name becomes the URL (`on-shape-notes.mdx` -> `/notes/on-shape-notes/`). Use `.mdx`, as for an essay, when the note needs figures, dividers, or other components; images it imports from an essay's folder are reached with `../writing/…`.
 
 ```markdown
 ---
