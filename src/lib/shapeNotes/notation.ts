@@ -12,7 +12,7 @@
 // (two letters) above it.
 //
 // - fasola-four: the four shapes of The Southern Harmony (William Walker,
-//   1847) and The Sacred Harp. From the major tonic: fa sol la fa sol la mi.
+//   1854 edition) and The Sacred Harp. From the major tonic: fa sol la fa sol la mi.
 // - swan-seven: the seven shapes of The New Harp of Columbia (M. L. Swan;
 //   1919 printing). From the major tonic: do ra mi fa sol la si.
 

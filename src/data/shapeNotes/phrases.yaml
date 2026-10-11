@@ -116,8 +116,8 @@
   source:
     tunebook: The Southern Harmony, and Musical Companion
     compiler: William Walker
-    edition: new edition, thoroughly revised and much enlarged
-    year: 1847
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
     page: 23 # PLACEHOLDER: not the real page
     tune: Liverpool
     voice: tenor

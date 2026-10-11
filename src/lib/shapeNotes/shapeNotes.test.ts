@@ -247,7 +247,7 @@ describe('the verified phrases', () => {
 		assert.deepEqual(pitches.map((p) => headFor('swan-seven', swan(key, p))), printed);
 	});
 
-	it('Liverpool, tenor, verse 1 (The Southern Harmony, 1847): every head as printed', () => {
+	it('Liverpool, tenor, verse 1 (The Southern Harmony, 1854): every head as printed', () => {
 		const pitches = ['F4', 'F4', 'G4', 'A4', 'C5', 'D5', 'C5', 'A4', 'G4', 'F4'];
 		const printed = ['fa', 'fa', 'sol', 'la', 'sol', 'la', 'sol', 'la', 'sol', 'fa'].map((s) => `fasola-${s}`);
 		const key = { tonic: 'F', mode: 'major' } as const;
