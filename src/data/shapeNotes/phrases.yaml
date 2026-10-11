@@ -53,8 +53,9 @@
     - The hold over the last note is not drawn.
 
 - id: liverpool-tenor
-  # Notes, words, and shapes are checked against the scan; the page number
-  # in this edition is not known yet, so the phrase cannot be published.
+  # Notes, words, and shapes are checked against the scan. The page number
+  # below is a PLACEHOLDER for the demo, not read from the book, so the
+  # phrase stays a fixture and cannot be published until it is replaced.
   fixture: true
   title: Liverpool
   system: fasola-four
@@ -82,6 +83,7 @@
     compiler: William Walker
     edition: new edition, thoroughly revised and much enlarged
     year: 1847
+    page: 23 # PLACEHOLDER: not the real page
     tune: Liverpool
     voice: tenor
     verse: 1

@@ -313,7 +313,7 @@ Each phrase is a staffless adaptation of one cited voice, in the shape system of
 - Every note gives its syllable (`syl`) or says `continues: true`; a missing syllable is an error, not an implied slur. Slurs, ties, and beams are recorded separately in `spans`, only where the source prints them; a beam is drawn in place of flags.
 - `sourceHead` records the head printed in the source. If the key gives a different head, the build stops and asks for the transcription to be checked.
 - A published phrase must give the tunebook, the tune, the voice, the verse, and a page (or a URL); record any excerpting, transposition, or simplification under `editorial`. The tune, the words, the arrangement, and the printed edition are recorded separately because they often differ in maker and date.
-- Phrases marked `fixture: true` are demonstration data (synthetic notes, or an incomplete or placeholder citation, as for Liverpool and Idumea at present). They can be used in drafts, but `npm test` fails if one appears on a published page.
+- Phrases marked `fixture: true` are demonstration data (synthetic notes, or a placeholder citation, as for Liverpool's page and Idumea's book at present). They can be used in drafts, but `npm test` fails if one appears on a published page.
 - A divider quotes a phrase of at most 16 notes and rests. A bad pitch, a duration that is not a written note value, or a missing phrase stops the build with a message naming the phrase.
 - The staffless phrase is an adaptation, not a full transcription: it keeps the order of pitches, their contour, the rhythm, and the words, but not exact pitch. The source is where the music can be read in full.
 
