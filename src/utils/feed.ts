@@ -20,7 +20,7 @@ export async function feedHtml(article: Article, pageUrl: string): Promise<strin
 	const html = await container.renderToString(Content);
 	const absolute = (value: string) => new URL(value, pageUrl).href;
 
-	return sanitizeHtml(html, {
+	return sanitizeHtml(withoutScreenOnlyParts(html), {
 		allowedTags: [...sanitizeHtml.defaults.allowedTags, 'img', 'figure', 'figcaption', 'details', 'summary', 'del', 'ins'],
 		allowedAttributes: {
 			a: ['href', 'title', 'id'],
@@ -34,10 +34,6 @@ export async function feedHtml(article: Article, pageUrl: string): Promise<strin
 		nonTextTags: ['script', 'style', 'textarea', 'option', 'noscript', 'svg', 'template', 'button'],
 		allowedSchemes: ['http', 'https', 'mailto'],
 		transformTags: {
-			// The margin copy of a later note repeats the "Later notes" list; as a
-			// template (a non-text tag above) it is dropped with its contents.
-			span: (tagName, attribs) =>
-				/\blater-margin\b/.test(attribs.class ?? '') ? { tagName: 'template', attribs: {} } : { tagName, attribs },
 			a: (tagName, attribs) => ({
 				tagName,
 				attribs: attribs.href ? { ...attribs, href: absolute(attribs.href) } : attribs,
@@ -58,6 +54,35 @@ export async function feedHtml(article: Article, pageUrl: string): Promise<strin
 					}),
 				},
 			}),
+		},
+	});
+}
+
+/**
+ * Parts of the page that only make sense on screen, removed while their class
+ * names can still be read (the main pass below drops classes first). The
+ * margin copy of a later note repeats the "Later notes" list. A shape-note
+ * divider becomes a quotation of its words with their note number: the drawn
+ * notes, their screen-reader list of shapes, the source (which the note
+ * gives), and the replay button are dropped, and the disclosure around the
+ * words is unwrapped.
+ */
+function withoutScreenOnlyParts(html: string): string {
+	const classes = (attribs: Record<string, string>) => (attribs.class ?? '').split(/\s+/);
+	return sanitizeHtml(html, {
+		allowedTags: false,
+		allowedAttributes: false,
+		allowVulnerableTags: true,
+		nonTextTags: [],
+		exclusiveFilter: ({ tag, attribs }) => {
+			const names = classes(attribs);
+			if (['later-margin', 'sn-phrase', 'sn-source', 'sn-replay'].some((name) => names.includes(name))) return true;
+			if (tag === 'p' && names.includes('sr-only') && names.length === 1) return true;
+			if (names.includes('sn-disclosure') || names.includes('sn-words')) return 'excludeTag';
+			return false;
+		},
+		transformTags: {
+			div: (tagName, attribs) => (classes(attribs).includes('shapenote') ? { tagName: 'blockquote', attribs: {} } : { tagName, attribs }),
 		},
 	});
 }
