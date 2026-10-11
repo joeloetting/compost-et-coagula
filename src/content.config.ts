@@ -3,6 +3,26 @@ import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { citationProblems, HEAD_IDS, type HeadId } from './lib/shapeNotes/notation';
 
+/**
+ * A file loader that stops the build when its file cannot be read or parsed.
+ * Astro's own only logs the error and leaves the collection empty, so a stray
+ * quotation mark in the YAML would otherwise remove every divider without a failure.
+ */
+function strictFile(fileName: string): ReturnType<typeof file> {
+	const loader = file(fileName);
+	return {
+		...loader,
+		load: async (context) => {
+			await loader.load(context);
+			if (context.store.keys().length === 0) {
+				throw new Error(
+					`${fileName} could not be read, or it has no entries. Check its YAML syntax; for example, a line that begins with a quoted phrase and goes on after it must be quoted as a whole.`,
+				);
+			}
+		},
+	};
+}
+
 // Treat an empty YAML value (`updated:`) the same as an omitted one.
 const optionalDate = z.coerce
 	.date()
@@ -74,7 +94,7 @@ const writtenDuration = z.union([
 	}),
 ]);
 const shapeNotes = defineCollection({
-	loader: file('src/data/shapeNotes/phrases.yaml'),
+	loader: strictFile('src/data/shapeNotes/phrases.yaml'),
 	schema: z
 		.object({
 			title: z.string().trim().min(1),
