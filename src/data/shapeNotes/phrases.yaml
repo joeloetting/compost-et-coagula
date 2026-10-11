@@ -70,7 +70,7 @@
     - { pitch: B4, dur: half, syl: ful, sourceHead: swan-ra }
     - { pitch: C#5, dur: half, syl: 'throne,', sourceHead: swan-mi }
   tune: { composer: M. Luther (as printed) }
-  words: { author: Isaac Watts, firstLine: "Before Jehovah's awful throne" }
+  words: { author: "Isaac Watts (1719), altered by John Wesley (1737)", firstLine: "Before Jehovah's awful throne" }
   source:
     tunebook: The New Harp of Columbia
     compiler: M. L. Swan
@@ -85,6 +85,7 @@
     - Pitches as printed in the treble clef; tenors sing them an octave lower.
     - The words of verse 1 are printed under the top staff and set here to the tenor's notes.
     - The hold over the last note is not drawn.
+    - "Before Jehovah's awful throne" is Wesley's alteration of Watts's second stanza, first printed in his Collection of Psalms and Hymns (Charlestown, 1737).
 
 - id: liverpool-tenor
   # Notes, words, and shapes are checked against the scan. The page number
