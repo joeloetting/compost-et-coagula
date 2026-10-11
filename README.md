@@ -277,6 +277,8 @@ import ShapeNoteDivider from '../../components/ShapeNoteDivider.astro';
 
 In print the divider is only the rule and the notes, without ink texture; the words and the Source link stay on screen, and a footnote prints with the article's other notes.
 
+Three options are for essays that demonstrate the divider itself: `open` starts with the words showing, `replay` adds a small "Show again" button that replays the notes' reveal, and `still` draws only the rule and the notes, as the divider prints. `<ShapeScale system="swan-seven" title="…" />` draws a key to one shape system's eight scale degrees with the same noteheads.
+
 Each phrase is a staffless adaptation of one cited voice, in the shape system of the book it comes from. It records its notes once; shapes, spacing, and the drawing are worked out from them:
 
 ```yaml

@@ -14,9 +14,15 @@ import { renderPhraseSvg } from '../lib/shapeNotes/render';
 interface Props {
 	/** The id of a phrase in src/data/shapeNotes/phrases.yaml. */
 	ref: string;
+	/** Start with the words showing, for an essay that demonstrates them. */
+	open?: boolean;
+	/** Add a small "Show again" button that replays the notes' reveal. */
+	replay?: boolean;
+	/** Draw only the rule and the notes, as the divider prints, without the words. */
+	still?: boolean;
 }
 
-const { ref } = Astro.props;
+const { ref, open = false, replay = false, still = false } = Astro.props;
 const entry = ref ? await getEntry('shapeNotes', ref) : undefined;
 if (!entry) {
 	throw new Error(`<ShapeNoteDivider ref="${ref ?? ''}" />: no phrase with that id in src/data/shapeNotes/phrases.yaml`);
@@ -48,12 +54,18 @@ const makers = [
 ---
 
 <div
-	class="shapenote"
-	data-shapenote
+	class:list={['shapenote', { 'shapenote--still': still }]}
+	data-shapenote={still ? undefined : ''}
 	data-shapenote-fixture={data.fixture ? '' : undefined}
 	style={`--sn-w: ${width}; --sn-h: ${height}; --sn-rule-y: ${ruleY};`}
 >
-	<details class="sn-disclosure">
+	{
+		still ? (
+			<div class="sn-phrase" role="img" aria-label={`${label}, as the divider prints: the rule and the notes only`}>
+				<Fragment set:html={svg} />
+			</div>
+		) : (
+	<details class="sn-disclosure" open={open}>
 		<summary class="sn-phrase">
 			<Fragment set:html={svg} />
 			<span class="sr-only">{label}. Words and source</span>
@@ -74,6 +86,18 @@ const makers = [
 			<p class="sr-only">Shapes, in order: {shapes}.</p>
 		</div>
 	</details>
+		)
+	}
+	{
+		replay && !still && (
+			<p class="sn-replay">
+				<button type="button" data-shapenote-replay>
+					Show again
+				</button>
+				<span class="sn-replay-still">Your device asks for reduced motion, so the notes appear complete at once.</span>
+			</p>
+		)
+	}
 </div>
 
 <style>
@@ -186,6 +210,50 @@ const makers = [
 		}
 	}
 
+	/* The rule and notes alone, as printed: no disclosure, no space kept for words. */
+	.shapenote--still {
+		margin: 1.5em auto;
+	}
+
+	.shapenote--still .sn-phrase {
+		cursor: auto;
+	}
+
+	.sn-replay {
+		margin: 0.25rem 0 0;
+		font-family: var(--sans);
+		font-size: 0.75rem;
+		color: var(--muted-ink);
+	}
+
+	.sn-replay button {
+		padding: 0.3rem 0.75rem;
+		border: 1px solid color-mix(in srgb, var(--muted-ink) 45%, var(--paper));
+		border-radius: 999px;
+		background: var(--paper);
+		color: var(--ink);
+		font: inherit;
+		cursor: pointer;
+	}
+
+	.sn-replay button:hover {
+		border-color: var(--muted-ink);
+	}
+
+	.sn-replay-still {
+		display: none;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.sn-replay button {
+			display: none;
+		}
+
+		.sn-replay-still {
+			display: inline;
+		}
+	}
+
 	/* Scroll reveal, added only by the script below. */
 	.shapenote :global(.sn-note) {
 		transition: opacity 480ms ease-out;
@@ -234,6 +302,7 @@ const makers = [
 		}
 
 		.sn-words,
+		.sn-replay,
 		.sn-disclosure:not([open])::after {
 			display: none;
 		}
@@ -268,6 +337,14 @@ const makers = [
 				observer.observe(divider);
 			}
 		}
+
+		// "Show again": hide the notes, then reveal them in sequence as on first view.
+		divider.querySelector('[data-shapenote-replay]')?.addEventListener('click', () => {
+			if (reduceMotion) return;
+			divider.classList.add('is-pending');
+			void divider.offsetWidth;
+			requestAnimationFrame(() => divider.classList.remove('is-pending'));
+		});
 
 		const details = divider.querySelector('details');
 		const summary = divider.querySelector('summary');
