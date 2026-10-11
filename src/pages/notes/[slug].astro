@@ -1,7 +1,6 @@
 ---
-import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getNotes, type Note } from '../../utils/content';
+import { getNotes, type Note, renderEntry } from '../../utils/content';
 import { url } from '../../utils/urls';
 
 export async function getStaticPaths() {
@@ -10,7 +9,7 @@ export async function getStaticPaths() {
 }
 
 const { note } = Astro.props as { note: Note };
-const { Content } = await render(note);
+const { Content } = await renderEntry(note);
 ---
 
 <BaseLayout title={note.data.title} description={note.data.description} noindex={note.data.draft}>

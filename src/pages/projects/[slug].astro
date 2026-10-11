@@ -1,8 +1,7 @@
 ---
-import { render } from 'astro:content';
 import ArticleList from '../../components/ArticleList.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getProjects, getWritingForProject, type Project } from '../../utils/content';
+import { getProjects, getWritingForProject, type Project, renderEntry } from '../../utils/content';
 
 export async function getStaticPaths() {
 	const projects = await getProjects();
@@ -10,7 +9,7 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props as { project: Project };
-const { Content } = await render(project);
+const { Content } = await renderEntry(project);
 const writing = await getWritingForProject(project.id);
 ---
 
