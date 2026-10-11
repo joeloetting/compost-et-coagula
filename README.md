@@ -76,7 +76,7 @@ Text with a footnote.[^1]
 | `correction` | no | A revision note shown at the top of the article (see below). |
 | `draft` | no | `true` keeps the article out of the published site. Defaults to `false`. |
 
-The build fails with a clear message if a required field is missing, a date is malformed, a `type` is not one of the three allowed values, or a project slug does not exist.
+The build fails with a clear message if a required field is missing, a date is malformed or does not exist (such as `2026-10-32`), a `type` is not one of the three allowed values, or a project slug does not exist.
 
 ### Drafts and previewing
 
@@ -100,6 +100,8 @@ A sentence that needs a source.[^barth]
 
 Notes are collected under "Notes" at the end of the article, in order of first use. The labels (`barth` above) are only for you; readers see numbers.
 
+A reference and its note must use the same label. If they don't, Markdown would print the reference as literal text and drop the note without a word, so the build stops instead, naming both labels. It also stops on a note that nothing refers to.
+
 ### Marginal notes
 
 A marginal note is an ordinary Markdown footnote whose text starts with `[margin]`. It works in `.md` and `.mdx` alike:
@@ -114,7 +116,7 @@ To begin with the Manhattan Project is already a decision.[^start]
 - On wide screens a marginal note sits in the margin, level with the line that refers to it. On phones it becomes a small "note 1" mark that opens the note beneath it (tap elsewhere or press Esc to close); browsers without CSS anchor positioning show the note inline instead. In print it sits in the printed margin.
 - Marginal notes are numbered automatically (Marginal note 01, 02...), and the ordinary footnotes are renumbered so they stay consecutive.
 - Keep margin notes short, to plain paragraphs (no lists or quotations), and refer to each one only once. Leave most paragraphs without notes; the empty margin is part of the design.
-- Any link that starts with `/` gets the site's base path automatically, so `/writing/another-essay/` works as written. A link to a page that does not exist fails `npm test`.
+- Any link that starts with `/` gets the site's base path automatically, so `/writing/another-essay/` works as written. A link to a page that does not exist, or to an anchor (`#…`) that is not on that page, fails `npm test`.
 
 **Labels and editorial marks.** A marginal note can carry its own label instead of "Marginal note 01", written after a colon: `[margin: ☞ Obs.]`. The label may begin with one of the traditional editorial marks below, and must always include words, so a reader never needs to know what a mark means (`[margin: ☞]` alone stops the build). These are conventions for the writer, not a tagging system; use them sparingly, and leave most margins empty.
 
