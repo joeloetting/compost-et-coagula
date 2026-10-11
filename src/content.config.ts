@@ -79,7 +79,7 @@ const writing = defineCollection({
 });
 
 const projects = defineCollection({
-	loader: glob({ base: './src/content/projects', pattern: '**/*.md' }),
+	loader: glob({ base: './src/content/projects', pattern: '**/*.{md,mdx}' }),
 	schema: z.object({
 		title: z.string().trim().min(1),
 		description: z.string().trim().min(1),
@@ -93,7 +93,7 @@ const projects = defineCollection({
 // Short standing notes about the site and its conventions, e.g. on shape notes:
 // notes/on-shape-notes.md -> /notes/on-shape-notes/
 const notes = defineCollection({
-	loader: glob({ base: './src/content/notes', pattern: '**/*.md' }),
+	loader: glob({ base: './src/content/notes', pattern: '**/*.{md,mdx}' }),
 	schema: z.object({
 		title: z.string().trim().min(1),
 		description: z.string().trim().min(1),
