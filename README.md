@@ -249,7 +249,7 @@ This renders as **Figure 1.** followed by the caption, then a line reading *Draw
 - `wide` lets the figure extend beyond the text column (up to about 1000px). Leave it off for ordinary figures.
 - `inset` sets a small figure (a sketch, a specimen) to the right with the text running beside it; with a margin it reaches halfway into the margin, and on phones it is centered. It occupies the margin beside it, so keep marginal notes away from the paragraphs it sits next to.
 - `unnumbered` leaves a decorative image out of the numbering.
-- SVG, PNG, JPEG, and WebP all work. Raster images are resized and converted to WebP automatically at several widths, never larger than the original; nothing is cropped.
+- SVG, PNG, JPEG, and WebP all work. Raster images are resized and converted to WebP automatically at several widths, never larger than the original; nothing is cropped. Figures load with the page, not when scrolled to, so a printed or saved article always includes them.
 
 **Bibliography keys.** In a list directly under a heading named *Bibliography*, *References*, or *Works Cited*, start an entry with a key in brackets, like `[survey-1942]`. The key is removed from the page and the entry becomes a link target for `cite` and for citations in footnotes. Keys start with a lowercase letter or digit and use letters, digits, `-`, `_`, `.`, and `:`. Don't write `[@survey-1942]`: in Pandoc and Zettlr that is a citation, which their citation processor would replace, so the build rejects it. A bare `[survey-1942]` stays plain text in those tools. This works in `.md` articles too.
 
@@ -275,7 +275,7 @@ import ShapeNoteDivider from '../../components/ShapeNoteDivider.astro';
 [^old-hundred]: Old Hundred, tenor, verse 3. Words by Isaac Watts. M. L. Swan, *The New Harp of Columbia* (Nashville, 1919), 11.
 ```
 
-In print the divider is only the rule and the notes, without ink texture; the words and the Source link stay on screen, and a footnote prints with the article's other notes.
+In print the divider is only the rule and the notes, without ink texture; the words and the Source link stay on screen. A footnote inside the divider prints with the article's other notes, and its number prints beside the divider's notes so the printed note keeps its place in the text.
 
 Three options are for essays that demonstrate the divider itself: `open` starts with the words showing, `replay` adds a small "Show again" button that replays the notes' reveal, and `still` draws only the rule and the notes, as the divider prints. `<ShapeScale system="swan-seven" title="…" />` draws a key to one shape system's eight scale degrees with the same noteheads.
 

@@ -189,4 +189,38 @@
 	.editorial-note {
 		border-left: 1pt solid #999;
 	}
+
+	/* Shape-note dividers print as the rule and the notes only (see
+	   ShapeNoteDivider.astro). A divider that cites its music keeps its note
+	   number, set just after the notes, so the note printed at the end of the
+	   article still has its reference in the text. The number sits inside the
+	   divider's disclosure, which is usually closed: ::details-content shows it
+	   where supported, and the script in ArticleLayout opens such dividers for
+	   printing elsewhere. */
+	.prose .shapenote .sn-disclosure::details-content {
+		content-visibility: visible;
+	}
+
+	.prose .shapenote .sn-words {
+		display: block;
+		position: absolute;
+		top: var(--sn-pad);
+		left: calc(50% + var(--sn-w) * var(--sn-scale) * 0.5px + 0.625rem);
+		min-height: 0;
+		max-width: none;
+		margin: 0;
+		padding: 0;
+		text-align: left;
+	}
+
+	.prose .shapenote .sn-lyric > [lang],
+	.prose .shapenote .sn-source {
+		display: none;
+	}
+
+	.prose .shapenote .sn-lyric {
+		color: inherit;
+		font-size: 1rem;
+		font-style: normal;
+	}
 }

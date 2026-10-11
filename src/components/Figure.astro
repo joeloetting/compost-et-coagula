@@ -67,14 +67,18 @@ const widths = typeof src === 'string' ? [] : [640, 1000, 1600, 2000].filter((w)
 const hasCaption = Astro.slots.has('default');
 // Slot "description": a longer explanation for maps and diagrams, shown on request.
 const hasDescription = Astro.slots.has('description');
+// Figures load with the page rather than lazily: a figure is evidence, and a
+// lazy image that has not been scrolled to prints as an empty box. Figures
+// after the first load at low priority so they do not hold up the text.
+const priority = number === undefined || number === '1' ? undefined : 'low';
 ---
 
 <figure id={anchor} class:list={['figure', { 'figure--wide': wide, 'figure--inset': inset && !wide }]}>
 	{
 		typeof src === 'string' ? (
-			<img src={src.startsWith('/') ? url(src) : src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+			<img src={src.startsWith('/') ? url(src) : src} alt={alt} width={width} height={height} loading="eager" fetchpriority={priority} decoding="async" />
 		) : src.format === 'svg' ? (
-			<Image src={src} alt={alt} loading="lazy" />
+			<Image src={src} alt={alt} loading="eager" fetchpriority={priority} />
 		) : (
 			<Image
 				src={src}
@@ -82,7 +86,8 @@ const hasDescription = Astro.slots.has('description');
 				widths={widths}
 				sizes={wide ? '(min-width: 1080px) 1000px, 100vw' : inset ? '320px' : '(min-width: 700px) 616px, 100vw'}
 				style={`max-width: ${src.width}px`}
-				loading="lazy"
+				loading="eager"
+				fetchpriority={priority}
 			/>
 		)
 	}
