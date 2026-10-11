@@ -1,7 +1,33 @@
 import { defineCollection, reference } from 'astro:content';
+import { resolve } from 'node:path';
 import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { citationProblems, HEAD_IDS, type HeadId } from './lib/shapeNotes/notation';
+import { LIBRARY_DIR, libraryStamp } from './plugins/bibtex.mjs';
+
+/**
+ * A glob loader whose entries are rendered again when the .bib library in
+ * src/data/ changes, not only when the article itself does, so a re-exported
+ * library reaches every article that cites it, in `npm run dev` as in a build.
+ */
+function citingGlob(options: Parameters<typeof glob>[0]): ReturnType<typeof glob> {
+	const loader = glob(options);
+	return {
+		...loader,
+		load: (context) => {
+			context.watcher?.add(LIBRARY_DIR);
+			context.watcher?.on('change', (path) => {
+				if (!path.endsWith('.bib')) return;
+				// Ask the glob loader to sync each article again; the digest below differs now.
+				for (const entry of context.store.values()) if (entry.filePath) context.watcher?.emit('change', resolve(entry.filePath));
+			});
+			return loader.load({
+				...context,
+				generateDigest: (data) => context.generateDigest(typeof data === 'string' ? `${data}\n${libraryStamp()}` : data),
+			});
+		},
+	};
+}
 
 // Treat an empty YAML value (`updated:`) the same as an omitted one.
 const optionalDate = z.coerce
@@ -16,7 +42,7 @@ const optionalText = z
 
 const writing = defineCollection({
 	// Each file name becomes the article's URL slug: writing/my-essay.md -> /writing/my-essay/
-	loader: glob({ base: './src/content/writing', pattern: '**/*.{md,mdx}' }),
+	loader: citingGlob({ base: './src/content/writing', pattern: '**/*.{md,mdx}' }),
 	schema: z.object({
 		title: z.string().trim().min(1),
 		/** Optional scholarly subtitle; added to the page title and og:title for search engines. */

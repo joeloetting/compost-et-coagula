@@ -186,6 +186,30 @@ The note then reads *Morton, Humankind, 45–47. Compare Turner, The Ritual Proc
 - Writing the whole citation by hand in a footnote still works; it just isn't linked.
 - In Zettlr or Pandoc a citation like `[morton-2017, 45]` stays plain, readable text.
 
+### Citing from the library (Zettlr and Pandoc style)
+
+The site also reads citations written as in Zettlr and Pandoc, resolved from a BibTeX or BibLaTeX library. This is the way to cite from Deftere:
+
+1. Export the library (or the part you cite) from Deftere as `.bib` and save it as `src/data/references.bib`. Every `.bib` file in `src/data/` is read, so several exports can sit side by side.
+2. Cite by key in the text, as you would in Zettlr:
+
+```markdown
+Subscendence names a whole smaller than its parts [@morton2017, 45].
+Several sources at once [see @morton2017, pp. 45-47; @turner1969, chap. 3].
+```
+
+Each citation in the text becomes a numbered note, as Pandoc does with a notes style: *Morton, Humankind, 45.* The note number moves after any punctuation that follows the citation. Inside a footnote you have written yourself, `[@key, 45]` is set in place as part of the note.
+
+Every library entry the article cites is listed under its Bibliography, formatted in Chicago notes-and-bibliography style, alphabetically, with links back to the notes that cite it. If the article has no Bibliography heading, one is added at the end; if it has one with a hand-written list, the library entries are added after the written ones.
+
+- Locators follow Pandoc: `45`, `p. 45`, `pp. 45-47` print as *45* and *45–47*; other labels (`chap. 3`, `fol. 12r`) are kept.
+- A key that is in neither the `.bib` files nor the article's own bibliography list stops the build, naming the citation. So does a `.bib` file that cannot be read, or a key that appears twice.
+- The short form is the surname(s) and the title up to any colon. For a long title, give the entry a `shorttitle` in Deftere and that is used instead.
+- An `@` inside brackets is only read as a citation when every part of the brackets is one, so `[write to joel@example.com]` stays as written.
+- The same text cites the same way in Zettlr, given the same `.bib`.
+
+The Chicago style file is `src/data/csl/chicago-notes-bibliography.csl`, from the Citation Style Language project (CC BY-SA 3.0).
+
 ### Tables and code
 
 Ordinary Markdown tables and fenced code blocks (with a language, e.g. ` ```ts `) work as expected. Tables are set in the booktabs style, with no vertical lines and a rule above, below, and under the header. Align a numeric column right (`|--:|`) and its figures line up. Wide tables and long code lines scroll sideways inside their own box on small screens.
@@ -253,7 +277,7 @@ This renders as **Figure 1.** followed by the caption, then a line reading *Draw
 - `unnumbered` leaves a decorative image out of the numbering.
 - SVG, PNG, JPEG, and WebP all work. Raster images are resized and converted to WebP automatically at several widths, never larger than the original; nothing is cropped. Figures load with the page, not when scrolled to, so a printed or saved article always includes them.
 
-**Bibliography keys.** In a list directly under a heading named *Bibliography*, *References*, or *Works Cited*, start an entry with a key in brackets, like `[survey-1942]`. The key is removed from the page and the entry becomes a link target for `cite` and for citations in footnotes. Keys start with a lowercase letter or digit and use letters, digits, `-`, `_`, `.`, and `:`. Don't write `[@survey-1942]`: in Pandoc and Zettlr that is a citation, which their citation processor would replace, so the build rejects it. A bare `[survey-1942]` stays plain text in those tools. This works in `.md` articles too.
+**Bibliography keys.** In a list directly under a heading named *Bibliography*, *References*, or *Works Cited*, start an entry with a key in brackets, like `[survey-1942]`. The key is removed from the page and the entry becomes a link target for `cite` and for citations in footnotes. Keys start with a lowercase letter or digit and use letters, digits, `-`, `_`, `.`, and `:`. Don't start a hand-written entry with `[@survey-1942]`: that is a citation, not a key, so the build rejects it there. A bare `[survey-1942]` stays plain text in Zettlr and Pandoc. To cite from the `.bib` library instead, see **Citing from the library** above. This works in `.md` articles too.
 
 **Mistakes stop the build.** A `FigureRef` or `cite` that matches nothing, or two figures with the same `id`, is reported with the article's file name when you run `npm run dev` or `npm run build`, so a broken reference cannot be published.
 
