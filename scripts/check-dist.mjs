@@ -1,6 +1,6 @@
 // Checks the production build in dist/ after `astro build`:
 //   1. every internal link and asset reference resolves to a built file, and
-//      includes the configured base path;
+//      includes the configured base path, and every #fragment finds its id;
 //   2. no draft article or note appears anywhere: no page, no RSS item, no sitemap entry;
 //   3. no published page quotes a synthetic shape-note fixture as music.
 // Run with `npm run check:dist`. Exits non-zero on any problem.
@@ -21,19 +21,34 @@ function walk(dir) {
 	});
 }
 
-// 1. Internal links
+// 1. Internal links, and the #fragment of each: a link to a note, a figure, or
+//    a bibliography entry must find an element with that id on its page.
 const htmlFiles = walk(dist).filter((file) => file.endsWith('.html'));
+const idsByFile = new Map();
+const idsOf = (file) => {
+	if (!idsByFile.has(file)) idsByFile.set(file, new Set([...readFileSync(file, 'utf8').matchAll(/\sid="([^"]+)"/g)].map((m) => m[1])));
+	return idsByFile.get(file);
+};
 for (const file of htmlFiles) {
 	const html = readFileSync(file, 'utf8');
-	for (const [, ref] of html.matchAll(/(?:href|src)="([^"#?]*)[^"]*"/g)) {
-		if (!ref || /^[a-z]+:/i.test(ref) || ref.startsWith('//')) continue;
-		if (!ref.startsWith(BASE)) {
-			problems.push(`${relative(dist, file)}: link without base path: ${ref}`);
-			continue;
+	for (const [, ref, fragment] of html.matchAll(/(?:href|src)="([^"#?]*)(?:\?[^"#]*)?(?:#([^"]*))?"/g)) {
+		if (/^[a-z]+:/i.test(ref) || ref.startsWith('//')) continue;
+		let target = file;
+		if (ref) {
+			if (!ref.startsWith(BASE)) {
+				problems.push(`${relative(dist, file)}: link without base path: ${ref}`);
+				continue;
+			}
+			const path = join(dist, decodeURI(ref.slice(BASE.length)));
+			target = ref.endsWith('/') ? join(path, 'index.html') : path;
+			if (!existsSync(target)) {
+				problems.push(`${relative(dist, file)}: broken link: ${ref}`);
+				continue;
+			}
 		}
-		const target = join(dist, decodeURI(ref.slice(BASE.length)));
-		const resolved = ref.endsWith('/') ? join(target, 'index.html') : target;
-		if (!existsSync(resolved)) problems.push(`${relative(dist, file)}: broken link: ${ref}`);
+		if (fragment && target.endsWith('.html') && !idsOf(target).has(decodeURIComponent(fragment))) {
+			problems.push(`${relative(dist, file)}: broken anchor: ${ref}#${fragment} (no element with id="${decodeURIComponent(fragment)}")`);
+		}
 	}
 }
 

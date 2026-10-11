@@ -4,7 +4,8 @@ import { satteri } from '@astrojs/markdown-satteri';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
-import { apparatus, laterNoteTargets } from './src/plugins/apparatus.mjs';
+import { apparatus, footnoteTargets } from './src/plugins/apparatus.mjs';
+import { frontmatterDates } from './src/plugins/dates.mjs';
 import { figurePlugins } from './src/plugins/figures.mjs';
 
 // The site is published as a GitHub Pages project site. If a custom domain is
@@ -50,8 +51,9 @@ export default defineConfig({
 		processor: satteri({
 			features: { gfm: { footnotes: { label: 'Notes' } } },
 			// Figure numbers, figure references, bibliography anchors, citations,
-			// and a check that every later note is still attached to its passage.
-			mdastPlugins: [...figurePlugins, laterNoteTargets],
+			// a check that every footnote and its reference still match, and a
+			// check that the article's dates exist.
+			mdastPlugins: [frontmatterDates, ...figurePlugins, footnoteTargets],
 			hastPlugins: [
 				wrapTables,
 				// [margin] footnotes as marginal notes; base paths on links.

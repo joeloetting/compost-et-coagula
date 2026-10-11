@@ -30,7 +30,7 @@
 // article as well, so it is found even by a reader who skips the notes. The
 // footnote label (hope) is the note's stable id: #later-hope. A later note
 // whose reference has been deleted with its passage stops the build
-// (laterNoteTargets, below), rather than being silently dropped.
+// (footnoteTargets, below), rather than being silently dropped.
 //
 // Also, for every article: links that start with "/" get the site's base path,
 // so `[another essay](/writing/another-essay/)` works as written. Citations
@@ -96,32 +96,47 @@ function unlinked(/** @type {any} */ node) {
 }
 
 /**
- * Markdown pass: every later note must still be referred to from the text.
- * Footnote definitions without a reference are otherwise dropped without a
- * word, which for a later note would mean losing it with its passage.
+ * Markdown pass: every footnote must still be referred to from the text, and
+ * every reference must have its footnote. Otherwise Markdown drops the
+ * definition without a word, and prints a reference with no definition as
+ * literal text such as "[^hope]", so a mistyped label would publish an
+ * article with a citation silently missing. For a later note this would mean
+ * losing it with its passage. Code is not checked, so examples of the syntax
+ * in code stay possible.
  * @type {import('satteri').MdastPluginInstance & { name: string }}
  */
-export const laterNoteTargets = {
-	name: 'later-note-targets',
+export const footnoteTargets = {
+	name: 'footnote-targets',
 	before(root, ctx) {
 		/** @type {Set<string>} */
 		const referenced = new Set();
-		/** @type {string[]} */
-		const later = [];
+		/** @type {{ label: string, later: boolean }[]} */
+		const definitions = [];
+		/** @type {Set<string>} */
+		const unmatched = new Set();
 		const walk = (/** @type {any} */ node) => {
 			if (node.type === 'footnoteReference') referenced.add(node.identifier);
 			if (node.type === 'footnoteDefinition') {
 				const lead = node.children[0]?.children?.[0];
-				if (lead?.type === 'text' && LATER.test(lead.value)) later.push(node.identifier);
+				definitions.push({ label: node.identifier, later: lead?.type === 'text' && LATER.test(lead.value) });
 			}
+			if (node.type === 'text') for (const [, label] of node.value.matchAll(/\[\^([^\]\s]+)\]/g)) unmatched.add(label);
 			for (const child of node.children ?? []) walk(child);
 		};
 		walk(root);
-		for (const label of later) {
-			if (!referenced.has(label)) {
-				fail(ctx, `the later note [^${label}] is no longer attached to any passage. Put [^${label}] back in the passage it comments on, or delete the note.`);
-			}
+		const problems = [];
+		for (const label of unmatched) {
+			problems.push(`the text refers to [^${label}], but there is no footnote [^${label}]: … (check the spelling of both labels)`);
 		}
+		for (const { label, later } of definitions) {
+			if (referenced.has(label)) continue;
+			problems.push(
+				later
+					? `the later note [^${label}] is no longer attached to any passage. Put [^${label}] back in the passage it comments on, or delete the note.`
+					: `the footnote [^${label}] is never referred to in the text, so it would be dropped. Put [^${label}] where it belongs, or delete the footnote.`,
+			);
+		}
+		if (problems.length) fail(ctx, problems.join('\n  '));
 	},
 };
 

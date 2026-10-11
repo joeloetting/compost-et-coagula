@@ -1,7 +1,7 @@
 ---
-import { getEntries, render } from 'astro:content';
+import { getEntries } from 'astro:content';
 import ArticleLayout from '../../layouts/ArticleLayout.astro';
-import { type Article, getWriting, typeLabels } from '../../utils/content';
+import { type Article, getWriting, renderEntry, typeLabels } from '../../utils/content';
 
 export async function getStaticPaths() {
 	const entries = await getWriting();
@@ -9,7 +9,7 @@ export async function getStaticPaths() {
 }
 
 const { article } = Astro.props as { article: Article };
-const { Content } = await render(article);
+const { Content } = await renderEntry(article);
 const projects = await getEntries(article.data.projects);
 ---
 

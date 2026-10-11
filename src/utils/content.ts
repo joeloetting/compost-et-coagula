@@ -1,4 +1,4 @@
-import { type CollectionEntry, getCollection } from 'astro:content';
+import { type CollectionEntry, getCollection, render } from 'astro:content';
 import { SITE_AUTHOR } from '../consts';
 
 export type Article = CollectionEntry<'writing'>;
@@ -59,4 +59,17 @@ export function projectPath(entry: Project | { id: string }): string {
 
 export function notePath(entry: Note | { id: string }): string {
 	return `/notes/${entry.id}/`;
+}
+
+/**
+ * Render an entry, stopping the build if its Markdown failed. A plain Markdown
+ * (.md) file is rendered when the content is loaded, and an error there, such
+ * as a citation that matches nothing, is only logged: the page would be built
+ * with an empty body and the build would pass. (MDX errors already stop it.)
+ */
+export async function renderEntry(entry: Article | Project | Note) {
+	if (entry.filePath?.endsWith('.md') && !entry.rendered) {
+		throw new Error(`${entry.filePath} could not be rendered; the reason is in the "Error rendering" message above.`);
+	}
+	return render(entry);
 }

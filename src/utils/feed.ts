@@ -1,9 +1,8 @@
 import { getContainerRenderer as getMDXRenderer } from '@astrojs/mdx/container-renderer';
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import { loadRenderers } from 'astro:container';
-import { render } from 'astro:content';
 import sanitizeHtml from 'sanitize-html';
-import type { Article } from './content';
+import { type Article, renderEntry } from './content';
 
 let container: AstroContainer | undefined;
 
@@ -17,7 +16,7 @@ let container: AstroContainer | undefined;
  */
 export async function feedHtml(article: Article, pageUrl: string): Promise<string> {
 	container ??= await AstroContainer.create({ renderers: await loadRenderers([getMDXRenderer()]) });
-	const { Content } = await render(article);
+	const { Content } = await renderEntry(article);
 	const html = await container.renderToString(Content);
 	const absolute = (value: string) => new URL(value, pageUrl).href;
 
