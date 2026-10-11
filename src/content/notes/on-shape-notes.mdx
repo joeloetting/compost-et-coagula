@@ -1,0 +1,162 @@
+---
+title: "On Shape Notes"
+subtitle: "A chorus in the gaps of thought"
+description: "On the musical typography of this site, East Tennessee tunebooks, and the company a song can offer an unfinished thought."
+type: essay
+topics:
+  - music
+  - typography
+  - theology
+draft: true
+---
+
+import Excursus from '../../components/Excursus.astro';
+import Figure from '../../components/Figure.astro';
+import FigureRef from '../../components/FigureRef.astro';
+import ShapeNoteDivider from '../../components/ShapeNoteDivider.astro';
+import ShapeScale from '../../components/ShapeScale.astro';
+import oldHundredPage from './a-musical-pause/old-hundred-p11.png';
+import oldHundredTenor from './a-musical-pause/old-hundred-tenor-line1.png';
+import swanScale from './a-musical-pause/swan-scale-p4.png';
+
+When designing this blog, I wanted to add something a little folky and old alongside its more academic tendencies. I considered decorative images from obscure illustrated books: something that might acknowledge the interdisciplinary, occasionally helter-skelter character of the writing. Eventually I settled on section breaks, where the distinctive shapes of musical notes could sit between stretches of prose.
+
+Mostly, I thought they looked cool. Their connection to place, history, and the theological themes of the blog made them difficult to resist. I have not come across quite this use of shape notes elsewhere, though that is hardly proof that nobody has tried it.
+
+A paragraph ends. A little space opens before the next section. In that space sits a fine rule and a short phrase of music.
+
+<ShapeNoteDivider ref="old-hundred-tenor">[^verse-3]</ShapeNoteDivider>
+
+These notes quote the opening of Old Hundred's tenor part in *The New Harp of Columbia*. Their words are *We'll crowd thy gates with thankful songs*. What first looks like a small decoration carries a musical passage, a line of a hymn, and a source.
+
+## A brief history of marked pauses
+
+Printed books have long made room for small ornaments at their boundaries. Headpieces, tailpieces, and printers' flowers could mark the beginning or end of a section. The University of Liverpool's collections include a sermon from 1717 with examples of this ornamental vocabulary.[^ornaments] My musical dividers borrow that position on the page.
+
+The blank space had a material history too. In hand-set letterpress, the spaces between words and lines were made with physical pieces of spacing material, lower than the printing surface of the type.[^spacing] Even what did not appear on the paper had to be set. Space had to be held in place.
+
+That did not oblige a printer to put an ornament into every gap. It does, however, give the apparent emptiness of a page a pleasingly solid underside: the pause had weight.
+
+On a screen, the dimensions change as the text wraps. A break can arrive at a different place on every device. Here, the little rule and its notes give the pause a visible form amid that movement. I like the slightly absurd continuity: arranging room for a thought still requires some work, even when the lead and wood have become a few instructions to a browser.
+
+## Two books, two sets of shapes
+
+The local connection matters to me. My larger project, the Crucified Ground, asks how the history of Oak Ridge might test theological claims. *The New Harp of Columbia* was published in Knoxville in 1867, following *The Harp of Columbia* of 1848, and was used in East Tennessee singing schools.[^new-harp]
+
+That gives me a regional connection to pursue. I have not yet established which communities around what became Oak Ridge sang from these books, or which notation systems they used. The ornament cannot supply that missing history.
+
+The dividers draw on two distinct systems. *The Southern Harmony* uses four shapes, associated with fa, sol, la, and mi. *The New Harp of Columbia* uses seven, with the syllables printed in Swan's scale as do, ra, mi, fa, sol, la, and si. The two sets of shapes are worth seeing beside one another.
+
+<ShapeScale system="fasola-four" title="Four shapes: The Southern Harmony">
+  A diagram of the four-shape system.
+</ShapeScale>
+
+<ShapeScale system="swan-seven" title="Seven shapes: The New Harp of Columbia">
+  Compare this diagram with the scale printed in Swan's book (<FigureRef to="swan-scale" />).
+</ShapeScale>
+
+<Figure id="swan-scale" src={swanScale} alt="A printed scale showing the seven shaped noteheads used in The New Harp of Columbia, with their numbers and solmization syllables beneath." source="M. L. Swan, The New Harp of Columbia (1919), 4" date="1919" license="Public domain">
+  The scale printed in the 1919 edition.
+</Figure>
+
+Each musical quotation should keep the notation of its source. Seven shapes are not simply a decorative expansion of four. The system and the particular arrangement belong to the passage I am quoting.
+
+## From score to ornament
+
+<Figure id="old-hundred" src={oldHundredPage} wide fullSize alt="The printed page for Old Hundred in The New Harp of Columbia, showing its four vocal parts and hymn words." source="M. L. Swan, The New Harp of Columbia (1919), 11" date="1919" license="Public domain">
+  Old Hundred in the 1919 edition of *The New Harp of Columbia*.
+</Figure>
+
+The example on this page follows the tenor, with the opening words of verse 3. Here is the passage in the score:
+
+<Figure id="old-hundred-tenor" src={oldHundredTenor} alt="A detail of Old Hundred's tenor part, with shaped noteheads and the words We'll crowd thy gates with thankful songs." source="M. L. Swan, The New Harp of Columbia (1919), 11" date="1919" license="Public domain">
+  The phrase used by the divider.
+</Figure>
+
+And here is its adaptation, with the words already open:
+
+<ShapeNoteDivider ref="old-hundred-tenor" open />
+
+The divider keeps the sequence of notes, their source-specific shapes, the melodic contour, and the relative rhythmic spacing. It carries the words and the citation with them. The staff, clef, and key signature have been set aside, along with the other voices. The score remains necessary for reading the music fully.
+
+I wanted enough of the printed phrase to survive that it would reward a closer look, while remaining small enough to accompany the reading. It is an ornament made from a quotation.
+
+## Company in the gaps of thought
+
+What interests me about Sacred Harp is its orientation toward singing together. The Sacred Harp Musical Heritage Association describes singings as participatory gatherings: singers face inward in a hollow square, with no separate audience seating, although visitors may listen. Beginners are welcomed, and the practice retains its connection to teaching people to sing.[^singing]
+
+There is something strange about borrowing that form for a solitary reading page. The screen contains no breath, assembled bodies, or ringing room. It offers a few marks associated with those things. I find that distance haunting.
+
+A section break gives my own voice somewhere to stop. The musical quotation lets other words appear there: words I did not write, which have been available to people gathering to sing. Perhaps a thought can have company before it has an answer.
+
+The Greek chorus offers an analogy. In the *Poetics*, Aristotle argues that the chorus should belong to the dramatic whole and participate in its action, rather than contribute songs interchangeable between plays.[^chorus] That gives me a useful question when choosing a passage: what does this song do beside this particular thought?
+
+The hymn might accompany my argument. It might also become awkward company. Its assurance could exceed what I can say; its lament could interrupt an explanation that is becoming too comfortable.
+
+The open centre of the hollow square suggests another image to me: voices gathered around an opening. I am borrowing that image for the page. The space between my paragraphs can remain open even when something has been placed within it.
+
+## God of the gaps?
+
+There is an obvious joke here. I have put sacred music into literal gaps.
+
+The joke comes with an objection. Am I adding religious atmosphere at the point where my reasoning stops? Could an attractive fragment of a hymn make an unresolved difficulty feel reassuringly profound?
+
+Bonhoeffer's criticism of God as a stopgap makes that question sharper. As John de Gruchy explains in his introduction to *Letters and Papers from Prison*, the criticism concerns both gaps in knowledge and the habit of introducing God when human resources appear exhausted. Bonhoeffer turns toward God in the midst of life and toward Christ's existence for others.[^bonhoeffer]
+
+The white space on a page, a limit in my understanding, and a claim about God are different things. Putting a song between paragraphs does not establish a connection between them.
+
+Still, the gesture gives me a way to ask about accompaniment. People can gather, sing, and remain uncertain. A hymn can express a hope its singers struggle to hold. I want to leave room for that possibility here, including the possibility that the borrowed words will make my next sentence harder to write.
+
+## The same notes, different company
+
+Choosing the words is part of choosing the quotation. Old Hundred gives a simple demonstration: the same melodic phrase can carry different verses.
+
+Imagine a passage about gathering, ending with the thought that people have made room for one another. Then comes:
+
+<ShapeNoteDivider ref="old-hundred-tenor" open />
+
+*We'll crowd thy gates with thankful songs.* The words bring a larger, more exuberant gathering into view. They also introduce gates: somewhere to enter, and therefore a question about who gets inside. That association is mine; it is something to examine.
+
+Now imagine a passage ending with the recognition that an explanation has reached its limit. The same notes appear with another verse:
+
+<ShapeNoteDivider ref="old-hundred-tenor-verse-1" open>[^verse-1]</ShapeNoteDivider>
+
+*Before Jehovah's awful throne.* Beside that paragraph, the words could make uncertainty seem like a summons to reverence. They could also make me suspicious of the ease with which I have moved from limited knowledge to religious language.
+
+Neither placement determines what the reader must hear. The surrounding prose and the borrowed words meet, and their relationship becomes part of the essay.
+
+## Returning to the sentence
+
+I want to use these breaks where an essay changes movement: after a scene and before reflection, between two strands of thought, or before returning to an opening image. Some pauses can stay empty.
+
+The practical boundary is a small collection of passages, each attached to a source. A few phrases, reused thoughtfully, should give me plenty to work with. The motif can grow alongside the writing.
+
+For now, I like that something folky and old has found its way into the page. I like the shapes, the Knoxville connection, and the possibility of communal words appearing where my own words pause.
+
+The next paragraph still has to begin. What might we sing together while we are still trying to understand?
+
+<Excursus title="A closer look at the divider" label="Optional demonstration">
+  Here the same phrase appears with its reveal replayed, and then as a still ornament.
+
+  <ShapeNoteDivider ref="old-hundred-tenor" replay />
+
+  <ShapeNoteDivider ref="old-hundred-tenor" still />
+
+  The musical source remains the printed score reproduced above. These are different presentations of the same quotation.
+</Excursus>
+
+[^verse-3]: “We'll crowd thy gates with thankful songs.” Old Hundred, tenor, verse 3, first line; words by Isaac Watts. M. L. Swan, *The New Harp of Columbia* (Nashville: Publishing House of the M. E. Church, South, 1919), 11. The page attributes the tune to “M. Luther”; this records the source's attribution.
+
+[^verse-1]: “Before Jehovah's awful throne.” Old Hundred, tenor melody, first line, paired here with verse 1, printed under the top staff. Swan, *The New Harp of Columbia* (1919), 11.
+
+[^ornaments]: University of Liverpool Special Collections & Archives, [“O is for Ornament”](https://manuscriptsandmore.liverpool.ac.uk/o-is-for-ornament/), 7 February 2019.
+
+[^spacing]: Letterpress Commons, [“Setting Type By Hand”](https://letterpresscommons.org/setting-type-by-hand/), especially “Spacing Material.”
+
+[^new-harp]: University of Tennessee Press, [*The New Harp of Columbia, Restored Edition*](https://utpress.org/9781572331280/the-new-harp-of-columbia-restored-edition/), publisher's description. The 1919 printing supplies the musical examples reproduced here.
+
+[^singing]: Sacred Harp Musical Heritage Association, [“What is Sacred Harp singing?”](https://www.fasola.org/). This description concerns Sacred Harp practice; the regional history and practices associated with *The New Harp of Columbia* warrant their own attention.
+
+[^chorus]: Aristotle, *Poetics*, chapter 18, translated by S. H. Butcher, [Internet Classics Archive](https://classics.mit.edu/Aristotle/poetics.2.2.html). The relationship proposed here between choral participation and a musical section break is my analogy.
+
+[^bonhoeffer]: John W. de Gruchy, [“Editor's Introduction to the Reader's Edition of Dietrich Bonhoeffer's Letters and Papers from Prison”](https://ms.fortresspress.com/downloads/9781506402741_Editor's%20Introduction%20to%20the%20Reader's%20Edition.pdf), xiv.
