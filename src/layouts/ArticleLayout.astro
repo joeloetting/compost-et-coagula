@@ -68,6 +68,23 @@ const printHeads = `@page { @top-left { content: ${cssString(SITE_TITLE)}; } @to
 	</article>
 </BaseLayout>
 
+<script>
+	// A shape-note divider that cites its music prints its note number beside
+	// the notes (print.css). Browsers that cannot style a closed disclosure's
+	// content need the divider opened for printing; it is closed again after.
+	const opened: HTMLDetailsElement[] = [];
+	addEventListener('beforeprint', () => {
+		for (const details of document.querySelectorAll<HTMLDetailsElement>('.shapenote details.sn-disclosure:not([open])')) {
+			if (!details.querySelector('[data-footnote-ref]')) continue;
+			details.open = true;
+			opened.push(details);
+		}
+	});
+	addEventListener('afterprint', () => {
+		for (const details of opened.splice(0)) details.open = false;
+	});
+</script>
+
 <style>
 	.article-footer {
 		clear: both;
