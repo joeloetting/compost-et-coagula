@@ -8,7 +8,7 @@ const hasNotes = (await getNotes()).length > 0;
 const links = [
 	{ href: '/writing/', label: 'Writing' },
 	{ href: '/projects/', label: 'Projects' },
-	...(hasNotes ? [{ href: '/notes/', label: 'Notes' }] : []),
+	...(hasNotes ? [{ href: '/notes/', label: 'Site notes' }] : []),
 	{ href: '/about/', label: 'About' },
 	{ href: '/search/', label: 'Search' },
 ];

@@ -1,0 +1,52 @@
+---
+interface Props {
+	headings: { depth: number; slug: string; text: string }[];
+}
+
+// Short essays need no extra navigation; the apparatus has its own links.
+const apparatus = ['bibliography', 'references', 'works cited', 'notes', 'later notes'];
+const sections = Astro.props.headings.filter(({ depth, text }) =>
+	depth === 2 && !apparatus.includes(text.trim().toLowerCase()),
+);
+---
+
+{sections.length >= 6 && (
+	<details class="article-outline">
+		<summary>On this page</summary>
+		<nav aria-label="Essay sections">
+			<ol>
+				{sections.map(({ slug, text }) => <li><a href={`#${slug}`}>{text}</a></li>)}
+			</ol>
+		</nav>
+	</details>
+)}
+
+<style>
+	.article-outline {
+		margin-bottom: 1.75rem;
+		padding-bottom: 0.75rem;
+		border-bottom: 1px solid var(--rule);
+		font-family: var(--sans);
+		font-size: var(--text-small);
+		line-height: 1.5;
+	}
+
+	summary {
+		padding-block: 0.5rem;
+		color: var(--link);
+		cursor: pointer;
+	}
+
+	ol {
+		margin: 0.5rem 0;
+		padding-left: 1.5rem;
+	}
+
+	li + li {
+		margin-top: 0.5rem;
+	}
+
+	@media print {
+		.article-outline { display: none; }
+	}
+</style>

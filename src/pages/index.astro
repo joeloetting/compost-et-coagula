@@ -20,84 +20,86 @@ for (const item of items) {
 }
 const projects = await getProjects();
 
-const dayMonth = (date: Date) => date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', timeZone: 'UTC' });
+const dayMonth = (date: Date) => date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
 const isoDate = (date: Date) => date.toISOString().slice(0, 10);
 const typeOf = (entry: Article) => typeLabels[entry.data.type];
 ---
 
 <BaseLayout>
-	<p class="intro">{SITE_DESCRIPTION}</p>
+	<div class="page-column">
+		<p class="intro">{SITE_DESCRIPTION}</p>
 
-	<section class="contents" aria-labelledby="contents-heading">
-		<h2 class="contents-title" id="contents-heading">Contents</h2>
-		{writing.length === 0 && <p class="empty">The first essays are in preparation.</p>}
+		<section class="contents" aria-labelledby="contents-heading">
+			<h2 class="contents-title" id="contents-heading">Contents</h2>
+			{writing.length === 0 && <p class="empty">The first essays are in preparation.</p>}
+			{
+				[...years].map(([year, entries]) => (
+					<section class="year" aria-labelledby={`year-${year}`}>
+						<h3 class="year-title" id={`year-${year}`}>
+							{year}
+						</h3>
+						<ol class="toc">
+							{entries.map(({ entry, projects }) => (
+								<li>
+									<p class="toc-line">
+										<a class="toc-title" href={url(writingPath(entry))}>
+											{entry.data.title}
+										</a>
+										{entry.data.draft && <span class="badge">Draft</span>}
+										<span class="leader" aria-hidden="true" />
+										<time class="toc-date" datetime={isoDate(entry.data.published)}>
+											{dayMonth(entry.data.published)}
+										</time>
+									</p>
+									<p class="toc-description">{entry.data.description}</p>
+									<p class="meta">
+										{typeOf(entry)}
+										{projects.map((project) => (
+											<>
+												<span aria-hidden="true"> · </span>
+												<a href={url(projectPath(project))}>{project.data.title}</a>
+											</>
+										))}
+									</p>
+								</li>
+							))}
+						</ol>
+					</section>
+				))
+			}
+			{
+				writing.length > 0 && (
+					<p class="archive-link">
+						<a href={url('/writing/')}>
+							{writing.length > CONTENTS_LIMIT ? `Complete archive (${writing.length} pieces)` : 'Complete archive'}
+						</a>
+					</p>
+				)
+			}
+		</section>
+
 		{
-			[...years].map(([year, entries]) => (
-				<section class="year" aria-labelledby={`year-${year}`}>
-					<h3 class="year-title" id={`year-${year}`}>
-						{year}
-					</h3>
-					<ol class="toc">
-						{entries.map(({ entry, projects }) => (
+			projects.length > 0 && (
+				<section class="contents projects" aria-labelledby="projects-heading">
+					<h2 class="contents-title" id="projects-heading">
+						Ongoing projects
+					</h2>
+					<ul class="toc">
+						{projects.map((project) => (
 							<li>
 								<p class="toc-line">
-									<a class="toc-title" href={url(writingPath(entry))}>
-										{entry.data.title}
+									<a class="toc-title" href={url(projectPath(project))}>
+										{project.data.title}
 									</a>
-									{entry.data.draft && <span class="badge">Draft</span>}
-									<span class="leader" aria-hidden="true" />
-									<time class="toc-date" datetime={isoDate(entry.data.published)}>
-										{dayMonth(entry.data.published)}
-									</time>
 								</p>
-								<p class="toc-description">{entry.data.description}</p>
-								<p class="meta">
-									{typeOf(entry)}
-									{projects.map((project) => (
-										<>
-											<span aria-hidden="true"> · </span>
-											<a href={url(projectPath(project))}>{project.data.title}</a>
-										</>
-									))}
-								</p>
+								<p class="toc-description">{project.data.description}</p>
 							</li>
 						))}
-					</ol>
+					</ul>
 				</section>
-			))
-		}
-		{
-			writing.length > 0 && (
-				<p class="archive-link">
-					<a href={url('/writing/')}>
-						{writing.length > CONTENTS_LIMIT ? `Complete archive (${writing.length} pieces)` : 'Complete archive'}
-					</a>
-				</p>
 			)
 		}
-	</section>
-
-	{
-		projects.length > 0 && (
-			<section class="contents projects" aria-labelledby="projects-heading">
-				<h2 class="contents-title" id="projects-heading">
-					Ongoing projects
-				</h2>
-				<ul class="toc">
-					{projects.map((project) => (
-						<li>
-							<p class="toc-line">
-								<a class="toc-title" href={url(projectPath(project))}>
-									{project.data.title}
-								</a>
-							</p>
-							<p class="toc-description">{project.data.description}</p>
-						</li>
-					))}
-				</ul>
-			</section>
-		)
-	}
+	</div>
 </BaseLayout>
 
 <style>
@@ -110,7 +112,7 @@ const typeOf = (entry: Article) => typeLabels[entry.data.type];
 
 	.contents {
 		max-width: var(--measure);
-		margin-top: var(--space-section);
+		margin-top: clamp(2rem, 4vw, 3rem);
 	}
 
 	/* "Contents" set like the heading of a book's contents page: centered, in

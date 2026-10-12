@@ -6,28 +6,30 @@ import { url } from '../../utils/urls';
 const notes = await getNotes();
 ---
 
-<BaseLayout title="Notes" description="Short notes on the conventions and making of Compost et Coagula.">
-	<header class="page-header">
-		<h1>Notes</h1>
-		<p class="lede">Short notes on how this publication is made, and why it looks as it does.</p>
-	</header>
-	{
-		notes.length > 0 ? (
-			<ul class="note-list">
-				{notes.map((note) => (
-					<li>
-						<h2>
-							<a href={url(notePath(note))}>{note.data.title}</a>
-							{note.data.draft && <span class="badge">Draft</span>}
-						</h2>
-						<p>{note.data.description}</p>
-					</li>
-				))}
-			</ul>
-		) : (
-			<p class="empty">No notes have been published yet.</p>
-		)
-	}
+<BaseLayout title="Site notes" description="Short notes on the conventions and making of Compost et Coagula.">
+	<div class="page-column">
+		<header class="page-header">
+			<h1>Site notes</h1>
+			<p class="lede">Short notes on how this publication is made, and why it looks as it does.</p>
+		</header>
+		{
+			notes.length > 0 ? (
+				<ul class="note-list">
+					{notes.map((note) => (
+						<li>
+							<h2>
+								<a href={url(notePath(note))}>{note.data.title}</a>
+								{note.data.draft && <span class="badge">Draft</span>}
+							</h2>
+							<p>{note.data.description}</p>
+						</li>
+					))}
+				</ul>
+			) : (
+				<p class="empty">No notes have been published yet.</p>
+			)
+		}
+	</div>
 </BaseLayout>
 
 <style>

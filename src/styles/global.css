@@ -147,7 +147,12 @@ a:hover {
 
 main {
 	display: block;
-	padding-block: var(--space-section);
+	padding-block: clamp(2rem, 4vw, 3.5rem);
+}
+
+.page-column {
+	max-width: var(--measure);
+	margin-inline: auto;
 }
 
 main:focus {

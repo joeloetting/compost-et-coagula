@@ -7,22 +7,24 @@ const projects = await getProjects();
 ---
 
 <BaseLayout title="Projects" description="Long-term research projects at Compost et Coagula.">
-	<header class="page-header">
-		<h1>Projects</h1>
-		<p class="lede">Long-term lines of inquiry that gather related writing over time.</p>
-	</header>
-	<ul class="project-list">
-		{
-			projects.map((project) => (
-				<li>
-					<h2>
-						<a href={url(projectPath(project))}>{project.data.title}</a>
-					</h2>
-					<p>{project.data.description}</p>
-				</li>
-			))
-		}
-	</ul>
+	<div class="page-column">
+		<header class="page-header">
+			<h1>Projects</h1>
+			<p class="lede">Long-term lines of inquiry that gather related writing over time.</p>
+		</header>
+		<ul class="project-list">
+			{
+				projects.map((project) => (
+					<li>
+						<h2>
+							<a href={url(projectPath(project))}>{project.data.title}</a>
+						</h2>
+						<p>{project.data.description}</p>
+					</li>
+				))
+			}
+		</ul>
+	</div>
 </BaseLayout>
 
 <style>

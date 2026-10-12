@@ -13,7 +13,7 @@ const hasNotes = (await getNotes()).length > 0;
 		<ul>
 			<li><a href={url('/writing/')}>Writing</a></li>
 			<li><a href={url('/projects/')}>Projects</a></li>
-			{hasNotes && <li><a href={url('/notes/')}>Notes</a></li>}
+			{hasNotes && <li><a href={url('/notes/')}>Site notes</a></li>}
 			<li><a href={url('/about/')}>About</a></li>
 			<li><a href={url('/search/')}>Search</a></li>
 			<li><a href={url('/rss.xml')}>RSS</a></li>
