@@ -4,29 +4,31 @@ import { url } from '../utils/urls';
 ---
 
 <BaseLayout title="Search" description="Search the full text of everything published in Compost et Coagula.">
-	<header class="page-header">
-		<h1>Search</h1>
-		<p class="lede">Search the full text of every essay, working note, and development journal.</p>
-	</header>
+	<div class="page-column">
+		<header class="page-header">
+			<h1>Search</h1>
+			<p class="lede">Search the full text of every essay, working note, and development journal.</p>
+		</header>
 
-	<!-- A plain GET form, so a search can be linked to as /search/?q=…; the script below runs it on load. -->
-	<form class="search" role="search" action={url('/search/')} method="get" data-bundle={url('/pagefind/')} data-base={url('/')}>
-		<label for="search-input" class="sr-only">Search terms</label>
-		<div class="search-row">
-			<input id="search-input" type="search" name="q" autocomplete="off" spellcheck="false" />
-			<button type="submit">Search</button>
-		</div>
-		<fieldset class="search-scope" hidden>
-			<legend class="sr-only">Show</legend>
-		</fieldset>
-	</form>
+		<!-- A plain GET form, so a search can be linked to as /search/?q=…; the script below runs it on load. -->
+		<form class="search" role="search" action={url('/search/')} method="get" data-bundle={url('/pagefind/')} data-base={url('/')}>
+			<label for="search-input" class="sr-only">Search terms</label>
+			<div class="search-row">
+				<input id="search-input" type="search" name="q" autocomplete="off" spellcheck="false" />
+				<button type="submit">Search</button>
+			</div>
+			<fieldset class="search-scope" hidden>
+				<legend class="sr-only">Show</legend>
+			</fieldset>
+		</form>
 
-	<p class="search-status meta" role="status" aria-live="polite"></p>
-	<ol class="search-results"></ol>
+		<p class="search-status meta" role="status" aria-live="polite"></p>
+		<ol class="search-results"></ol>
 
-	<noscript>
-		<p>Search needs JavaScript. Everything published is also listed under <a href={url('/writing/')}>Writing</a>.</p>
-	</noscript>
+		<noscript>
+			<p>Search needs JavaScript. Everything published is also listed under <a href={url('/writing/')}>Writing</a>.</p>
+		</noscript>
+	</div>
 </BaseLayout>
 
 <script>

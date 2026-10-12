@@ -8,11 +8,11 @@ export async function getStaticPaths() {
 }
 
 const { article } = Astro.props as { article: Article };
-const { Content } = await renderEntry(article);
+const { Content, headings } = await renderEntry(article);
 const projects = await articleProjects(article);
 ---
 
-<ArticleLayout article={article}>
+<ArticleLayout article={article} headings={headings}>
 	<Content />
 	{/* Search filters, read by Pagefind when it indexes the built site (see pagefind.yml). */}
 	<span hidden data-pagefind-filter={`type:${typeLabels[article.data.type]}`}></span>
