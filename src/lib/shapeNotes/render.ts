@@ -468,6 +468,18 @@ export function renderPhraseSvg(phrase: ResolvedPhrase, options: { filterId?: st
 	return { svg, width: Number(n(width)), height: Number(n(height)), ruleY: Number(n(ruleY)) };
 }
 
+/**
+ * One notehead on its own, with no stem, drawn as the phrases draw theirs: the
+ * same outline, irregularity and ink density, seeded from `seed`. Centred on
+ * (0, 0). Used for the favicon.
+ */
+export function renderHeadPath(head: HeadId, seed: string, open = false): { d: string; ink: number } {
+	const rand = random(hash(seed));
+	const ink = 0.86 + rand() * 0.12;
+	const d = headPaths(headShape(head, 'none'), open, 0, 0, rand).join('');
+	return { d, ink: Number(n(ink)) };
+}
+
 /** Rests, kept simple at this size: a block for whole and half, a stroke for shorter values. */
 function restPath(value: string, cx: number, y: number, rand: () => number): string {
 	const j = (rand() - 0.5) * 0.2;

@@ -13,7 +13,8 @@
     "check:dist": "node scripts/check-dist.mjs",
     "test:unit": "node --experimental-strip-types --test src/lib/**/*.test.ts",
     "test": "astro check && npm run test:unit && npm run build && node scripts/check-dist.mjs",
-    "astro": "astro"
+    "astro": "astro",
+    "favicon": "node --experimental-strip-types scripts/favicon.ts"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.3",
