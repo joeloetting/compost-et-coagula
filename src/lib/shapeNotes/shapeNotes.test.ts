@@ -16,7 +16,7 @@ import {
 	SWAN_SCALE,
 	syllableFor,
 } from './notation.ts';
-import { MAX_EVENTS, renderPhraseSvg } from './render.ts';
+import { MAX_EVENTS, renderHeadPath, renderPhraseSvg } from './render.ts';
 
 const minor = { tonic: 'A', mode: 'minor' } as const;
 const major = { tonic: 'G', mode: 'major' } as const;
@@ -342,5 +342,12 @@ describe('renderPhraseSvg', () => {
 	it('refuses a phrase too long for a divider', () => {
 		const notes = Array.from({ length: MAX_EVENTS + 1 }, () => ({ pitch: 'A3', dur: 'quarter' as const, syl: 'la' }));
 		assert.throws(() => renderPhraseSvg(resolvePhrase(phrase({ notes }))), /at most/);
+	});
+});
+
+describe('renderHeadPath', () => {
+	it('draws the same head for the same seed, so the favicon is stable', () => {
+		assert.deepEqual(renderHeadPath('fasola-fa', 'favicon'), renderHeadPath('fasola-fa', 'favicon'));
+		assert.notEqual(renderHeadPath('fasola-fa', 'a').d, renderHeadPath('fasola-fa', 'b').d);
 	});
 });

@@ -51,6 +51,8 @@ const ogImage = absoluteUrl('/og-default.png', Astro.site);
 		{noindex && <meta name="robots" content="noindex" />}
 
 		<link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
+		<link rel="icon" href={url('/favicon.ico')} sizes="32x32" />
+		<link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
 		<link rel="sitemap" href={url('/sitemap-index.xml')} />
 		<link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={absoluteUrl('/rss.xml', Astro.site)} />
 		<meta name="generator" content={Astro.generator} />
