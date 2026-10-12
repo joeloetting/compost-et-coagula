@@ -1,5 +1,5 @@
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import { type Article, articleAuthor, typeLabels, writingPath } from './content';
+import { type Article, articleAuthor, articleLicense, typeLabels, writingPath } from './content';
 import { absoluteUrl } from './urls';
 
 /**
@@ -17,6 +17,7 @@ export function articleSchema(article: Article, site: URL | undefined): Record<s
 	const { title, subtitle, description, published, updated, topics, type } = article.data;
 	const pageUrl = absoluteUrl(writingPath(article), site);
 	const author = articleAuthor(article);
+	const license = articleLicense(article);
 	const publication = {
 		'@type': 'Periodical',
 		name: SITE_TITLE,
@@ -40,6 +41,9 @@ export function articleSchema(article: Article, site: URL | undefined): Record<s
 		isAccessibleForFree: true,
 		...(topics.length > 0 && { keywords: topics.join(', ') }),
 		author: { '@type': 'Person', name: author.name, url: absoluteUrl(author.path, site) },
+		copyrightHolder: { '@type': 'Person', name: author.name },
+		copyrightYear: published.getUTCFullYear(),
+		...(license.url && { license: license.url }),
 		publisher: { '@type': 'Organization', name: SITE_TITLE, url: absoluteUrl('/', site) },
 		isPartOf: publication,
 	};

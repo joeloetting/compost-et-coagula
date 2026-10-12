@@ -1,15 +1,21 @@
 ---
-import { SITE_TITLE } from '../consts';
-import { getNotes } from '../utils/content';
+import { SITE_AUTHOR, SITE_LICENSE, SITE_TITLE } from '../consts';
+import { copyrightYears, getNotes } from '../utils/content';
 import { url } from '../utils/urls';
 
 // Linked only once a note is published, so the link never leads to an empty list.
 const hasNotes = (await getNotes()).length > 0;
+const years = await copyrightYears();
 ---
 
 <footer class="site-footer">
 	<div class="container footer-inner">
-		<p><a href={url('/')}>{SITE_TITLE}</a> is an independent publication.</p>
+		<div>
+			<p><a href={url('/')}>{SITE_TITLE}</a> is an independent publication.</p>
+			<p class="rights">
+				© {years} {SITE_AUTHOR.name}. Unless otherwise noted, <a href={url(SITE_LICENSE.path)}>licensed {SITE_LICENSE.name}</a>.
+			</p>
+		</div>
 		<ul>
 			<li><a href={url('/writing/')}>Writing</a></li>
 			<li><a href={url('/projects/')}>Projects</a></li>
@@ -39,6 +45,10 @@ const hasNotes = (await getNotes()).length > 0;
 
 	a {
 		color: inherit;
+	}
+
+	.rights {
+		margin-top: 0.25rem;
 	}
 
 	ul {

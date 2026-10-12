@@ -1,10 +1,10 @@
 ---
-import { SITE_TITLE } from '../consts';
+import { SITE_LICENSE, SITE_TITLE } from '../consts';
 import ArticleMeta from '../components/ArticleMeta.astro';
 import ArticleOutline from '../components/ArticleOutline.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import BaseLayout from './BaseLayout.astro';
-import { type Article, articleAuthor, articleProjects, getWriting, projectPath, writingPath } from '../utils/content';
+import { type Article, articleAuthor, articleLicense, articleProjects, getWriting, projectPath, writingPath } from '../utils/content';
 import { articleSchema } from '../utils/seo';
 import { url } from '../utils/urls';
 
@@ -16,6 +16,9 @@ interface Props {
 const { article, headings } = Astro.props;
 const { title, description, published, updated, correction, draft } = article.data;
 const projects = await articleProjects(article);
+// The site's license is stated once, in the footer; an article mentions its
+// own only when it differs from that, or carries a note about its sources.
+const license = articleLicense(article);
 // Show other published pieces from the same inquiry, without guessing at
 // thematic recommendations or offering drafts as a reader's next destination.
 const writing = projects.length ? await getWriting() : [];
@@ -42,6 +45,7 @@ const printHeads = `@page { @top-left { content: ${cssString(SITE_TITLE)}; } @to
 	noindex={draft}
 	author={articleAuthor(article).name}
 	schema={articleSchema(article, Astro.site)}
+	license={license.url}
 >
 	<style is:inline slot="head" set:html={printHeads} />
 	<article class="article">
@@ -66,6 +70,20 @@ const printHeads = `@page { @top-left { content: ${cssString(SITE_TITLE)}; } @to
 			)
 		}
 		<footer class="article-footer">
+			{
+				(license.custom || license.rights) && (
+					<p class="rights-note">
+						{license.custom && (
+							<>
+								This piece is published under{' '}
+								{license.url ? <a href={license.url} rel="license">{license.name}</a> : license.name}, not the site’s default license.{' '}
+							</>
+						)}
+						{license.rights && <>{license.rights} </>}
+						See <a href={url(SITE_LICENSE.path)}>copyright and reuse</a>.
+					</p>
+				)
+			}
 			{continuations.map(({ project, entries }) => (
 				<nav class="continue-reading" aria-label={`More from ${project.data.title}`}>
 					<p class="eyebrow">More from {project.data.title}</p>
@@ -102,6 +120,17 @@ const printHeads = `@page { @top-left { content: ${cssString(SITE_TITLE)}; } @to
 </script>
 
 <style>
+	.rights-note {
+		flex-basis: 100%;
+		max-width: var(--measure);
+		margin-bottom: 0.75rem;
+		color: var(--muted-ink);
+	}
+
+	.rights-note a {
+		color: inherit;
+	}
+
 	.continue-reading {
 		flex-basis: 100%;
 		margin-bottom: 0.75rem;

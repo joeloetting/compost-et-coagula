@@ -25,9 +25,11 @@ interface Props {
 	author?: string;
 	/** schema.org data, emitted as JSON-LD. */
 	schema?: Record<string, unknown>;
+	/** URL of the license the page's content is under, as <link rel="license">. */
+	license?: string;
 }
 
-const { title, subtitle, description = SITE_DESCRIPTION, ogType = 'website', published, updated, noindex = false, author = SITE_AUTHOR.name, schema } = Astro.props;
+const { title, subtitle, description = SITE_DESCRIPTION, ogType = 'website', published, updated, noindex = false, author = SITE_AUTHOR.name, schema, license } = Astro.props;
 
 const headline = title ? fullHeadline(title, subtitle) : SITE_TITLE;
 const fullTitle = title ? `${headline} · ${SITE_TITLE}` : SITE_TITLE;
@@ -45,6 +47,7 @@ const ogImage = absoluteUrl('/og-default.png', Astro.site);
 		<meta name="description" content={description} />
 		<meta name="author" content={author} />
 		<link rel="canonical" href={canonical} />
+		{license && <link rel="license" href={license} />}
 		{noindex && <meta name="robots" content="noindex" />}
 
 		<link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
