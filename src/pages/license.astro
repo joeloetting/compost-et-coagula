@@ -1,0 +1,67 @@
+---
+import { SITE_AUTHOR, SITE_LICENSE } from '../consts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { copyrightYears } from '../utils/content';
+import { url } from '../utils/urls';
+
+const years = await copyrightYears();
+const codeLicense = 'https://github.com/joeloetting/compost-et-coagula/blob/master/LICENSE';
+---
+
+<BaseLayout title="Copyright and reuse" description="How the essays, notes, figures, and code of Compost et Coagula may be shared and reused." license={SITE_LICENSE.url}>
+	<article class="license">
+		<header class="page-header">
+			<h1>Copyright and reuse</h1>
+		</header>
+		<div class="prose">
+			<p>
+				Unless otherwise indicated, the original essays, research notes, illustrations, and other editorial content published on{' '}
+				<i>Compost et Coagula</i> are © {years} {SITE_AUTHOR.name} and licensed under the{' '}
+				<a href={SITE_LICENSE.url} rel="license">{SITE_LICENSE.title}</a>.
+			</p>
+			<p>You are welcome to share, quote, and adapt this material under the terms of that license, with appropriate attribution.</p>
+			<p>Source code developed specifically for this website is separately available under the <a href={codeLicense}>MIT License</a> where expressly indicated.</p>
+			<p>
+				Historical documents, archival images, musical notation, quotations, and other third-party materials retain their respective
+				copyright or public-domain status. Their inclusion here does not change those rights or place them under this site’s Creative
+				Commons license.
+			</p>
+			<p>For uses beyond the terms of the applicable license, please <a href={url(SITE_AUTHOR.path)}>contact the author</a>.</p>
+
+			<h2>What each license covers</h2>
+				<table>
+					<thead>
+						<tr><th scope="col">Material</th><th scope="col">License</th></tr>
+					</thead>
+					<tbody>
+						<tr><td>Essays, research notes, original criticism</td><td><a href={SITE_LICENSE.url}>{SITE_LICENSE.name}</a></td></tr>
+						<tr><td>Original diagrams, timelines, illustrations</td><td><a href={SITE_LICENSE.url}>{SITE_LICENSE.name}</a></td></tr>
+						<tr><td>Original photographs</td><td><a href={SITE_LICENSE.url}>{SITE_LICENSE.name}</a>, unless otherwise marked</td></tr>
+						<tr><td>The site’s Astro components, CSS, and JavaScript</td><td><a href={codeLicense}>MIT</a></td></tr>
+						<tr><td>Historical images, quotations, manuscript and tunebook scans</td><td>Their original rights status</td></tr>
+					</tbody>
+				</table>
+
+			<h2>Pieces marked otherwise</h2>
+			<p>
+				Some pieces carry their own terms. An essay published under a different license says so at its end, and every figure states its
+				source and rights status in its caption. Where a piece or a caption says something different, it takes precedence over the
+				default above.
+			</p>
+
+			<h2>Attributing this work</h2>
+			<p>
+				A good attribution names the author, the title, and this site, links to the page, and names the license, for example:
+				“{SITE_AUTHOR.name}, ‘Title of the Essay,’ <i>Compost et Coagula</i>, {SITE_LICENSE.name}.” If you adapt the work, say so,
+				and share your adaptation under the same license.
+			</p>
+		</div>
+	</article>
+</BaseLayout>
+
+<style>
+	.license {
+		max-width: var(--measure);
+		margin-inline: auto;
+	}
+</style>

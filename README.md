@@ -74,6 +74,8 @@ Text with a footnote.[^1]
 | `topics` | no | A list of words. Included in the RSS feed. |
 | `projects` | no | Project slugs: `the-cruciform-ground`, `deftere`. The article then appears on that project's page. |
 | `correction` | no | A revision note shown at the top of the article (see below). |
+| `license`, `licenseUrl` | no | This article's own license, when it differs from the site default, CC BY-NC-SA 4.0 (see [Licensing](#licensing)). |
+| `rights` | no | A short rights note shown at the end of the article, e.g. for incorporated archival material. |
 | `draft` | no | `true` keeps the article out of the published site. Defaults to `false`. |
 
 The build fails with a clear message if a required field is missing, a date is malformed or does not exist (such as `2026-10-32`), a `type` is not one of the three allowed values, or a project slug does not exist.
@@ -267,7 +269,7 @@ This renders as **Figure 1.** followed by the caption, then a line reading *Draw
 - `id` names the figure so the text can refer to it, and gives it a permanent link, `#figure-ridges`. `<FigureRef to="ridges" />` prints "Figure 1" as a link to the figure, and stays correct when figures are added or reordered. A reference may come before or after its figure. **Give an `id` to any figure you or anyone else may link to**: a figure without one is still numbered but has no link target, because its number changes when figures are added.
 - `credit` names who made the image (photographer, illustrator, cartographer).
 - `source` says where the image comes from. Link it with either `cite`, the key of an entry in the article's bibliography, or `sourceUrl`, for a source online. With `cite` alone, the source line shows the whole bibliography entry.
-- `license` states the copyright or license status, e.g. "Public domain" or "CC BY 4.0"; add `licenseUrl` to link it.
+- `license` states the copyright or license status, e.g. "Public domain" or "CC BY 4.0"; add `licenseUrl` to link it. A figure without `license` falls under the site's default license only if it is original to the site; a scan or other third-party image must state its own status.
 - `date`, `medium`, `holder`, and `accession` describe the original when it matters, above all when an image is evidence: when it was made (`date="c. 1760"`), how (`medium="Woodcut"`), who holds it (`holder="Bibliothèque nationale de France"`), and under what number (`accession="Kh-34-4"`). They appear in the credit line, in that order. None is required.
 
 **What every figure needs.** `alt` is required, and the build stops without it. In a published article, a numbered figure should also have a `credit` or a source (`source`, `sourceUrl`, or `cite`), and a figure taken from a source should have a `license`; when one is missing, `npm run dev` and `npm run build` print a warning naming the figure. Drafts are not checked, so placeholders can stay until publication.
@@ -440,6 +442,24 @@ The RSS feed (`/rss.xml`) carries the full text of every published article, rend
 
 The author's name is set once, as `SITE_AUTHOR` in `src/consts.ts`. It appears in every article's byline, in the page metadata and JSON-LD, and as `dc:creator` in the RSS feed.
 
+## Licensing
+
+- **Writing, notes, and original figures** are CC BY-NC-SA 4.0 by default ([`LICENSE-CONTENT.md`](LICENSE-CONTENT.md)). The default is `SITE_LICENSE` in `src/consts.ts`.
+- **The site's code** is MIT ([`LICENSE`](LICENSE)).
+- **Third-party material** (scans, archival images, transcribed notation, quotations) keeps its own rights status; each figure states it with `license`.
+
+The full statement is the `/license/` page (`src/pages/license.astro`), linked from the footer of every page. Articles don't repeat it.
+
+To publish one article under different terms, set `license` (and `licenseUrl`, if it has one) in its front matter. A one-line note then appears at the end of that article, and its structured data and `<link rel="license">` point to the new license:
+
+```yaml
+license: "CC BY 4.0"
+licenseUrl: "https://creativecommons.org/licenses/by/4.0/"
+rights: "The transcriptions of Old Hundred follow the public-domain 1919 edition."
+```
+
+`rights` alone, without `license`, adds a note while keeping the default license. For a single figure, use the figure's own `license` and `licenseUrl`.
+
 ## Project structure
 
 ```text
@@ -448,8 +468,8 @@ src/
   content/projects/    project pages (Markdown)
   content/notes/       notes about the publication (Markdown)
   content.config.ts    metadata schemas
-  consts.ts            site title, description, and author name
-  pages/               routes: home, writing, projects, notes, about, search, RSS, 404
+  consts.ts            site title, description, author name, and default license
+  pages/               routes: home, writing, projects, notes, about, license, search, RSS, 404
   layouts/             page and article layouts
   components/          header, footer, article lists, Figure, FigureRef, ShapeNoteDivider
   data/shapeNotes/     musical phrases quoted by shape-note dividers

@@ -1,5 +1,5 @@
 import { type CollectionEntry, getCollection, getEntries, render } from 'astro:content';
-import { SITE_AUTHOR } from '../consts';
+import { SITE_AUTHOR, SITE_LICENSE } from '../consts';
 
 export type Article = CollectionEntry<'writing'>;
 export type Project = CollectionEntry<'projects'>;
@@ -16,6 +16,17 @@ export const showDrafts = import.meta.env.DEV;
 export async function getWriting(): Promise<Article[]> {
 	const entries = await getCollection('writing', ({ data }) => showDrafts || !data.draft);
 	return entries.sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
+}
+
+/**
+ * The years of the copyright notice: from the earliest published article to
+ * the year of the build, e.g. "2025–2026", or one year when they are the same.
+ */
+export async function copyrightYears(): Promise<string> {
+	const writing = await getWriting();
+	const thisYear = new Date().getUTCFullYear();
+	const first = Math.min(thisYear, ...writing.map((entry) => entry.data.published.getUTCFullYear()));
+	return first < thisYear ? `${first}–${thisYear}` : `${thisYear}`;
 }
 
 /** Published writing that belongs to the given project, newest first. */
@@ -59,6 +70,17 @@ export const typeLabels: Record<Article['data']['type'], string> = {
  */
 export function articleAuthor(_entry: Article): typeof SITE_AUTHOR {
 	return SITE_AUTHOR;
+}
+
+/**
+ * The license an article is published under: its own `license` from the front
+ * matter, or the site default. `custom` is true when the article sets its own,
+ * which is the only case the article page mentions it.
+ */
+export function articleLicense(entry: Article): { name: string; url?: string; rights?: string; custom: boolean } {
+	const { license, licenseUrl, rights } = entry.data;
+	if (license) return { name: license, url: licenseUrl, rights, custom: true };
+	return { name: SITE_LICENSE.name, url: SITE_LICENSE.url, rights, custom: false };
 }
 
 export function writingPath(entry: Article): string {

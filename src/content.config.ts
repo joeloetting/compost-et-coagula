@@ -74,6 +74,14 @@ const writing = defineCollection({
 		topics: z.array(z.string().trim().min(1)).nullish().transform((value) => value ?? []),
 		projects: z.array(reference('projects')).nullish().transform((value) => value ?? []),
 		correction: optionalText,
+		/**
+		 * This article's own license, when it differs from the site default (SITE_LICENSE),
+		 * e.g. "CC BY 4.0" or "All rights reserved". Shown at the end of the article.
+		 */
+		license: optionalText,
+		licenseUrl: z.url().nullish().transform((value) => value ?? undefined),
+		/** A short rights note shown with the license, e.g. for incorporated archival material. */
+		rights: optionalText,
 		draft: z.boolean().default(false),
 	}),
 });
