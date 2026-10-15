@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# shape-note phrase ledger lock and temporary files (scripts/phrase.ts)
+src/data/shapeNotes/*.lock
+src/data/shapeNotes/.*.tmp

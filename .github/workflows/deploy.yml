@@ -30,6 +30,8 @@ jobs:
         run: npm run check
       - name: Unit tests
         run: npm run test:unit
+      - name: Check shape-note phrase assignments
+        run: npm run phrase:check
       - name: Build
         run: npm run build
       - name: Check links and draft exclusion

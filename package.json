@@ -12,9 +12,13 @@
     "check": "astro check",
     "check:dist": "node scripts/check-dist.mjs",
     "test:unit": "node --experimental-strip-types --test src/lib/**/*.test.ts",
-    "test": "astro check && npm run test:unit && npm run build && node scripts/check-dist.mjs",
+    "test": "astro check && npm run test:unit && npm run phrase:check && npm run build && node scripts/check-dist.mjs",
     "astro": "astro",
-    "favicon": "node --experimental-strip-types scripts/favicon.ts"
+    "favicon": "node --experimental-strip-types scripts/favicon.ts",
+    "phrase:draw": "node --experimental-strip-types scripts/phrase.ts draw",
+    "phrase:list": "node --experimental-strip-types scripts/phrase.ts list",
+    "phrase:check": "node --experimental-strip-types scripts/phrase.ts check",
+    "phrase:release": "node --experimental-strip-types scripts/phrase.ts release"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.3",
@@ -26,7 +30,9 @@
     "@citation-js/plugin-csl": "^0.9.0",
     "astro": "^7.3.8",
     "sanitize-html": "^2.18.0",
-    "sharp": "^0.35.0"
+    "satteri": "^0.10.5",
+    "sharp": "^0.35.0",
+    "yaml": "^2.9.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
