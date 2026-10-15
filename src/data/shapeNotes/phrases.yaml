@@ -15,6 +15,11 @@
 # A note sung to the previous syllable says `continues: true`; slurs, ties,
 # and beams printed in the source go in `spans`, counting notes from 1.
 #
+# `passageId` names the notated passage a phrase quotes (one arrangement,
+# voice, and place in the tune), so that records setting the same notes to
+# different verses share it. It is not a tune title; a phrase without one is
+# its own passage. `npm run phrase:draw -- --distinct-passages` uses it.
+#
 # Records marked `fixture: true` are demonstration data: synthetic phrases,
 # or a phrase whose citation is incomplete or a placeholder. They must not
 # appear in a published article, and `npm test` fails if one is used on a
@@ -22,6 +27,7 @@
 
 - id: old-hundred-tenor
   title: Old Hundred
+  passageId: new-harp-1919-old-hundred-tenor-line-1
   system: swan-seven
   key: { tonic: A, mode: major } # three sharps; do on A
   meter: '2/2'
@@ -54,6 +60,7 @@
 
 - id: old-hundred-tenor-verse-1
   title: Old Hundred
+  passageId: new-harp-1919-old-hundred-tenor-line-1
   system: swan-seven
   key: { tonic: A, mode: major } # three sharps; do on A
   meter: '2/2'

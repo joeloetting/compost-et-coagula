@@ -163,6 +163,8 @@ export interface PhraseRecord {
 	title: string;
 	/** Synthetic data or a placeholder citation, for tests and layout; never published. */
 	fixture?: boolean;
+	/** The notated passage quoted, shared by lyric variants of the same notes; defaults to `id`. */
+	passageId?: string;
 	system: ShapeSystem;
 	key: PhraseKey;
 	meter?: string;
