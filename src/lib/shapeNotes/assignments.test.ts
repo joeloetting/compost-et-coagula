@@ -7,6 +7,7 @@ import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'nod
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { after, describe, it } from 'node:test';
+import { stringify } from 'yaml';
 import {
 	analyze,
 	drawPhrase,
@@ -20,10 +21,14 @@ import {
 	scanEssay,
 	serializeLedger,
 } from './assignments.ts';
-import { readCatalog } from './catalog.ts';
+import { parseYaml, readCatalog } from './catalog.ts';
 
 const repository = new URL('../../../', import.meta.url).pathname;
-const realCatalog = readFileSync(join(repository, 'src/data/shapeNotes/phrases.yaml'), 'utf8');
+// The catalog's records as of this test, so that adding a phrase to the
+// catalog does not change what the tests expect to be drawn.
+const BASE_IDS = ['old-hundred-tenor', 'old-hundred-tenor-verse-1', 'liverpool-tenor', 'idumea-opening', 'fixture-minor-phrase', 'fixture-long-lyric'];
+const records = parseYaml(readFileSync(join(repository, 'src/data/shapeNotes/phrases.yaml'), 'utf8')) as { id: string }[];
+const baseCatalog = stringify(BASE_IDS.map((id) => records.find((record) => record.id === id)));
 const roots: string[] = [];
 after(() => {
 	for (const root of roots) rmSync(root, { recursive: true, force: true });
@@ -53,7 +58,7 @@ function project(options: { extra?: string; catalog?: string; essays?: Record<st
 	const paths = projectPaths(root);
 	mkdirSync(dirname(paths.catalog), { recursive: true });
 	mkdirSync(paths.components, { recursive: true });
-	writeFileSync(paths.catalog, options.catalog ?? realCatalog + (options.extra ?? ''));
+	writeFileSync(paths.catalog, options.catalog ?? baseCatalog + (options.extra ?? ''));
 	if (options.ledger !== undefined) writeFileSync(paths.ledger, options.ledger);
 	const essays = options.essays ?? { 'writing/draft-essay.mdx': `${frontmatter(true)}${IMPORT}Prose.\n` };
 	for (const [name, text] of Object.entries(essays)) {
@@ -177,7 +182,7 @@ describe('malformed data', () => {
 	});
 
 	it('refuses duplicate catalog ids before loading either record', () => {
-		const catalog = readCatalog(realCatalog + extraPhrase('extra-a') + extraPhrase('extra-a'));
+		const catalog = readCatalog(baseCatalog + extraPhrase('extra-a') + extraPhrase('extra-a'));
 		assert.match(catalog.problems.join('\n'), /the id "extra-a" is used by entries 7, 8/);
 		assert.equal(catalog.byId.has('extra-a'), false);
 	});
