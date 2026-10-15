@@ -87,6 +87,51 @@
     - The hold over the last note is not drawn.
     - '"Before Jehovah''s awful throne" is Wesley''s alteration of Watts''s second stanza, first printed in his Collection of Psalms and Hymns (Charlestown, 1737).'
 
+- id: greenfields-tenor
+  title: Greenfields
+  system: swan-seven
+  # No key signature is printed on any staff, but the shapes put do on G
+  # (G hourglass, A half disc, B diamond, C right triangle, D oval), so the
+  # key is G major. The phrase has no F.
+  key: { tonic: G, mode: major }
+  meter: '6/4'
+  # Read from the author's scan of page 16. The tenor is the third of four
+  # staves and carries the melody; verse 1 is printed above it. The phrase
+  # runs from the upbeat to the first-time ending.
+  notes:
+    - { pitch: G4, dur: { value: half, dots: 1 }, syl: How, sourceHead: swan-do }
+    - { pitch: G4, dur: quarter, syl: te-, sourceHead: swan-do }
+    - { pitch: D4, dur: quarter, syl: dious, sourceHead: swan-sol }
+    - { pitch: G4, dur: quarter, syl: and, sourceHead: swan-do }
+    - { pitch: B4, dur: quarter, syl: taste-, sourceHead: swan-mi }
+    - { pitch: G4, dur: quarter, syl: less, sourceHead: swan-do }
+    - { pitch: B4, dur: quarter, syl: the, sourceHead: swan-mi }
+    - { pitch: D5, dur: { value: half, dots: 1 }, syl: 'hours,', sourceHead: swan-sol }
+    - { pitch: C5, dur: { value: half, dots: 1 }, syl: When, sourceHead: swan-fa }
+    - { pitch: B4, dur: quarter, syl: Je-, sourceHead: swan-mi }
+    - { pitch: D5, dur: quarter, syl: sus, sourceHead: swan-sol }
+    - { pitch: B4, dur: quarter, syl: 'no', sourceHead: swan-mi }
+    - { pitch: A4, dur: quarter, syl: lon-, sourceHead: swan-ra }
+    - { pitch: G4, dur: quarter, syl: ger, sourceHead: swan-do }
+    - { pitch: A4, dur: quarter, syl: I, sourceHead: swan-ra }
+    - { pitch: G4, dur: { value: half, dots: 1 }, syl: 'see;', sourceHead: swan-do }
+  tune: { composer: Edson (as printed) }
+  words: { author: John Newton, firstLine: 'How tedious and tasteless the hours' }
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 16
+    tune: Greenfields
+    voice: tenor
+    verse: 1
+    locator: first line, to the first-time ending
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - The page prints no key signature; the key is read from the shapes.
+    - The phrase ends on the first-time ending; the repeat and the second ending are not drawn.
+
 - id: liverpool-tenor
   # Notes, words, and shapes are checked against the scan. The page number
   # below is a PLACEHOLDER for the demo, not read from the book, so the
