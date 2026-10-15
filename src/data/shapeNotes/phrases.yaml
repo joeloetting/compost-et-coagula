@@ -96,6 +96,7 @@
 
 - id: greenfields-tenor
   title: Greenfields
+  passageId: new-harp-1919-greenfields-tenor-line-1
   system: swan-seven
   # No key signature is printed on any staff, but the shapes put do on G
   # (G hourglass, A half disc, B diamond, C right triangle, D oval), so the
@@ -141,6 +142,7 @@
 
 - id: promised-land-tenor
   title: The Promised Land
+  passageId: new-harp-1919-promised-land-tenor-line-1
   system: swan-seven
   # No key signature is printed on any staff, but the shapes put do on A
   # (A hourglass, B half disc, C# diamond, G# si), so the key is A major.
