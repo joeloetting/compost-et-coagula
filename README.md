@@ -349,6 +349,48 @@ Each phrase is a staffless adaptation of one cited voice, in the shape system of
 
 `src/content/writing/the-printers-ornament.mdx` is a working example (a draft).
 
+#### Drawing a phrase
+
+Instead of choosing a phrase by hand, an essay's divider can be given one drawn at random from the catalog. The draw is saved in `src/data/shapeNotes/assignments.json`, which is committed with the essay, so a phrase is not quoted twice by accident. Drawing happens only when you run the command; building, previewing, or serving the site never chooses or changes a phrase.
+
+1. **Add a phrase to the catalog**, if there is one to add: a new record in `src/data/shapeNotes/phrases.yaml`, as above. Give it a `passageId` when it sets the same notes as another record to different words (both Old Hundred verses share `new-harp-1919-old-hundred-tenor-line-1`); otherwise leave it out. Fixtures are never drawn. A phrase that is drawn is only as good as its transcription: checking it against the source is still an editorial step.
+
+2. **Draw a phrase** for a slot in the essay. The slot is a name you choose for that break, such as `break-1`; it stays the same however the prose around it moves.
+
+   ```sh
+   npm run phrase:draw -- --essay writing/an-essay --slot break-1
+   ```
+
+   `--essay` is the essay's path under `src/content`, without `.mdx`. The command chooses uniformly among the phrases not yet reserved, saves the choice, and prints the phrase's words and source, the import line if the essay lacks it, and the lines to paste. Running it again for the same slot prints the same phrase and changes nothing. Add `--distinct-passages` to also skip every phrase that shares a passage with a reserved one.
+
+3. **Paste** the printed lines where the break goes. The comment names the slot, so the check can match the divider to its draw:
+
+   ```mdx
+   {/* shapenote-slot: break-1 */}
+   <ShapeNoteDivider ref="old-hundred-tenor" />
+   ```
+
+   A footnote can go inside the divider as usual.
+
+4. **Check** the draws against the essays (`npm test` and the deploy workflow run this too):
+
+   ```sh
+   npm run phrase:check
+   npm run phrase:list            # what can still be drawn, and what is reserved; add -- --fixtures to show fixtures
+   ```
+
+   A draw not yet pasted into a draft is reported as pending. The check fails if a published essay is missing a drawn divider, if a marked divider quotes a different phrase than its draw, if a slot is marked twice or has no draw, if an essay with a draw has been moved or deleted, or if a phrase is quoted more than once.
+
+5. **Release** a draw you no longer want: first remove (or replace) its divider and marker from the essay, then
+
+   ```sh
+   npm run phrase:release -- --essay writing/an-essay --slot break-1
+   ```
+
+   The command refuses while the marked divider is still in the essay, and never edits an essay. To replace a draw, remove its divider, release it, and draw again. When every phrase has been drawn, `phrase:draw` stops with an error rather than reusing one; add phrases to the catalog or release unused draws.
+
+A phrase is reserved by every draw, drafts included, and by every divider placed by hand (without a slot marker) in an essay or note. Dividers placed by hand still work as before. A `ref` written as anything other than a literal string (`ref="id"` or `ref={'id'}`) cannot be checked, and the check says so. `writing/a-musical-pause`, `writing/the-printers-ornament`, and `notes/on-shape-notes` demonstrate the divider and repeat phrases on purpose, so their dividers reserve nothing; a published fixture still fails `npm test`.
+
 ## Notes
 
 A note is a short standing page about the publication itself, such as *On Shape Notes*, which explains the musical figures in the dividers. Notes are not essays: they have no date, do not appear in the writing list or the RSS feed, and are listed at `/notes/`. Each is one Markdown file in `src/content/notes/`, and the file name becomes the URL (`on-shape-notes.mdx` -> `/notes/on-shape-notes/`). Use `.mdx`, as for an essay, when the note needs figures, dividers, or other components; images it imports from an essay's folder are reached with `../writing/…`.
@@ -472,8 +514,8 @@ src/
   pages/               routes: home, writing, projects, notes, about, license, search, RSS, 404
   layouts/             page and article layouts
   components/          header, footer, article lists, Figure, FigureRef, ShapeNoteDivider
-  data/shapeNotes/     musical phrases quoted by shape-note dividers
-  lib/shapeNotes/      shape-note notation, SVG drawing, and their unit tests
+  data/shapeNotes/     musical phrases quoted by shape-note dividers, and the phrases drawn for essays
+  lib/shapeNotes/      shape-note notation, SVG drawing, the phrase catalog and draws, and their unit tests
   plugins/figures.mjs  figure numbers, figure references, bibliography keys, citations
   styles/global.css    design tokens and typography
   styles/edition.css   article margin, marginal notes, later notes, editorial note
@@ -482,6 +524,7 @@ src/
   utils/               content queries, URL, metadata, and feed helpers
   assets/fonts/        self-hosted fonts (SIL Open Font License)
 scripts/check-dist.mjs build checks used by `npm test`
+scripts/phrase.ts      the phrase:draw, phrase:list, phrase:check, and phrase:release commands
 pagefind.yml           search index settings
 ```
 
