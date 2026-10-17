@@ -184,6 +184,41 @@
     - The beamed pair of eighths is sung to one syllable, as printed.
     - The words are printed once, between the counter and the tenor; their placement under the tenor's notes is read from the syllable count.
 
+- id: wondrous-love-tenor
+  title: Wondrous Love
+  passageId: southern-harmony-1854-wondrous-love-tenor-line-1
+  system: fasola-four
+  key: { tonic: G, mode: minor } # two flats; la on G
+  # Read from the author's screenshot of page 252, from the page image in
+  # the CCEL electronic edition. The tenor is the middle of three staves and
+  # carries the melody; the words are printed under it. The phrase starts on
+  # "What", after the half rest, and ends on the first "soul!".
+  notes:
+    - { pitch: G4, dur: half, syl: What, sourceHead: fasola-la }
+    - { pitch: G4, dur: quarter, syl: won-, sourceHead: fasola-la }
+    - { pitch: F4, dur: quarter, syl: drous, sourceHead: fasola-sol }
+    - { pitch: A4, dur: quarter, syl: love, sourceHead: fasola-mi }
+    - { pitch: C5, dur: quarter, syl: is, sourceHead: fasola-sol }
+    - { pitch: D5, dur: half, syl: 'this,', sourceHead: fasola-la }
+    - { pitch: C5, dur: quarter, syl: 'oh!', sourceHead: fasola-sol }
+    - { pitch: A4, dur: quarter, syl: my, sourceHead: fasola-mi }
+    - { pitch: G4, dur: half, syl: 'soul!', sourceHead: fasola-la }
+  tune: { composer: Christopher (as printed) }
+  words: { firstLine: 'What wondrous love is this' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 252
+    tune: Wondrous Love
+    voice: tenor
+    verse: 1
+    locator: first line
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - The opening half rest is not drawn.
+
 - id: liverpool-tenor
   # Notes, words, and shapes are checked against the scan. The page number
   # below is a PLACEHOLDER for the demo, not read from the book, so the
