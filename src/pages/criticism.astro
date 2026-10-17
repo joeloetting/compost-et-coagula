@@ -1,6 +1,7 @@
 ---
 import { CRITICISM_EMAIL } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ShapeNoteDivider from '../components/ShapeNoteDivider.astro';
 
 const email = CRITICISM_EMAIL.trim();
 const mailto = `mailto:${email}?subject=${encodeURIComponent('Criticism — Compost et Coagula')}`;
@@ -23,6 +24,8 @@ const mailto = `mailto:${email}?subject=${encodeURIComponent('Criticism — Comp
 				Where does an analogy clarify something, and where does it obscure the particular people, places,
 				or processes under discussion? What have I mistaken, simplified, or left out?
 			</p>
+
+			<ShapeNoteDivider ref="complainer-tenor-s4-l4" />
 
 			<h2>Writing to me</h2>
 			<p>
