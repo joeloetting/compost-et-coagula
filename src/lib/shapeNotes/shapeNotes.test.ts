@@ -247,6 +247,20 @@ describe('the verified phrases', () => {
 		assert.deepEqual(pitches.map((p) => headFor('swan-seven', swan(key, p))), printed);
 	});
 
+	it('Greenfields, tenor, verse 1 (New Harp of Columbia, p. 16): every head as printed', () => {
+		const pitches = ['G4', 'G4', 'D4', 'G4', 'B4', 'G4', 'B4', 'D5', 'C5', 'B4', 'D5', 'B4', 'A4', 'G4', 'A4', 'G4'];
+		const printed = ['do', 'do', 'sol', 'do', 'mi', 'do', 'mi', 'sol', 'fa', 'mi', 'sol', 'mi', 'ra', 'do', 'ra', 'do'].map((s) => `swan-${s}`);
+		const key = { tonic: 'G', mode: 'major' } as const;
+		assert.deepEqual(pitches.map((p) => headFor('swan-seven', swan(key, p))), printed);
+	});
+
+	it('The Promised Land, tenor, verse 1 (New Harp of Columbia, p. 47): every head as printed', () => {
+		const pitches = ['A4', 'A4', 'A4', 'B4', 'C#5', 'B4', 'B4', 'B4', 'G#4'];
+		const printed = ['do', 'do', 'do', 'ra', 'mi', 'ra', 'ra', 'ra', 'si'].map((s) => `swan-${s}`);
+		const key = { tonic: 'A', mode: 'major' } as const;
+		assert.deepEqual(pitches.map((p) => headFor('swan-seven', swan(key, p))), printed);
+	});
+
 	it('Liverpool, tenor, verse 1 (The Southern Harmony, 1854): every head as printed', () => {
 		const pitches = ['F4', 'F4', 'G4', 'A4', 'C5', 'D5', 'C5', 'A4', 'G4', 'F4'];
 		const printed = ['fa', 'fa', 'sol', 'la', 'sol', 'la', 'sol', 'la', 'sol', 'fa'].map((s) => `fasola-${s}`);
