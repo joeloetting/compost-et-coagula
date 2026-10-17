@@ -219,6 +219,700 @@
     - Pitches as printed in the treble clef; tenors sing them an octave lower.
     - The opening half rest is not drawn.
 
+- id: invitation-tenor-s1-l2
+  title: Invitation
+  passageId: southern-harmony-1854-invitation-tenor-line-2
+  system: fasola-four
+  key: { tonic: Bb, mode: major } # two flats; fa on B-flat
+  # Read from the author's screenshot of page 2 (header "INVITATION 8 7 4.
+  # Wm Walker. Baptist Harmony, p 249"). Three staves; the tenor is the
+  # middle one. Stanza 1 is printed under the top staff and stanza 2 under
+  # the tenor. Only one flat (B) is visible in the first system's
+  # signatures; the second system shows two (B and E), and every shape
+  # agrees with B-flat major (G = la, F = sol, E-flat = fa), not F major.
+  # Music line 2 is measures 4-6 of the first system (to the double bar),
+  # sung in stanza 2 to "God's free bounty, glorify".
+  notes:
+    - { pitch: Bb4, dur: half, syl: Weak, sourceHead: fasola-fa }
+    - { pitch: G4, dur: eighth, syl: and, sourceHead: fasola-la }
+    - { pitch: F4, dur: eighth, continues: true, sourceHead: fasola-sol }
+    - { pitch: G4, dur: quarter, syl: wound-, sourceHead: fasola-la }
+    - { pitch: Bb4, dur: half, syl: 'ed,', sourceHead: fasola-fa }
+    - { pitch: D5, dur: { value: quarter, dots: 1 }, syl: sick, sourceHead: fasola-la }
+    - { pitch: C5, dur: eighth, syl: and, sourceHead: fasola-sol }
+    - { pitch: Bb4, dur: whole, syl: 'sore;', sourceHead: fasola-fa }
+  spans:
+    - { kind: beam, from: 2, to: 3 }
+  tune: { composer: Wm. Walker (as printed) }
+  words: { firstLine: 'Come, ye sinners, poor and wretched' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 2
+    tune: Invitation
+    voice: tenor
+    verse: 1
+    locator: stanza 1, line 2 (sung to the second line of music)
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - The first system's key signatures show only the B flat; the E flat is read from the second system's signature and from the shapes.
+    - Stanza 1 is printed under the top staff, not the tenor. The tenor underlay is inferred from the stanza 2 words printed under the tenor ("God's free bounty, glorify"), which have the same seven syllables; the beamed pair of eighths is sung to one syllable.
+    - The last note has no stem and fills its measure, so it is read as a whole note.
+
+- id: invitation-tenor-s4-l3
+  title: Invitation
+  passageId: southern-harmony-1854-invitation-tenor-line-3
+  system: fasola-four
+  key: { tonic: Bb, mode: major } # two flats; fa on B-flat
+  # Read from the same screenshot of page 2. Music line 3 begins after the
+  # double bar in the first system: a half rest, then "True" on the E-flat;
+  # it ends on the G half note at the start of the fourth measure after the
+  # double bar, sung in stanza 2 to "True belief and true repentance". The
+  # E-flat half that follows starts line 4 ("Every").
+  notes:
+    - { pitch: Eb5, dur: half, syl: If, sourceHead: fasola-fa }
+    - { pitch: D5, dur: eighth, syl: you, sourceHead: fasola-la }
+    - { pitch: C5, dur: eighth, continues: true, sourceHead: fasola-sol }
+    - { pitch: D5, dur: quarter, syl: tar-, sourceHead: fasola-la }
+    - { pitch: F5, dur: half, syl: ry, sourceHead: fasola-sol }
+    - { pitch: D5, dur: half, syl: till, sourceHead: fasola-la }
+    - { pitch: Bb4, dur: eighth, syl: "you're", sourceHead: fasola-fa }
+    - { pitch: D5, dur: eighth, continues: true, sourceHead: fasola-la }
+    - { pitch: C5, dur: eighth, syl: bet-, sourceHead: fasola-sol }
+    - { pitch: Bb4, dur: eighth, continues: true, sourceHead: fasola-fa }
+    - { pitch: G4, dur: half, syl: 'ter,', sourceHead: fasola-la }
+  spans:
+    - { kind: beam, from: 2, to: 3 }
+    - { kind: beam, from: 7, to: 8 }
+    - { kind: beam, from: 9, to: 10 }
+  tune: { composer: Wm. Walker (as printed) }
+  words: { firstLine: 'Come, ye sinners, poor and wretched' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 2
+    tune: Invitation
+    voice: tenor
+    verse: 4
+    locator: stanza 4, line 3 (sung to the third line of music)
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - The first system's key signatures show only the B flat; the E flat is read from the second system's signature and from the shapes.
+    - Stanza 4 is printed apart from the music. The underlay is inferred from the stanza 2 words printed under the tenor ("True belief and true repentance"), which have the same eight syllables; each beamed pair of eighths is sung to one syllable.
+    - The opening half rest is not drawn.
+
+- id: rock-of-ages-tenor-s3-l1
+  title: Rock of Ages
+  passageId: southern-harmony-1854-rock-of-ages-tenor-line-1
+  system: fasola-four
+  meter: '3/4'
+  key: { tonic: D, mode: major } # two sharps; fa on D
+  # Read from the author's screenshot of page 275. The tenor is the middle of
+  # three staves and carries the melody; stanza 2 is printed under it, and
+  # stanza 3 is printed apart from the music. The phrase starts after the
+  # opening half rest and ends on the half note in measure 3.
+  notes:
+    - { pitch: A4, dur: { value: eighth, dots: 1 }, syl: Noth-, sourceHead: fasola-sol }
+    - { pitch: B4, dur: sixteenth, syl: ing, sourceHead: fasola-la }
+    - { pitch: A4, dur: { value: quarter, dots: 1 }, syl: in, sourceHead: fasola-sol }
+    - { pitch: F#4, dur: eighth, syl: my, sourceHead: fasola-la }
+    - { pitch: D5, dur: { value: eighth, dots: 1 }, syl: hand, sourceHead: fasola-fa }
+    - { pitch: B4, dur: sixteenth, syl: I, sourceHead: fasola-la }
+    - { pitch: A4, dur: half, syl: 'bring,', sourceHead: fasola-sol }
+  words: { firstLine: 'Rock of ages, shelter me' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 275
+    tune: Rock of Ages
+    voice: tenor
+    verse: 3
+    locator: stanza 3, line 1 (sung to the first line of music)
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - The opening half rest is not drawn.
+    - Stanza 3 is printed apart from the music; its words are set by aligning them syllable for syllable with stanza 2 ("Not the labor of my hands"), which is printed under the tenor.
+- id: rock-of-ages-tenor-s3-l4
+  title: Rock of Ages
+  passageId: southern-harmony-1854-rock-of-ages-tenor-line-4
+  system: fasola-four
+  meter: '3/4'
+  key: { tonic: D, mode: major } # two sharps; fa on D
+  # Read from the author's screenshot of page 275. The fourth line of music
+  # begins on the last two notes of measure 7 of the first system (after the
+  # half note on "know"), fills measure 8, and ends on the half note that
+  # opens the second system.
+  notes:
+    - { pitch: C#5, dur: { value: eighth, dots: 1 }, syl: 'Help-', sourceHead: fasola-mi }
+    - { pitch: D5, dur: sixteenth, syl: 'less,', sourceHead: fasola-fa }
+    - { pitch: E5, dur: { value: quarter, dots: 1 }, syl: look, sourceHead: fasola-sol }
+    - { pitch: E5, dur: eighth, syl: to, sourceHead: fasola-sol }
+    - { pitch: C#5, dur: eighth, syl: thee, sourceHead: fasola-mi }
+    - { pitch: A4, dur: eighth, syl: for, sourceHead: fasola-sol }
+    - { pitch: D5, dur: half, syl: 'grace,', sourceHead: fasola-fa }
+  words: { firstLine: 'Rock of ages, shelter me' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 275
+    tune: Rock of Ages
+    voice: tenor
+    verse: 3
+    locator: stanza 3, line 4 (sung to the fourth line of music)
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - Stanza 3 is printed apart from the music; its words are set by aligning them syllable for syllable with stanza 2 ("Could my tears for ever flow"), which is printed under the tenor.
+    - The phrase runs across the system break; its last note opens the second system.
+
+- id: our-journey-home-tenor-s3-l1
+  title: Our Journey Home
+  passageId: southern-harmony-1854-our-journey-home-tenor-line-1
+  system: fasola-four
+  key: { tonic: C, mode: major } # no sharps or flats; fa on C
+  meter: '2/4'
+  # Read from the author's screenshot of page 327. The tenor is the middle of
+  # three staves and carries the melody. Stanza 1 is printed under the treble,
+  # stanza 2 under the tenor and stanza 3 under the bass; the stanza 3 words
+  # below follow the bass underlay, which has the same rhythm in every measure.
+  notes:
+    - { pitch: A4, dur: quarter, syl: O, sourceHead: fasola-la }
+    - { pitch: A4, dur: quarter, syl: to, sourceHead: fasola-la }
+    - { pitch: A4, dur: eighth, syl: grace, sourceHead: fasola-la }
+    - { pitch: G4, dur: eighth, continues: true, sourceHead: fasola-sol }
+    - { pitch: G4, dur: quarter, syl: how, sourceHead: fasola-sol }
+    - { pitch: C5, dur: quarter, syl: great, sourceHead: fasola-fa }
+    - { pitch: C5, dur: quarter, syl: a, sourceHead: fasola-fa }
+    - { pitch: A4, dur: eighth, syl: debt-, sourceHead: fasola-la }
+    - { pitch: G4, dur: eighth, continues: true, sourceHead: fasola-sol }
+    - { pitch: G4, dur: quarter, syl: or, sourceHead: fasola-sol }
+  spans:
+    - { kind: beam, from: 3, to: 4 }
+    - { kind: beam, from: 8, to: 9 }
+  tune: { composer: L. J. Jones (as printed) }
+  words: { firstLine: 'Come, thou Fount of every blessing' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 327
+    tune: Our Journey Home
+    voice: tenor
+    verse: 3
+    locator: stanza 3, line 1 (sung to the first line of music)
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - Stanza 3 is printed under the bass, not under the tenor; its syllables are placed on the tenor notes by aligning them with the bass underlay and the stanza 2 underlay printed under the tenor, which fall the same way.
+    - Each pair of joined eighths is sung to one syllable, as printed.
+
+- id: our-journey-home-tenor-s3-l5
+  title: Our Journey Home
+  passageId: southern-harmony-1854-our-journey-home-tenor-line-5
+  system: fasola-four
+  key: { tonic: C, mode: major } # no sharps or flats; fa on C
+  meter: '2/4'
+  # Read from the author's screenshot of page 327: the first four measures of
+  # the second system, which opens with a repeat sign. The tenor is the middle
+  # of three staves and carries the melody; stanza 3 is printed under the bass.
+  notes:
+    - { pitch: G4, dur: quarter, syl: Prone, sourceHead: fasola-sol }
+    - { pitch: G4, dur: quarter, syl: to, sourceHead: fasola-sol }
+    - { pitch: G4, dur: eighth, syl: wan-, sourceHead: fasola-sol }
+    - { pitch: E4, dur: eighth, continues: true, sourceHead: fasola-la }
+    - { pitch: G4, dur: quarter, syl: 'der,', sourceHead: fasola-sol }
+    - { pitch: C5, dur: quarter, syl: 'Lord,', sourceHead: fasola-fa }
+    - { pitch: C5, dur: quarter, syl: I, sourceHead: fasola-fa }
+    - { pitch: A4, dur: eighth, syl: feel, sourceHead: fasola-la }
+    - { pitch: G4, dur: eighth, continues: true, sourceHead: fasola-sol }
+    - { pitch: G4, dur: quarter, syl: 'it,', sourceHead: fasola-sol }
+  spans:
+    - { kind: beam, from: 3, to: 4 }
+    - { kind: beam, from: 8, to: 9 }
+  tune: { composer: L. J. Jones (as printed) }
+  words: { firstLine: 'Come, thou Fount of every blessing' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 327
+    tune: Our Journey Home
+    voice: tenor
+    verse: 3
+    locator: stanza 3, line 5 (sung to the fifth line of music)
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - Stanza 3 is printed under the bass, not under the tenor; its syllables are placed on the tenor notes by aligning them with the bass underlay and the stanza 2 underlay printed under the tenor, which fall the same way.
+    - Each pair of joined eighths is sung to one syllable, as printed.
+    - The repeat sign that opens this line of music is not drawn.
+
+- id: new-britain-tenor-s2-l2
+  title: New Britain
+  passageId: southern-harmony-1854-new-britain-tenor-line-2
+  system: fasola-four
+  key: { tonic: C, mode: major } # no sharps or flats; fa on C
+  meter: '3/4'
+  # Read from the author's screenshot of page 8. The tenor is the middle of
+  # three staves and carries the melody; stanza 2 is printed under it. The
+  # phrase starts on "And", the last beat of the fifth bar, and ends on the
+  # half note of "-lieved".
+  notes:
+    - { pitch: G4, dur: quarter, syl: And, sourceHead: fasola-sol }
+    - { pitch: C5, dur: half, syl: grace, sourceHead: fasola-fa }
+    - { pitch: E5, dur: eighth, syl: my, sourceHead: fasola-la }
+    - { pitch: C5, dur: eighth, continues: true, sourceHead: fasola-fa }
+    - { pitch: E5, dur: half, syl: fears, sourceHead: fasola-la }
+    - { pitch: D5, dur: eighth, syl: re-, sourceHead: fasola-sol }
+    - { pitch: E5, dur: eighth, continues: true, sourceHead: fasola-la }
+    - { pitch: G5, dur: half, syl: 'lieved;', sourceHead: fasola-sol }
+  spans:
+    - { kind: beam, from: 3, to: 4 }
+    - { kind: beam, from: 6, to: 7 }
+  words: { firstLine: 'Amazing grace! how sweet the sound' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 8
+    tune: New Britain
+    voice: tenor
+    verse: 2
+    locator: stanza 2, line 2 (sung to the second line of music)
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - Each pair of beamed eighths is sung to one syllable, as printed.
+    - The phrase ends on the half note of "-lieved"; the two dots printed after it in mid-bar, and the beamed eighths that follow (the start of the next line, "How"), are not drawn.
+
+- id: new-britain-tenor-s6-l1
+  title: New Britain
+  passageId: southern-harmony-1854-new-britain-tenor-line-1
+  system: fasola-four
+  key: { tonic: C, mode: major } # no sharps or flats; fa on C
+  meter: '3/4'
+  # Read from the author's screenshot of page 8. The tenor is the middle of
+  # three staves and carries the melody. Stanza 6 is printed below the music;
+  # its words are set to the notes by matching the syllables of stanza 2,
+  # which is printed under the tenor. The phrase starts on "The", after the
+  # opening half rest, and ends on "snow,".
+  notes:
+    - { pitch: G4, dur: quarter, syl: The, sourceHead: fasola-sol }
+    - { pitch: C5, dur: half, syl: earth, sourceHead: fasola-fa }
+    - { pitch: E5, dur: eighth, syl: shall, sourceHead: fasola-la }
+    - { pitch: C5, dur: eighth, continues: true, sourceHead: fasola-fa }
+    - { pitch: E5, dur: half, syl: soon, sourceHead: fasola-la }
+    - { pitch: D5, dur: quarter, syl: dis-, sourceHead: fasola-sol }
+    - { pitch: C5, dur: half, syl: solve, sourceHead: fasola-fa }
+    - { pitch: A4, dur: quarter, syl: like, sourceHead: fasola-la }
+    - { pitch: G4, dur: half, syl: 'snow,', sourceHead: fasola-sol }
+  spans:
+    - { kind: beam, from: 3, to: 4 }
+  words: { firstLine: 'Amazing grace! how sweet the sound' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 8
+    tune: New Britain
+    voice: tenor
+    verse: 6
+    locator: stanza 6, line 1 (sung to the first line of music)
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - Stanza 6 is printed apart from the music; its words are set to the notes by matching the syllables of stanza 2, printed under the tenor (same count, eight syllables).
+    - The beamed eighths are sung to one syllable, as printed.
+    - The opening half rest is not drawn.
+
+- id: holy-manna-tenor-s1-l1
+  title: Holy Manna
+  passageId: southern-harmony-1854-holy-manna-tenor-line-1
+  system: fasola-four
+  key: { tonic: C, mode: major } # no sharps or flats; fa on C
+  # Read from the author's screenshot of page 103. The tenor is the middle of
+  # three staves and carries the melody; stanza 1 lines 1-2 are printed under
+  # it on the first row of words, lines 3-4 on the second (the first two lines
+  # of music are repeated). The phrase starts on "Breth-", after the opening
+  # half rest and repeat sign, and ends on the beamed pair on "ship," in
+  # measure 3.
+  notes:
+    - { pitch: G4, dur: quarter, syl: Breth-, sourceHead: fasola-sol }
+    - { pitch: G4, dur: eighth, syl: 'ren,', sourceHead: fasola-sol }
+    - { pitch: A4, dur: eighth, continues: true, sourceHead: fasola-la }
+    - { pitch: C5, dur: quarter, syl: we, sourceHead: fasola-fa }
+    - { pitch: C5, dur: quarter, syl: have, sourceHead: fasola-fa }
+    - { pitch: D5, dur: quarter, syl: met, sourceHead: fasola-sol }
+    - { pitch: D5, dur: eighth, syl: to, sourceHead: fasola-sol }
+    - { pitch: C5, dur: eighth, continues: true, sourceHead: fasola-fa }
+    - { pitch: E5, dur: eighth, syl: wor-, sourceHead: fasola-la }
+    - { pitch: D5, dur: eighth, continues: true, sourceHead: fasola-sol }
+    - { pitch: C5, dur: eighth, syl: 'ship,', sourceHead: fasola-fa }
+    - { pitch: A4, dur: eighth, continues: true, sourceHead: fasola-la }
+  spans:
+    - { kind: beam, from: 2, to: 3 }
+    - { kind: beam, from: 7, to: 8 }
+    - { kind: beam, from: 9, to: 10 }
+    - { kind: beam, from: 11, to: 12 }
+  tune: { composer: More (as printed) }
+  words: { firstLine: 'Brethren, we have met to worship' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 103
+    tune: Holy Manna
+    voice: tenor
+    verse: 1
+    locator: stanza 1, line 1 (sung to the first line of music)
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - The opening half rest and the repeat sign after it are not drawn.
+    - The time signature is printed as a turned C (a whole note to the measure); no meter is given here because it is not printed as a fraction.
+    - Each pair of beamed eighths is sung to one syllable; the printed words are not spaced note by note, so this underlay is set by syllable count (8 syllables on 12 notes, the four beamed pairs taking one syllable each).
+- id: holy-manna-tenor-s5-l2
+  title: Holy Manna
+  passageId: southern-harmony-1854-holy-manna-tenor-line-2
+  system: fasola-four
+  key: { tonic: C, mode: major } # no sharps or flats; fa on C
+  # Read from the author's screenshot of page 103. The second line of music
+  # begins on the quarter note G after the beamed pair on "ship," in measure
+  # 3 and ends on the open (whole) note before the repeat sign in measure 5.
+  # Stanza 1 line 2, "And a-dore the Lord our God;", is printed under it.
+  notes:
+    - { pitch: G4, dur: quarter, syl: Let, sourceHead: fasola-sol }
+    - { pitch: G4, dur: eighth, syl: us, sourceHead: fasola-sol }
+    - { pitch: A4, dur: eighth, continues: true, sourceHead: fasola-la }
+    - { pitch: C5, dur: quarter, syl: love, sourceHead: fasola-fa }
+    - { pitch: C5, dur: quarter, syl: each, sourceHead: fasola-fa }
+    - { pitch: E5, dur: quarter, syl: o-, sourceHead: fasola-la }
+    - { pitch: D5, dur: quarter, syl: ther, sourceHead: fasola-sol }
+    - { pitch: C5, dur: whole, syl: 'too;', sourceHead: fasola-fa }
+  spans:
+    - { kind: beam, from: 2, to: 3 }
+  tune: { composer: More (as printed) }
+  words: { firstLine: 'Brethren, we have met to worship' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 103
+    tune: Holy Manna
+    voice: tenor
+    verse: 5
+    locator: stanza 5, line 2 (sung to the second line of music)
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - The time signature is printed as a turned C (a whole note to the measure); no meter is given here because it is not printed as a fraction.
+    - Stanza 5 is printed apart from the music; its words are set by aligning them syllable for syllable with stanza 1 line 2 ("And adore the Lord our God;"), which is printed under the tenor, the beamed pair taking one syllable.
+    - The last note is an open fa with no stem, read as a whole note; it fills measure 5, which closes the repeated section.
+
+- id: resignation-tenor-s1-l4
+  title: Resignation
+  passageId: southern-harmony-1854-resignation-tenor-line-2
+  system: fasola-four
+  key: { tonic: F, mode: major } # one flat; fa on F
+  meter: '3/2'
+  # Read from the author's screenshot of page 38. The tenor is the middle of
+  # three staves and carries the melody; stanza 1 lines 1-4 are printed under
+  # it in two rows (lines 1 and 3 in the first, 2 and 4 in the second), so the
+  # first two lines of music are sung twice. Line 4 is the second time through
+  # the second line of music, ending in the second-time ending. The phrase
+  # starts on the two slurred quarters before the double bar ("Be-") and ends
+  # on the whole note of the second-time ending ("stream.").
+  notes:
+    - { pitch: F4, dur: quarter, syl: Be-, sourceHead: fasola-fa }
+    - { pitch: A4, dur: quarter, continues: true, sourceHead: fasola-la }
+    - { pitch: C5, dur: whole, syl: side, sourceHead: fasola-sol }
+    - { pitch: F4, dur: half, syl: the, sourceHead: fasola-fa }
+    - { pitch: A4, dur: whole, syl: liv-, sourceHead: fasola-la }
+    - { pitch: G4, dur: half, syl: ing, sourceHead: fasola-sol }
+    - { pitch: F4, dur: whole, syl: 'stream.', sourceHead: fasola-fa }
+  spans:
+    - { kind: slur, from: 1, to: 2 }
+  words: { firstLine: 'My Shepherd will supply my need' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 38
+    tune: Resignation
+    voice: tenor
+    verse: 1
+    locator: stanza 1, line 4 (sung to the second line of music, second time through, with the second-time ending)
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - The first two lines of music are repeated; this is the second time through the second line, and its last note is taken from the second-time ending (a whole note F, followed in the same measure by the half-note upbeat of the next line, which is not included). The first-time ending also prints a whole note F.
+    - The two quarters on "Be-" are slurred, as printed.
+- id: resignation-tenor-s3-l8
+  title: Resignation
+  passageId: southern-harmony-1854-resignation-tenor-line-6
+  system: fasola-four
+  key: { tonic: F, mode: major } # one flat; fa on F
+  meter: '3/2'
+  # Read from the author's screenshot of page 38. The tenor is the middle of
+  # three staves and carries the melody. Stanza 3 is printed beside the second
+  # system, apart from the music; its eighth line is sung to the last line of
+  # music ("In paths of truth and grace." in stanza 1). The phrase starts on the
+  # two slurred quarters before the thin double bar and ends on the dotted
+  # whole note before the final double bar.
+  notes:
+    - { pitch: F4, dur: quarter, syl: But, sourceHead: fasola-fa }
+    - { pitch: A4, dur: quarter, continues: true, sourceHead: fasola-la }
+    - { pitch: C5, dur: whole, syl: like, sourceHead: fasola-sol }
+    - { pitch: F4, dur: half, syl: a, sourceHead: fasola-fa }
+    - { pitch: A4, dur: whole, syl: child, sourceHead: fasola-la }
+    - { pitch: G4, dur: half, syl: at, sourceHead: fasola-sol }
+    - { pitch: F4, dur: { value: whole, dots: 1 }, syl: 'home.', sourceHead: fasola-fa }
+  spans:
+    - { kind: slur, from: 1, to: 2 }
+  words: { firstLine: 'My Shepherd will supply my need' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 38
+    tune: Resignation
+    voice: tenor
+    verse: 3
+    locator: stanza 3, line 8 (sung to the sixth and last line of music)
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - Stanza 3 is printed apart from the music; the underlay is inferred by aligning it with the printed stanza 1 ("In paths of truth and grace."), syllable for syllable.
+    - The two quarters on "But" are slurred, as printed.
+
+- id: mear-tenor-s1-l1
+  title: Mear
+  passageId: southern-harmony-1854-mear-tenor-line-1
+  system: fasola-four
+  key: { tonic: G, mode: major } # one sharp; fa on G
+  meter: '3/2'
+  # Read from the author's screenshot of the Mear score, from the page image
+  # in the electronic edition. The tenor is the middle of three staves and
+  # carries the melody; stanza 1 is printed under it. The phrase starts on
+  # "Will", after the whole rest of the opening measure, and ends on "off?".
+  notes:
+    - { pitch: G4, dur: half, syl: Will, sourceHead: fasola-fa }
+    - { pitch: D5, dur: whole, syl: God, sourceHead: fasola-sol }
+    - { pitch: D5, dur: half, syl: for, sourceHead: fasola-sol }
+    - { pitch: B4, dur: whole, syl: ev-, sourceHead: fasola-la }
+    - { pitch: B4, dur: half, syl: er, sourceHead: fasola-la }
+    - { pitch: G4, dur: half, syl: cast, sourceHead: fasola-fa }
+    - { pitch: A4, dur: half, continues: true, sourceHead: fasola-sol }
+    - { pitch: B4, dur: half, syl: us, sourceHead: fasola-la }
+    - { pitch: A4, dur: whole, syl: 'off?', sourceHead: fasola-sol }
+  spans:
+    - { kind: slur, from: 6, to: 7 }
+  words: { firstLine: 'Will God for ever cast us off?' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 24
+    tune: Mear
+    voice: tenor
+    verse: 1
+    locator: stanza 1, line 1 (sung to the first line of music)
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - Mear is the second tune on page 24, after Prospect of Heaven.
+    - The whole rest that opens the first measure is not drawn.
+    - The two slurred notes on "cast" are sung to one syllable, as printed.
+
+- id: mear-tenor-s1-l3
+  title: Mear
+  passageId: southern-harmony-1854-mear-tenor-line-3
+  system: fasola-four
+  key: { tonic: G, mode: major } # one sharp; fa on G
+  meter: '3/2'
+  # Read from the same screenshot. The phrase starts on "A-", the half note
+  # after "smoke" in the same measure, and ends on "love,".
+  notes:
+    - { pitch: D5, dur: half, syl: A-, sourceHead: fasola-sol }
+    - { pitch: E5, dur: whole, syl: gainst, sourceHead: fasola-la }
+    - { pitch: D5, dur: half, syl: the, sourceHead: fasola-sol }
+    - { pitch: D5, dur: whole, syl: peo-, sourceHead: fasola-sol }
+    - { pitch: G4, dur: half, syl: ple, sourceHead: fasola-fa }
+    - { pitch: C5, dur: whole, syl: of, sourceHead: fasola-fa }
+    - { pitch: B4, dur: half, syl: his, sourceHead: fasola-la }
+    - { pitch: A4, dur: whole, syl: 'love,', sourceHead: fasola-sol }
+  words: { firstLine: 'Will God for ever cast us off?' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 24
+    tune: Mear
+    voice: tenor
+    verse: 1
+    locator: stanza 1, line 3 (sung to the third line of music)
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - Mear is the second tune on page 24, after Prospect of Heaven.
+    - The phrase begins mid-measure, on the half note after "smoke".
+    - The scan prints "Against" as one word under two notes; it is split here as A-gainst.
+
+- id: green-fields-tenor-s1-l4
+  title: Green Fields
+  passageId: southern-harmony-1854-green-fields-tenor-line-2
+  system: fasola-four
+  key: { tonic: A, mode: major } # three sharps; fa on A, and the tune ends on fa A
+  meter: '6/4'
+  # Read from the author's screenshot of page 71. The tenor is the third of
+  # four staves (treble, counter, tenor, bass) and carries the melody; verse 1
+  # is printed under the counter, lines 1-2 above lines 3-4, with first and
+  # second endings. Line 4 is the second time through the second line of
+  # music: it starts on the upbeat "Have" and ends on "me" in the second-time
+  # ending.
+  notes:
+    - { pitch: D5, dur: { value: half, dots: 1 }, syl: Have, sourceHead: fasola-fa }
+    - { pitch: C#5, dur: quarter, syl: all, sourceHead: fasola-la }
+    - { pitch: E5, dur: quarter, syl: lost, sourceHead: fasola-sol }
+    - { pitch: C#5, dur: quarter, syl: their, sourceHead: fasola-la }
+    - { pitch: B4, dur: quarter, syl: sweet-, sourceHead: fasola-sol }
+    - { pitch: A4, dur: quarter, syl: ness, sourceHead: fasola-fa }
+    - { pitch: B4, dur: quarter, syl: to, sourceHead: fasola-sol }
+    - { pitch: A4, dur: { value: half, dots: 1 }, syl: 'me;', sourceHead: fasola-fa }
+  words: { firstLine: 'How tedious and tasteless the hours' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 71
+    tune: Green Fields
+    voice: tenor
+    verse: 1
+    locator: stanza 1, line 4 (sung to the second line of music, second-time ending)
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - The words are printed under the counter, not the tenor; the underlay is read by aligning the tenor with them, one syllable to a note.
+    - The second-time ending holds only the dotted half for "me"; the rest of that measure belongs to the next line and is not drawn.
+- id: green-fields-tenor-s4-l4
+  title: Green Fields
+  passageId: southern-harmony-1854-green-fields-tenor-line-2
+  system: fasola-four
+  key: { tonic: A, mode: major } # three sharps; fa on A, and the tune ends on fa A
+  meter: '6/4'
+  # The same music as green-fields-tenor-s1-l4 (the second line of music,
+  # second-time ending), sung to the fourth line of stanza 4, which is printed
+  # apart from the music below the score.
+  notes:
+    - { pitch: D5, dur: { value: half, dots: 1 }, syl: And, sourceHead: fasola-fa }
+    - { pitch: C#5, dur: quarter, syl: why, sourceHead: fasola-la }
+    - { pitch: E5, dur: quarter, syl: are, sourceHead: fasola-sol }
+    - { pitch: C#5, dur: quarter, syl: my, sourceHead: fasola-la }
+    - { pitch: B4, dur: quarter, syl: win-, sourceHead: fasola-sol }
+    - { pitch: A4, dur: quarter, syl: ters, sourceHead: fasola-fa }
+    - { pitch: B4, dur: quarter, syl: so, sourceHead: fasola-sol }
+    - { pitch: A4, dur: { value: half, dots: 1 }, syl: 'long?', sourceHead: fasola-fa }
+  words: { firstLine: 'How tedious and tasteless the hours' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 71
+    tune: Green Fields
+    voice: tenor
+    verse: 4
+    locator: stanza 4, line 4 (sung to the second line of music, second-time ending)
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - Stanza 4 is printed apart from the music; the underlay is inferred by aligning it with the syllables of stanza 1, printed under the counter (8 syllables, one to a note).
+    - The second-time ending holds only the dotted half for "long"; the rest of that measure belongs to the next line and is not drawn.
+
+- id: complainer-tenor-s1-l4
+  title: Complainer
+  passageId: southern-harmony-1854-complainer-tenor-line-4
+  system: fasola-four
+  key: { tonic: G, mode: major } # one sharp; fa on G
+  # Read from the author's screenshot of page 18. The tenor is the middle of
+  # three staves and carries the melody; stanza 1 is printed under the top
+  # staff, stanza 2 under the tenor. The fourth line of music begins on the
+  # second half note of the second system ("I", after "soul;") and runs to
+  # the final whole note.
+  notes:
+    - { pitch: D4, dur: half, syl: I, sourceHead: fasola-sol }
+    - { pitch: G4, dur: quarter, syl: feel, sourceHead: fasola-fa }
+    - { pitch: G4, dur: quarter, syl: my, sourceHead: fasola-fa }
+    - { pitch: B4, dur: quarter, syl: faith, sourceHead: fasola-la }
+    - { pitch: D5, dur: quarter, syl: de-, sourceHead: fasola-sol }
+    - { pitch: E5, dur: half, syl: clin-, sourceHead: fasola-la }
+    - { pitch: D5, dur: quarter, syl: 'ing,', sourceHead: fasola-sol }
+    - { pitch: B4, dur: quarter, syl: and, sourceHead: fasola-la }
+    - { pitch: D5, dur: { value: quarter, dots: 1 }, syl: my, sourceHead: fasola-sol }
+    - { pitch: B4, dur: eighth, syl: af-, sourceHead: fasola-la }
+    - { pitch: A4, dur: quarter, syl: fec-, sourceHead: fasola-sol }
+    - { pitch: A4, dur: quarter, syl: tions, sourceHead: fasola-sol }
+    - { pitch: G4, dur: whole, syl: cold., sourceHead: fasola-fa }
+  tune: { composer: Wm. Walker (as printed) }
+  words: { firstLine: 'I am a great complainer, that bears the name of Christ' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 18
+    tune: Complainer
+    voice: tenor
+    verse: 1
+    locator: stanza 1, line 4 (sung to the fourth line of music)
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - The words of stanza 1 are printed under the top staff, whose rhythm in this line matches the tenor's note for note, and are set here to the tenor's notes.
+
+- id: complainer-tenor-s4-l4
+  title: Complainer
+  passageId: southern-harmony-1854-complainer-tenor-line-4
+  system: fasola-four
+  key: { tonic: G, mode: major } # one sharp; fa on G
+  # The same tenor notes as complainer-tenor-s1-l4, from the author's
+  # screenshot of page 18, sung to stanza 4, which is printed apart from the
+  # music.
+  notes:
+    - { pitch: D4, dur: half, syl: I, sourceHead: fasola-sol }
+    - { pitch: G4, dur: quarter, syl: am, sourceHead: fasola-fa }
+    - { pitch: G4, dur: quarter, syl: so, sourceHead: fasola-fa }
+    - { pitch: B4, dur: quarter, syl: weak, sourceHead: fasola-la }
+    - { pitch: D5, dur: quarter, syl: I, sourceHead: fasola-sol }
+    - { pitch: E5, dur: half, syl: stum-, sourceHead: fasola-la }
+    - { pitch: D5, dur: quarter, syl: 'ble,', sourceHead: fasola-sol }
+    - { pitch: B4, dur: quarter, syl: and, sourceHead: fasola-la }
+    - { pitch: D5, dur: { value: quarter, dots: 1 }, syl: so, sourceHead: fasola-sol }
+    - { pitch: B4, dur: eighth, syl: "I'm", sourceHead: fasola-la }
+    - { pitch: A4, dur: quarter, syl: left, sourceHead: fasola-sol }
+    - { pitch: A4, dur: quarter, syl: be-, sourceHead: fasola-sol }
+    - { pitch: G4, dur: whole, syl: hind., sourceHead: fasola-fa }
+  tune: { composer: Wm. Walker (as printed) }
+  words: { firstLine: 'I am a great complainer, that bears the name of Christ' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 18
+    tune: Complainer
+    voice: tenor
+    verse: 4
+    locator: stanza 4, line 4 (sung to the fourth line of music)
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - Stanza 4 is printed apart from the music; the underlay is inferred by aligning it with stanza 1, printed under the top staff, which has the same thirteen syllables in this line.
+
 - id: liverpool-tenor
   # Notes, words, and shapes are checked against the scan. The page number
   # below is a PLACEHOLDER for the demo, not read from the book, so the
