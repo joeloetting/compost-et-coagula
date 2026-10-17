@@ -417,6 +417,17 @@ The footer links to the notes once at least one is published.
 
 ## Publishing
 
+### Criticism and correspondence
+
+The **Criticism** navigation tab opens `/criticism/`; every article also links to it
+under **Criticism & corrections**. Its copy lives in `src/pages/criticism.astro`.
+Set `CRITICISM_EMAIL` in `src/consts.ts` to the public blog email when ready. While
+it is empty, the page shows a short contact notice and no email links. Once set,
+it displays the address and an email link with a prefilled subject. No form,
+comment service, or client-side script is involved.
+
+### Publish an article
+
 1. Set `draft: false` (or remove the line).
 2. Check the article with `npm run dev`, and optionally `npm test`.
 3. Commit and push to `master`:

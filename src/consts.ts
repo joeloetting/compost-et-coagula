@@ -1,4 +1,6 @@
 export const SITE_TITLE = 'Compost et Coagula';
+/** Public blog email. Leave empty until ready; the Criticism page shows a contact notice. */
+export const CRITICISM_EMAIL: string = '';
 /**
  * The publication's author, shown in article bylines, page metadata, RSS, and
  * JSON-LD. Every article is attributed through `articleAuthor()` in

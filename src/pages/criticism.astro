@@ -1,0 +1,64 @@
+---
+import { CRITICISM_EMAIL } from '../consts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const email = CRITICISM_EMAIL.trim();
+const mailto = `mailto:${email}?subject=${encodeURIComponent('Criticism — Compost et Coagula')}`;
+---
+
+<BaseLayout title="Criticism" description="An invitation to question the arguments, challenge the readings, and correct the errors in Compost et Coagula.">
+	<article class="criticism">
+		<header class="page-header">
+			<h1>Criticism</h1>
+			<p class="lede">These essays are open to disagreement.</p>
+		</header>
+		<div class="prose">
+			<p>
+				I welcome criticism of the writing here: an error in a source, a reading that does not hold up,
+				a conclusion the evidence cannot carry, or a question the essay has failed to ask.
+				You do not need to share my commitments or offer a finished counterargument to point out a problem.
+			</p>
+			<p>
+				This work crosses theology, environmental science, and history. Those crossings need scrutiny.
+				Where does an analogy clarify something, and where does it obscure the particular people, places,
+				or processes under discussion? What have I mistaken, simplified, or left out?
+			</p>
+
+			<h2>Writing to me</h2>
+			<p>
+				Please name the essay and, where possible, quote or link to the passage you are responding to.
+				Tell me what you think is wrong and why. A source or page reference is helpful when the disagreement
+				turns on evidence; a brief objection is welcome too.
+			</p>
+			{email ? (
+				<p><a href={mailto}>Email your criticism</a> · <a href={`mailto:${email}`}>{email}</a></p>
+			) : (
+				<p>A dedicated email address for this correspondence will be added here soon.</p>
+			)}
+
+			<h2>Corrections and reconsiderations</h2>
+			<p>
+				Factual errors deserve explicit correction. Changes that matter to an essay’s argument are recorded
+				on its page. Later notes can add evidence, mark an unresolved question, or reconsider a reading,
+				so that the development of the work remains visible. Small typographical fixes may be made silently.
+			</p>
+			<p>
+				Disagreement may also remain disagreement. I cannot promise a reply to every message, but criticism
+				does not have to persuade me immediately to be worth sending.
+			</p>
+
+			<h2>Correspondence</h2>
+			<p>
+				Writing to me is not permission to publish your message. I will ask before quoting private
+				correspondence or identifying its author in an acknowledgment.
+			</p>
+		</div>
+	</article>
+</BaseLayout>
+
+<style>
+	.criticism {
+		max-width: var(--measure);
+		margin-inline: auto;
+	}
+</style>
