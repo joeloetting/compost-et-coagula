@@ -105,12 +105,16 @@ const makers = [
 		/* Phrase size: 1 SVG unit per CSS pixel on wide screens, a little smaller on phones. */
 		--sn-scale: 1;
 		--sn-pad: 0.5rem;
-		/* Room kept for the words, so opening them does not move the text below. */
-		--sn-reserve: 2.75rem;
 		position: relative;
 		max-width: 26rem;
-		margin: 2.75em auto 1.25em;
+		margin: 2.25em auto;
 		text-align: center;
+	}
+
+	/* The divider is the break, so a heading right after it adds no extra space of its own. */
+	.shapenote + :global(:is(h2, h3, h4)),
+	.shapenote + :global(script) + :global(:is(h2, h3, h4)) {
+		margin-top: 0;
 	}
 
 	/* The rule: one fine line through the middle of the notes' range. */
@@ -146,14 +150,7 @@ const makers = [
 		max-width: none;
 	}
 
-	.sn-disclosure:not([open])::after {
-		content: '';
-		display: block;
-		height: var(--sn-reserve);
-	}
-
 	.sn-words {
-		min-height: var(--sn-reserve);
 		max-width: 22rem;
 		margin: 0 auto;
 		padding-top: 0.25rem;
@@ -205,7 +202,6 @@ const makers = [
 	@media (max-width: 30rem) {
 		.shapenote {
 			--sn-scale: 0.85;
-			--sn-reserve: 3.5rem;
 			max-width: 20rem;
 		}
 	}
