@@ -28,7 +28,7 @@ export const LEDGER_VERSION = 1;
  * fixtures) on purpose. Their dividers reserve nothing and are not checked
  * for repeated use; scripts/check-dist.mjs still refuses a published fixture.
  */
-export const DEMONSTRATION_ESSAYS: readonly string[] = ['writing/a-musical-pause', 'writing/the-printers-ornament', 'notes/on-shape-notes'];
+export const DEMONSTRATION_ESSAYS: readonly string[] = ['writing/a-musical-pause', 'writing/the-printers-ornament', 'notes/on-shape-notes', 'notes/on-shape-notes-appendix'];
 
 /** A slot id: letters, digits, hyphens, and underscores, starting with a letter or digit. */
 export const SLOT_PATTERN = /^[A-Za-z0-9][A-Za-z0-9_-]*$/;

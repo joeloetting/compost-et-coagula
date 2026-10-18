@@ -1,0 +1,169 @@
+---
+title: "Appendix: How the Little Notes Are Made"
+description: "A picture-led look at the shape-note dividers: where the notes come from, how they are drawn, and how a phrase finds its way into a gap."
+draft: true
+---
+
+import ShapeNoteDivider from '../../components/ShapeNoteDivider.astro';
+import ShapeScale from '../../components/ShapeScale.astro';
+import ShapeNoteInkExample from '../../components/ShapeNoteInkExample.astro';
+
+This is the workshop behind [On Shape Notes](/notes/on-shape-notes/). I started with a fairly modest ambition: put some little musical shapes between the paragraphs. Here is one of them.
+
+<ShapeNoteDivider ref="old-hundred-tenor" open replay />
+
+Those are actual notes from Old Hundred, with the words *We'll crowd thy gates with thankful songs*. You can close the words, open the source, or replay their appearance. Most of the time, while reading an essay, you would simply pass over them.
+
+I am learning about this music as I go. What follows explains how the site turns a passage from a book into that little interruption. You do not need to read music or write code to follow it. There are a few details for anyone who wants to look under the hood, too.
+
+## First, there is a book
+
+Here is the page behind that first divider. It is page 11 of the 1919 printing of M. L. Swan's *The New Harp of Columbia*.
+
+![Old Hundred in four parts, with verses printed beneath the music.](../writing/a-musical-pause/old-hundred-p11.png)
+
+And here is the bit being borrowed: the opening of the tenor part, one of the voices in the arrangement.
+
+![The tenor line used for the divider, with the words We'll crowd thy gates with thankful songs.](../writing/a-musical-pause/old-hundred-tenor-line1.png)
+
+<ShapeNoteDivider ref="old-hundred-tenor" open />
+
+*Both scans: M. L. Swan, The New Harp of Columbia (Nashville: Publishing House of the M. E. Church, South, 1919), 11. Public domain.*
+
+The book has four voices singing together. The divider borrows a small piece of one. It keeps the sequence of shapes and the rise and fall of the line, while leaving out the staff—the five lines behind the notes—and the other voices. It is a small quotation from the music. To read the whole thing properly, we still need the page.
+
+## Why triangles and squares?
+
+The heads of the notes come in different shapes. They help identify the syllables sung when learning the music. Here are the two sets the site currently draws, using the same drawing code as the dividers.
+
+<ShapeScale system="fasola-four" title="Four shapes: the Southern Harmony system" />
+
+Now look for those heads in this Southern Harmony phrase. The syllables printed under the scale are the learning syllables; the words below this phrase are the hymn text.
+
+<ShapeNoteDivider ref="wondrous-love-tenor" open />
+
+<ShapeScale system="swan-seven" title="Seven shapes: Swan's New Harp of Columbia system" />
+
+And here are Swan's shapes in Old Hundred. Look for the hourglass and the sideways half-round head, which do not appear in the four-shape row above.
+
+<ShapeNoteDivider ref="old-hundred-tenor" open />
+
+In the first system, some shapes and syllables recur as you go up the scale. In Swan's system, each of the seven steps has its own. These are two particular systems; seven-shape books do not all use Swan's heads.
+
+Here is Swan's printed explanation beside our digital version.
+
+![Swan's scale, showing seven notehead shapes with syllables beneath them.](../writing/a-musical-pause/swan-scale-p4.png)
+
+*Source: Swan, The New Harp of Columbia (1919), 4. Public domain.*
+
+A phrase keeps the shapes of its own book. I do not convert Southern Harmony's notes into Columbia's shapes just to make the page match.
+
+## A few different guests
+
+The catalog already has quite a variety. These examples are rendered directly from it, exactly as they would be inside an essay. Open “Source” beneath any example to see its book, page, and editorial notes.
+
+**Holy Manna — a gathering.** The Southern Harmony passage begins with people meeting to worship.
+
+<ShapeNoteDivider ref="holy-manna-tenor-s1-l1" open />
+
+**Mear — a question.** Notice the open, hollow noteheads here. Their little empty interiors need to survive even at this size.
+
+<ShapeNoteDivider ref="mear-tenor-s1-l1" open />
+
+**Resignation — a quieter line.** Another Southern Harmony example, with a different contour and spacing.
+
+<ShapeNoteDivider ref="resignation-tenor-s1-l4" open />
+
+**Complainer — someone stumbling.** This is the passage used on the criticism page. It has rather different company to offer a paragraph.
+
+<ShapeNoteDivider ref="complainer-tenor-s4-l4" open />
+
+**Green Fields — a long winter.** The title of a tune tells us less than the particular words we choose.
+
+<ShapeNoteDivider ref="green-fields-tenor-s4-l4" open />
+
+These brief introductions are my associations, rather than labels stored in the catalog. A hymn can say more than its little excerpt suggests. Reading the surrounding verses remains part of choosing a passage.
+
+## Getting the notes onto the page
+
+Each phrase has a record: which book, which page, which voice, which verse, and the notes and words being quoted. The site reads that record and draws an SVG—a picture made from lines and shapes that stays sharp when enlarged.
+
+No automatic scan-reading happens here. Someone has to check the transcription against the source. The program can help catch inconsistencies: if the key and pitch imply one head but the record says the printed page has another, it stops and asks for a check. It cannot tell us that we read the page correctly in the first place.
+
+The layout has two simple rules. Higher notes go higher on the page. Longer notes get a little more horizontal space. “A little” matters: giving every long note its full proportional width would stretch a short ornament into a long strip.
+
+For the technically curious, the current spacing rule is:
+
+```text
+space after a note = 6.5 + 4.6 × sqrt(duration in quarter notes)
+```
+
+A quarter note gets about 11.1 drawing units; a half note gets about 13.0. There is a limit of sixteen notes and rests, and the renderer tries to keep the phrase compact without squeezing the heads together. Height follows steps between written note letters, rather than exact distances in sound. The missing staff, clef, and key signature mean the ornament cannot tell you everything needed to sing it.
+
+The thin rule running through the middle is just the section divider. It does not restore a missing staff line.
+
+## Making the ink a little uneven
+
+This is the part I wanted to see rather than merely describe. Below is the same phrase twice, enlarged so the surface is easier to inspect. The first has the texture filter switched off. The second has the screen's ink treatment. Both retain the small irregularities built into the outlines.
+
+<ShapeNoteInkExample phrase="old-hundred-tenor" />
+
+The shapes begin as drawings: triangles, ovals, squares, and Swan's less familiar forms. Their proportions come first. Then the code nudges their edges by tiny amounts, softens the corners, and varies the darkness and stem width a little. An open head has a real hole cut into it; it is not a white shape pasted over a black one.
+
+A second layer adds fine edge movement and small gaps in the ink. This uses an SVG filter. It is meant to suggest a printed impression without turning the page into an imitation of a damaged book.
+
+Here is Mear enlarged too. The open heads make a useful check: if the texture fills in their interiors or destroys their shapes, the effect has gone too far.
+
+<ShapeNoteInkExample phrase="mear-tenor-s1-l1" />
+
+The irregularity stays put. The phrase's identifier and each note's position supply a seed—a repeatable starting point for the small variations. Reloading the page does not give the same note a newly wobbly outline. With the same data and renderer settings, the SVG stays the same, although browsers can draw its pixels slightly differently.
+
+For readers who enjoy the machinery: the outline seed uses FNV-1a and Mulberry32. The outer edge is nudged by at most 0.16 drawing units. Fill opacity varies from 0.86 to 0.98 before rounding. The filter uses one noise field for a displacement of scale 0.55 and another as a fine ink mask. Those numbers are design choices, not measurements of a historical press.
+
+## How a phrase gets picked
+
+There are two kinds of chance here. The ink uses repeatable variation. Picking a phrase is an actual random draw, made while writing and saved afterward.
+
+The present method is straightforward:
+
+1. Give the break a name in the essay.
+2. Gather the catalog entries that have not already been used or reserved, leaving demonstration entries out.
+3. Draw one entry, with an equal chance for each available record.
+4. Save it against that essay and break.
+5. Read the source and decide what to do with the encounter.
+
+The next build does not choose again. Neither does the next reader. An unfinished draft's assignment is reserved too, so another essay cannot accidentally claim it. If the available phrases run out, the command stops; it does not quietly recycle them.
+
+There is an optional rule to exclude the same musical passage with different words. Otherwise those are separate records. This also means the draw is equal between records, not between tune titles: a tune with three available excerpts has three chances.
+
+The author still has plenty to answer for. I chose the collection and the break, and I decide how to respond. Chance does not make the interpretation for me.
+
+## The same notes can say something else
+
+Here is Old Hundred again, with a different verse. Compare it with the opening example: the musical shapes are the same, but the words change the encounter.
+
+<ShapeNoteDivider ref="old-hundred-tenor-verse-1" open />
+
+The title and melody alone cannot tell us what this quotation is doing in an essay. That depends on the words, their source, and the paragraphs around them.
+
+## Some breaks can stay empty
+
+At present, I can simply leave a break without notes. The program does not yet draw silence as a saved result.
+
+One possible extension would first ask whether a break is eligible for music at all. Some would stay deliberately empty. For the others, a draw could choose silence or a phrase, then save either result. The chance of silence would be set separately from the number of hymns in the catalog, so adding more music would not slowly crowd it out.
+
+That is a proposal, rather than a feature already working. It would also leave the more difficult question with me: which spaces should I avoid filling in the first place?
+
+## A screen is not a singing
+
+The notes appear in sequence, but their animation is not a performance. They fade in over 480 milliseconds each, staggered by 35 milliseconds; they do not follow the tune's tempo or note lengths. Reduced-motion settings leave them still.
+
+The words and source use ordinary HTML disclosures. Keyboard and touch work without needing the animation, and without JavaScript. Screen-reader users get the title, words, source, and a sequence of the musical syllables, although that is not a complete description of the music.
+
+On paper the notes stay, the texture filter is removed, and the hidden words and source panel do not print. An ordinary footnote is therefore needed to carry the quotation's source into print. The small irregularities in the outlines remain.
+
+I like that the little ornament has several distances built into it: from a roomful of singers to a printed page, from the page to a catalog record, and from that record to a few marks between paragraphs. The source remains available for anyone who wants to follow them back.
+
+## If you want to look at the code
+
+This account follows the implementation checked on 17 October 2026. The [phrase catalog](https://github.com/joeloetting/compost-et-coagula/blob/master/src/data/shapeNotes/phrases.yaml) holds the music and citations. The [notation code](https://github.com/joeloetting/compost-et-coagula/blob/master/src/lib/shapeNotes/notation.ts) interprets the records; the [renderer](https://github.com/joeloetting/compost-et-coagula/blob/master/src/lib/shapeNotes/render.ts) draws them; the [assignment code](https://github.com/joeloetting/compost-et-coagula/blob/master/src/lib/shapeNotes/assignments.ts) manages the draws. These links follow the evolving code.
