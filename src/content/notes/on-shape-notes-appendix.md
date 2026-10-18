@@ -6,7 +6,7 @@ draft: true
 
 This is a companion appendix to [On Shape Notes](/notes/on-shape-notes/). It follows one small quotation through the machinery that puts it between paragraphs. The musical choices and the programming choices belong together: deciding what a note means comes before deciding how imperfectly to draw it.
 
-The implementation described here is the one inspected on 17 October 2026. The final section proposes a way to leave some pauses empty; that extension has not been implemented.
+The implementation described here is the one inspected on 17 October 2026. A later section proposes a way to leave some pauses empty; that extension has not been implemented.
 
 ## Begin with a page, a part, and a verse
 
@@ -156,5 +156,27 @@ For print, the filter is removed and the notes remain visible. The underlying ve
 The most useful additions would be a clear rudiments page, whole pages containing contrasting open and filled heads, and passages with ties, slurs, dotted notes, or unusual accidentals. A title page would establish the printing more securely. Full-page scans preserve clefs, signatures, part labels, and context that a close crop can lose; a detail is useful alongside them.
 
 These would support further comparison and transcription. They would not automatically enter the catalog. A new quotation still needs its voice, verse, boundaries, and source checked by a person.
+
+## Five Southern Harmony comparisons
+
+Five supplied screenshots give the four-shape side of the comparison concrete musical examples. The observations below concern the visible images, identified by the author as *Southern Harmony*. They do not establish the edition: that requires checking the PDF's title page. The visible page numbers are printed numbers, not PDF viewer positions.
+
+| Tune | Visible page | What to examine |
+|---|---|---|
+| Complainer | 18 | Open and filled heads in one setting, with printed text continuing into separately set verses |
+| Green Fields | 71 | Repeated rhythmic figures and a second setting to compare with Columbia's Greenfields |
+| Mear | Not visible in this crop | Long, mostly open note values; the interior spaces must survive reduction |
+| Resignation | 38 | Curved connections over groups of notes and changing durations; each arc needs musical identification before transcription |
+| Holy Manna | 103 | A denser succession of shorter notes, repeated figures, and holds; useful for judging how much fits in a small ornament |
+
+For the ink treatment, Mear is especially revealing. Empty interiors have to stay open when the drawing is reduced. A triangle that fills in under the grain filter has lost musical information, however persuasive its texture. Complainer and Holy Manna make the complementary demand: filled heads should remain distinct, and stems should remain attached. Comparing these pages suggests a practical hierarchy for visual review: identify the shape, distinguish the duration, follow the contour, then judge the surface texture.
+
+Resignation asks for a different kind of attention. A curved mark cannot be transcribed merely as an attractive arc. Its endpoints, pitches, and relation to the words determine whether it is a tie or a slur. The renderer supports both kinds of span, but the screenshot alone should not become permission to guess at a blurred endpoint.
+
+Green Fields also complicates the idea of quotation. The catalog already contains Greenfields from Columbia. A matching title is an invitation to compare the two sources, not evidence that their notes, part-writing, or verse placement are interchangeable. The comparison should begin with the full arrangements and only then choose a short voice-specific passage from each.
+
+These examples have textual consequences as well. Mear opens with a question about divine rejection; Resignation begins with an assurance of provision; Complainer gives voice to religious inadequacy. That variety is worth retaining without turning the tunes into fixed mood labels. The rest of a hymn may resist the meaning that an isolated line acquires between two paragraphs.
+
+The supplied images are suitable for identifying comparison cases. Their small, softened notation makes the original PDF preferable for checking individual pitches, dots, and span endpoints. No new phrase transcription or claim of completed renderer verification follows from these observations alone.
 
 For readers who want to follow the implementation, the principal files are [the catalog](https://github.com/joeloetting/compost-et-coagula/blob/master/src/data/shapeNotes/phrases.yaml), [musical resolution](https://github.com/joeloetting/compost-et-coagula/blob/master/src/lib/shapeNotes/notation.ts), [SVG rendering](https://github.com/joeloetting/compost-et-coagula/blob/master/src/lib/shapeNotes/render.ts), [phrase assignment](https://github.com/joeloetting/compost-et-coagula/blob/master/src/lib/shapeNotes/assignments.ts), and [the page component](https://github.com/joeloetting/compost-et-coagula/blob/master/src/components/ShapeNoteDivider.astro). These links follow the evolving source; the date above identifies when this account was checked.
