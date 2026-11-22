@@ -2217,3 +2217,831 @@
     voice: tenor
     verse: 2
     locator: Opening with the text of verse 2 printed below the tenor.
+
+# Additional 1919 Columbia tenor excerpts.
+- id: columbia-ninety-fifth-tenor
+  title: Ninety-Fifth
+  passageId: new-harp-1919-ninety-fifth-tenor-opening
+  system: swan-seven
+  key:
+    tonic: A
+    mode: major
+  meter: 4/4
+  notes:
+  - pitch: A4
+    dur: half
+    sourceHead: swan-do
+    syl: When
+  - pitch: A4
+    dur: quarter
+    sourceHead: swan-do
+    syl: I
+  - pitch: B4
+    dur: quarter
+    sourceHead: swan-ra
+    syl: can
+  - pitch: C#5
+    dur: quarter
+    sourceHead: swan-mi
+    syl: read
+  - pitch: D5
+    dur: quarter
+    sourceHead: swan-fa
+    syl: my
+  - pitch: C#5
+    dur: half
+    sourceHead: swan-mi
+    syl: ti-
+  - pitch: B4
+    dur: half
+    sourceHead: swan-ra
+    syl: tle
+  - pitch: A4
+    dur: whole
+    sourceHead: swan-do
+    syl: clear
+  tune:
+    composer: Chapin (as printed)
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 35
+    tune: Ninety-Fifth
+    voice: tenor
+    verse: 1
+    locator: Opening through ‘clear’; words shared across the voices.
+- id: columbia-sion-s-security-tenor
+  title: Sion’s Security
+  passageId: new-harp-1919-sion-s-security-tenor-opening
+  system: swan-seven
+  key:
+    tonic: Ab
+    mode: major
+  meter: 4/4
+  notes:
+  - pitch: F4
+    dur: quarter
+    sourceHead: swan-la
+    syl: Glo-
+  - pitch: F4
+    dur: quarter
+    sourceHead: swan-la
+    syl: rious
+  - pitch: Ab4
+    dur: half
+    sourceHead: swan-do
+    syl: things
+  - pitch: C5
+    dur: half
+    sourceHead: swan-mi
+    syl: of
+  - pitch: Bb4
+    dur: quarter
+    sourceHead: swan-ra
+    syl: thee
+  - pitch: C5
+    dur: quarter
+    sourceHead: swan-mi
+    syl: are
+  - pitch: Ab4
+    dur: quarter
+    sourceHead: swan-do
+    syl: spo-
+  - pitch: F4
+    dur: quarter
+    sourceHead: swan-la
+    continues: true
+  - pitch: Eb4
+    dur: half
+    sourceHead: swan-sol
+    syl: ken,
+  spans:
+  - kind: slur
+    from: 7
+    to: 8
+  tune:
+    composer: M. L. Swan (as printed)
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 30
+    tune: Sion’s Security
+    voice: tenor
+    verse: 1
+    locator: Opening through ‘spoken’; words shared across the voices.
+- id: columbia-coronation-tenor
+  title: Coronation
+  passageId: new-harp-1919-coronation-tenor-opening
+  system: swan-seven
+  key:
+    tonic: C
+    mode: major
+  meter: 4/4
+  notes:
+  - pitch: G4
+    dur: half
+    sourceHead: swan-sol
+    syl: All
+  - pitch: C5
+    dur: quarter
+    sourceHead: swan-do
+    syl: hail
+  - pitch: C5
+    dur: quarter
+    sourceHead: swan-do
+    syl: the
+  - pitch: E5
+    dur: quarter
+    sourceHead: swan-mi
+    syl: pow’r
+  - pitch: E5
+    dur: quarter
+    sourceHead: swan-mi
+    syl: of
+  - pitch: D5
+    dur: quarter
+    sourceHead: swan-ra
+    syl: Je-
+  - pitch: C5
+    dur: quarter
+    sourceHead: swan-do
+    syl: sus’
+  - pitch: D5
+    dur: quarter
+    sourceHead: swan-ra
+    syl: name,
+  tune:
+    composer: O. Holden (as printed)
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 117
+    tune: Coronation
+    voice: tenor
+    verse: 1
+    locator: Opening through ‘name’; words shared across the voices.
+- id: columbia-dundee-tenor
+  title: Dundee
+  passageId: new-harp-1919-dundee-tenor-opening
+  system: swan-seven
+  key:
+    tonic: F
+    mode: major
+  meter: 2/2
+  notes:
+  - pitch: F4
+    dur: half
+    sourceHead: swan-do
+    syl: Feed
+  - pitch: A4
+    dur: half
+    sourceHead: swan-mi
+    syl: me,
+  - pitch: Bb4
+    dur: half
+    sourceHead: swan-fa
+    syl: O
+  - pitch: C5
+    dur: half
+    sourceHead: swan-sol
+    syl: Lord,
+  - pitch: F4
+    dur: half
+    sourceHead: swan-do
+    syl: with
+  - pitch: G4
+    dur: half
+    sourceHead: swan-ra
+    syl: need-
+  - pitch: A4
+    dur: half
+    sourceHead: swan-mi
+    syl: ful
+  - pitch: Bb4
+    dur: half
+    sourceHead: swan-fa
+    syl: food;
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 53
+    tune: Dundee
+    voice: tenor
+    verse: 2
+    locator: Lower tune on the page, opening line of verse 2 under the tenor.
+- id: columbia-lenox-tenor
+  title: Lenox
+  passageId: new-harp-1919-lenox-tenor-opening
+  system: swan-seven
+  key:
+    tonic: C
+    mode: major
+  meter: 4/4
+  notes:
+  - pitch: C5
+    dur: half
+    sourceHead: swan-do
+    syl: Blow
+  - pitch: C5
+    dur: quarter
+    sourceHead: swan-do
+    syl: ye
+  - pitch: C5
+    dur: quarter
+    sourceHead: swan-do
+    syl: the
+  - pitch: G4
+    dur: quarter
+    sourceHead: swan-sol
+    syl: trum-
+  - pitch: A4
+    dur: quarter
+    sourceHead: swan-la
+    syl: pet,
+  - pitch: G4
+    dur:
+      value: half
+      dots: 1
+    sourceHead: swan-sol
+    syl: blow,
+  tune:
+    composer: Edson (as printed)
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 42
+    tune: Lenox
+    voice: tenor
+    verse: 1
+    locator: Opening through the second ‘blow’; words shared across the voices.
+- id: columbia-zion-tenor
+  title: Zion
+  passageId: new-harp-1919-zion-tenor-opening
+  system: swan-seven
+  key:
+    tonic: F
+    mode: major
+  meter: 3/2
+  notes:
+  - pitch: C5
+    dur:
+      value: quarter
+      dots: 1
+    sourceHead: swan-sol
+    syl: Lo,
+  - pitch: C5
+    dur: eighth
+    sourceHead: swan-sol
+    syl: thy
+  - pitch: C5
+    dur: half
+    sourceHead: swan-sol
+    syl: sun
+  - pitch: A4
+    dur: half
+    sourceHead: swan-mi
+    syl: is
+  - pitch: F5
+    dur:
+      value: quarter
+      dots: 1
+    sourceHead: swan-do
+    syl: ris’n
+  - pitch: C5
+    dur: eighth
+    sourceHead: swan-sol
+    syl: in
+  - pitch: D5
+    dur: half
+    sourceHead: swan-la
+    syl: glo-
+  - pitch: C5
+    dur: half
+    sourceHead: swan-sol
+    syl: ry!
+  tune:
+    composer: Sem. (as printed)
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 114
+    tune: Zion
+    voice: tenor
+    verse: 2
+    locator: Upper tune on the page, opening line of verse 2 under the tenor.
+- id: columbia-whitestown-tenor
+  title: Whitestown
+  passageId: new-harp-1919-whitestown-tenor-opening
+  system: swan-seven
+  key:
+    tonic: G
+    mode: major
+  meter: 4/4
+  notes:
+  - pitch: E4
+    dur: half
+    sourceHead: swan-la
+    syl: Re-
+  - pitch: B4
+    dur: quarter
+    sourceHead: swan-mi
+    syl: mem-
+  - pitch: B4
+    dur: quarter
+    sourceHead: swan-mi
+    syl: ber,
+  - pitch: B4
+    dur: quarter
+    sourceHead: swan-mi
+    syl: Lord,
+  - pitch: B4
+    dur: eighth
+    sourceHead: swan-mi
+    syl: our
+  - pitch: C5
+    dur: eighth
+    sourceHead: swan-fa
+    continues: true
+  - pitch: D5
+    dur: quarter
+    sourceHead: swan-sol
+    syl: mor-
+  - pitch: B4
+    dur: quarter
+    sourceHead: swan-mi
+    syl: tal
+  - pitch: A4
+    dur: half
+    sourceHead: swan-ra
+    syl: state,
+  - pitch: A4
+    dur: quarter
+    sourceHead: swan-ra
+    continues: true
+  spans:
+  - kind: beam
+    from: 5
+    to: 6
+  - kind: tie
+    from: 9
+    to: 10
+  tune:
+    composer: Ward (as printed)
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 180
+    tune: Whitestown
+    voice: tenor
+    verse: 1
+    locator: Opening through the tied ‘state’; words shared across the voices.
+- id: columbia-mount-olivet-tenor
+  title: Mount Olivet
+  passageId: new-harp-1919-mount-olivet-tenor-opening
+  system: swan-seven
+  key:
+    tonic: A
+    mode: major
+  meter: 4/4
+  notes:
+  - pitch: A4
+    dur: half
+    sourceHead: swan-do
+    syl: Hark!
+  - pitch: A4
+    dur: quarter
+    sourceHead: swan-do
+    syl: how
+  - pitch: A4
+    dur: quarter
+    sourceHead: swan-do
+    syl: the
+  - pitch: A4
+    dur: quarter
+    sourceHead: swan-do
+    syl: cho-
+  - pitch: A4
+    dur: quarter
+    sourceHead: swan-do
+    syl: ral
+  - pitch: A4
+    dur: eighth
+    sourceHead: swan-do
+    syl: song
+  - pitch: B4
+    dur: eighth
+    sourceHead: swan-ra
+    continues: true
+  spans:
+  - kind: beam
+    from: 6
+    to: 7
+  tune:
+    composer: Swan (as printed)
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 51
+    tune: Mount Olivet
+    voice: tenor
+    verse: 1
+    locator: Opening through ‘song’; words shared across the voices.
+- id: columbia-hebron-tenor
+  title: Hebron
+  passageId: new-harp-1919-hebron-tenor-opening
+  system: swan-seven
+  key:
+    tonic: Bb
+    mode: major
+  meter: 3/2
+  notes:
+  - pitch: F4
+    dur: half
+    sourceHead: swan-sol
+    syl: Much
+  - pitch: D4
+    dur: quarter
+    sourceHead: swan-mi
+    syl: of
+  - pitch: F4
+    dur: quarter
+    sourceHead: swan-sol
+    syl: my
+  - pitch: G4
+    dur: half
+    sourceHead: swan-la
+    syl: time
+  - pitch: F4
+    dur: half
+    sourceHead: swan-sol
+    syl: has
+  - pitch: G4
+    dur: quarter
+    sourceHead: swan-la
+    syl: run
+  - pitch: A4
+    dur: quarter
+    sourceHead: swan-si
+    syl: to
+  - pitch: Bb4
+    dur: whole
+    sourceHead: swan-do
+    syl: waste,
+  tune:
+    composer: L. Mason (as printed)
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 20
+    tune: Hebron
+    voice: tenor
+    verse: 2
+    locator: Lower tune on the page, opening line of verse 2 under the tenor.
+- id: columbia-bruce-s-address-tenor
+  title: Bruce’s Address
+  passageId: new-harp-1919-bruce-s-address-tenor-opening
+  system: swan-seven
+  key:
+    tonic: C
+    mode: major
+  meter: 6/8
+  notes:
+  - pitch: G4
+    dur: quarter
+    sourceHead: swan-sol
+    syl: Who
+  - pitch: G4
+    dur: eighth
+    sourceHead: swan-sol
+    syl: the
+  - pitch: G4
+    dur: quarter
+    sourceHead: swan-sol
+    syl: cause
+  - pitch: E4
+    dur: eighth
+    sourceHead: swan-mi
+    syl: of
+  - pitch: G4
+    dur: quarter
+    sourceHead: swan-sol
+    syl: Christ
+  - pitch: A4
+    dur: eighth
+    sourceHead: swan-la
+    syl: would
+  - pitch: C5
+    dur:
+      value: quarter
+      dots: 1
+    sourceHead: swan-do
+    syl: yield?
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 109
+    tune: Bruce’s Address
+    voice: tenor
+    verse: 2
+    locator: Opening line of verse 2 under the tenor. Heading adds ‘Spiritualized’.
+- id: columbia-north-salem-tenor
+  title: North Salem
+  passageId: new-harp-1919-north-salem-tenor-opening
+  system: swan-seven
+  key:
+    tonic: G
+    mode: major
+  meter: 4/4
+  notes:
+  - pitch: B4
+    dur: half
+    sourceHead: swan-mi
+    syl: My
+  - pitch: B4
+    dur: quarter
+    sourceHead: swan-mi
+    syl: soul,
+  - pitch: B4
+    dur: quarter
+    sourceHead: swan-mi
+    syl: come
+  - pitch: G4
+    dur: quarter
+    sourceHead: swan-do
+    syl: me-
+  - pitch: E4
+    dur: quarter
+    sourceHead: swan-la
+    syl: di-
+  - pitch: B4
+    dur: quarter
+    sourceHead: swan-mi
+    syl: tate
+  - pitch: D5
+    dur: quarter
+    sourceHead: swan-sol
+    syl: the
+  - pitch: E5
+    dur:
+      value: half
+      dots: 1
+    sourceHead: swan-la
+    syl: day,
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 110
+    tune: North Salem
+    voice: tenor
+    verse: 1
+    locator: Opening through ‘day’; words shared across the voices.
+- id: columbia-liberty-tenor
+  title: Liberty
+  passageId: new-harp-1919-liberty-tenor-opening
+  system: swan-seven
+  key:
+    tonic: F
+    mode: major
+  meter: 4/4
+  notes:
+  - pitch: C5
+    dur: half
+    sourceHead: swan-sol
+    syl: Lord,
+  - pitch: C5
+    dur: quarter
+    sourceHead: swan-sol
+    syl: ’tis
+  - pitch: C5
+    dur: quarter
+    sourceHead: swan-sol
+    syl: an
+  - pitch: F5
+    dur: quarter
+    sourceHead: swan-do
+    syl: in-
+  - pitch: D5
+    dur: quarter
+    sourceHead: swan-la
+    syl: fi-
+  - pitch: C5
+    dur: eighth
+    sourceHead: swan-sol
+    syl: nite
+  - pitch: A4
+    dur: eighth
+    sourceHead: swan-mi
+    continues: true
+  - pitch: A4
+    dur: eighth
+    sourceHead: swan-mi
+    syl: de-
+  - pitch: F4
+    dur: eighth
+    sourceHead: swan-do
+    continues: true
+  - pitch: G4
+    dur:
+      value: half
+      dots: 1
+    sourceHead: swan-ra
+    syl: light
+  spans:
+  - kind: beam
+    from: 6
+    to: 7
+  - kind: beam
+    from: 8
+    to: 9
+  tune:
+    composer: Wythe (as printed)
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 98
+    tune: Liberty
+    voice: tenor
+    verse: 1
+    locator: Opening through ‘delight’; words shared across the voices.
+- id: columbia-devizes-tenor
+  title: Devizes
+  passageId: new-harp-1919-devizes-tenor-opening
+  system: swan-seven
+  key:
+    tonic: A
+    mode: major
+  meter: 2/2
+  notes:
+  - pitch: A4
+    dur: half
+    sourceHead: swan-do
+    syl: ’Tis
+  - pitch: A4
+    dur: quarter
+    sourceHead: swan-do
+    syl: he
+  - pitch: B4
+    dur: quarter
+    sourceHead: swan-ra
+    syl: a-
+  - pitch: C#5
+    dur: half
+    sourceHead: swan-mi
+    syl: dorn’d
+  - pitch: D5
+    dur: half
+    sourceHead: swan-fa
+    syl: my
+  - pitch: C#5
+    dur: quarter
+    sourceHead: swan-mi
+    syl: na-
+  - pitch: B4
+    dur: quarter
+    sourceHead: swan-ra
+    continues: true
+  - pitch: A4
+    dur: quarter
+    sourceHead: swan-do
+    syl: ked
+  - pitch: G#4
+    dur: quarter
+    sourceHead: swan-si
+    continues: true
+  - pitch: A4
+    dur: half
+    sourceHead: swan-do
+    syl: soul,
+  spans:
+  - kind: slur
+    from: 6
+    to: 7
+  - kind: slur
+    from: 8
+    to: 9
+  tune:
+    composer: Tucker (as printed)
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 94
+    tune: Devizes
+    voice: tenor
+    verse: 2
+    locator: Opening line of verse 2 under the tenor.
+- id: columbia-warrenton-tenor
+  title: Warrenton
+  passageId: new-harp-1919-warrenton-tenor-opening
+  system: swan-seven
+  key:
+    tonic: G
+    mode: major
+  meter: 2/4
+  notes:
+  - pitch: D5
+    dur: quarter
+    sourceHead: swan-sol
+    syl: Come,
+  - pitch: D5
+    dur: quarter
+    sourceHead: swan-sol
+    syl: thou
+  - pitch: D5
+    dur: quarter
+    sourceHead: swan-sol
+    syl: Fount
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 56
+    tune: Warrenton
+    voice: tenor
+    verse: 1
+    locator: Lower tune on the page, opening of verse 1. The tenor is the middle staff.
+- id: columbia-western-mount-pleasant-tenor
+  title: Western Mount Pleasant
+  passageId: new-harp-1919-western-mount-pleasant-tenor-opening
+  system: swan-seven
+  key:
+    tonic: F
+    mode: major
+  meter: 4/4
+  notes:
+  - pitch: F4
+    dur: half
+    sourceHead: swan-do
+    syl: There
+  - pitch: A4
+    dur: quarter
+    sourceHead: swan-mi
+    syl: is
+  - pitch: A4
+    dur: quarter
+    sourceHead: swan-mi
+    syl: a
+  - pitch: G4
+    dur: quarter
+    sourceHead: swan-ra
+    syl: house
+  - pitch: A4
+    dur: eighth
+    sourceHead: swan-mi
+    syl: not
+  - pitch: Bb4
+    dur: eighth
+    sourceHead: swan-fa
+    continues: true
+  - pitch: C5
+    dur: quarter
+    sourceHead: swan-sol
+    syl: made
+  - pitch: D5
+    dur: quarter
+    sourceHead: swan-la
+    syl: with
+  - pitch: C5
+    dur: quarter
+    sourceHead: swan-sol
+    syl: hands,
+  spans:
+  - kind: beam
+    from: 5
+    to: 6
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 206
+    tune: Western Mount Pleasant
+    voice: tenor
+    verse: 1
+    locator: Opening through ‘hands’; words shared across the voices.
