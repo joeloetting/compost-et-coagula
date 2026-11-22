@@ -4881,3 +4881,320 @@
     verse: 1
     locator: Opening through “Am I a soldier”
     url: https://ccel.org/ccel/walker/harmony2/harmony2.H10b.html
+
+- id: columbia-newport-treble
+  title: Newport
+  system: swan-seven
+  key:
+    tonic: Ab
+    mode: major
+  meter: 6/8
+  notes:
+  - pitch: C5
+    dur:
+      value: quarter
+      dots: 1
+    sourceHead: swan-mi
+    syl: As
+  - pitch: Ab4
+    dur: eighth
+    sourceHead: swan-do
+    syl: 'on'
+  - pitch: Bb4
+    dur: eighth
+    sourceHead: swan-ra
+    continues: true
+  - pitch: C5
+    dur: eighth
+    sourceHead: swan-mi
+    syl: the
+  - pitch: Eb5
+    dur: quarter
+    sourceHead: swan-sol
+    syl: cross
+  spans:
+  - kind: beam
+    from: 2
+    to: 3
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 17
+    tune: Newport
+    voice: treble
+    verse: 1
+    locator: opening phrase
+
+- id: columbia-rockingham-treble
+  title: Rockingham
+  system: swan-seven
+  key:
+    tonic: G
+    mode: major
+  meter: 4/4
+  notes:
+  - pitch: B4
+    dur: half
+    sourceHead: swan-mi
+    syl: Thy
+  - pitch: A4
+    dur: quarter
+    sourceHead: swan-ra
+    syl: praise,
+  - pitch: G4
+    dur: quarter
+    sourceHead: swan-do
+    syl: O
+  - pitch: F#4
+    dur: half
+    sourceHead: swan-si
+    syl: Lord,
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 21
+    tune: Rockingham
+    voice: treble
+    verse: 1
+    locator: opening phrase
+
+- id: columbia-protection-tenor
+  title: Protection
+  system: swan-seven
+  key:
+    tonic: A
+    mode: major
+  meter: 4/4
+  notes:
+  - pitch: E4
+    dur: quarter
+    sourceHead: swan-sol
+    syl: How
+  - pitch: F#4
+    dur: quarter
+    sourceHead: swan-la
+    continues: true
+  - pitch: A4
+    dur: half
+    sourceHead: swan-do
+    syl: firm
+  - pitch: F#4
+    dur: quarter
+    sourceHead: swan-la
+    syl: a
+  - pitch: A4
+    dur: quarter
+    sourceHead: swan-do
+    syl: foun-
+  - pitch: E4
+    dur:
+      value: quarter
+      dots: 1
+    sourceHead: swan-sol
+    syl: da-
+  - pitch: F#4
+    dur: eighth
+    sourceHead: swan-la
+    continues: true
+  - pitch: A4
+    dur: quarter
+    sourceHead: swan-do
+    syl: tion,
+  spans:
+  - kind: slur
+    from: 1
+    to: 2
+  - kind: slur
+    from: 6
+    to: 7
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 57
+    tune: Protection
+    voice: tenor
+    verse: 1
+    locator: opening phrase
+
+- id: columbia-texas-counter
+  title: Texas
+  system: swan-seven
+  key:
+    tonic: A
+    mode: major
+  meter: 4/4
+  notes:
+  - pitch: E4
+    dur: quarter
+    sourceHead: swan-sol
+    syl: Je-
+  - pitch: E4
+    dur: quarter
+    sourceHead: swan-sol
+    syl: sus,
+  - pitch: E4
+    dur: quarter
+    sourceHead: swan-sol
+    syl: lov-
+  - pitch: E4
+    dur: quarter
+    sourceHead: swan-sol
+    syl: er
+  - pitch: F#4
+    dur: quarter
+    sourceHead: swan-la
+    syl: of
+  - pitch: F#4
+    dur: quarter
+    sourceHead: swan-la
+    syl: my
+  - pitch: E4
+    dur: half
+    sourceHead: swan-sol
+    syl: soul,
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 65
+    tune: Texas
+    voice: counter
+    verse: 1
+    locator: opening phrase
+
+- id: southern-harmony-cookham-tenor
+  title: Cookham
+  system: fasola-four
+  key:
+    tonic: G
+    mode: major
+  meter: 6/4
+  notes:
+  - pitch: G4
+    dur: quarter
+    sourceHead: fasola-fa
+    syl: Lord,
+  - pitch: A4
+    dur: quarter
+    sourceHead: fasola-sol
+    syl: I
+  - pitch: G4
+    dur: quarter
+    sourceHead: fasola-fa
+    syl: can-
+  - pitch: A4
+    dur: quarter
+    sourceHead: fasola-sol
+    syl: not
+  - pitch: B4
+    dur: half
+    sourceHead: fasola-la
+    syl: let
+  - pitch: A4
+    dur: eighth
+    sourceHead: fasola-sol
+    syl: thee
+  - pitch: C5
+    dur: eighth
+    sourceHead: fasola-fa
+    continues: true
+  - pitch: B4
+    dur: half
+    sourceHead: fasola-la
+    syl: go,
+  spans:
+  - kind: beam
+    from: 6
+    to: 7
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 8b
+    tune: Cookham
+    voice: tenor
+    verse: 1
+    locator: opening phrase
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H8b.html
+
+- id: southern-harmony-parting-friends-tenor
+  title: Parting Friends
+  system: fasola-four
+  key:
+    tonic: C
+    mode: major
+  meter: 6/8
+  notes:
+  - pitch: E4
+    dur: eighth
+    sourceHead: fasola-la
+    syl: Fare-
+  - pitch: A4
+    dur: quarter
+    sourceHead: fasola-la
+    syl: well,
+  - pitch: A4
+    dur: eighth
+    sourceHead: fasola-la
+    syl: my
+  - pitch: A4
+    dur: eighth
+    sourceHead: fasola-la
+    syl: love-
+  - pitch: G4
+    dur: eighth
+    sourceHead: fasola-sol
+    syl: ly
+  - pitch: A4
+    dur: eighth
+    sourceHead: fasola-la
+    syl: friends,
+  spans:
+  - kind: beam
+    from: 4
+    to: 5
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 35b
+    tune: Parting Friends
+    voice: tenor
+    verse: 1
+    locator: opening phrase
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H35b.html
+
+- id: southern-harmony-hebrew-children-treble
+  title: Hebrew Children
+  system: fasola-four
+  key: { tonic: F, mode: major }
+  meter: '4/4'
+  notes:
+    - { pitch: D5, dur: half, syl: Where, sourceHead: fasola-la }
+    - { pitch: D5, dur: quarter, syl: are, sourceHead: fasola-la }
+    - { pitch: D5, dur: quarter, syl: the, sourceHead: fasola-la }
+    - { pitch: C5, dur: quarter, syl: He-, sourceHead: fasola-sol }
+    - { pitch: C5, dur: quarter, syl: brew, sourceHead: fasola-sol }
+    - { pitch: A4, dur: quarter, syl: chil-, sourceHead: fasola-la }
+    - { pitch: A4, dur: quarter, syl: 'dren?', sourceHead: fasola-la }
+  tune: { composer: David Walker }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 266
+    tune: Hebrew Children
+    voice: treble
+    verse: 1
+    locator: opening question
+    url: https://www.ccel.org/ccel/walker/harmony/files/hymn/Hebrew_Children.html
