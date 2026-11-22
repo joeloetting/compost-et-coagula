@@ -3045,3 +3045,32 @@
     voice: tenor
     verse: 1
     locator: Opening through ‘hands’; words shared across the voices.
+
+- id: southern-harmony-evening-shade-tenor
+  title: Evening Shade
+  passageId: southern-harmony-1854-evening-shade-tenor-line-1
+  system: fasola-four
+  key: { tonic: E, mode: minor }
+  notes:
+    - { pitch: E4, dur: half, syl: The, sourceHead: fasola-la }
+    - { pitch: G4, dur: { value: quarter, dots: 1 }, syl: day, sourceHead: fasola-fa }
+    - { pitch: A4, dur: eighth, continues: true, sourceHead: fasola-sol }
+    - { pitch: B4, dur: quarter, continues: true, sourceHead: fasola-la }
+    - { pitch: D5, dur: quarter, syl: is, sourceHead: fasola-sol }
+    - { pitch: E5, dur: half, syl: past, sourceHead: fasola-la }
+    - { pitch: D5, dur: half, syl: and, sourceHead: fasola-sol }
+    - { pitch: E5, dur: { value: half, dots: 1 }, syl: 'gone,', sourceHead: fasola-la }
+  spans:
+    - { kind: slur, from: 2, to: 4 }
+  tune: { composer: 'Baptist Harmony, p. 373 (as printed)' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 46
+    tune: Evening Shade
+    voice: tenor
+    verse: 1
+    locator: first line
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H46.html
