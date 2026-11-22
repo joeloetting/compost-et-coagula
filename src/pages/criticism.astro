@@ -1,19 +1,27 @@
 ---
 import { CRITICISM_EMAIL } from '../consts';
+import ArticleList from '../components/ArticleList.astro';
+import { getWriting } from '../utils/content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ShapeNoteDivider from '../components/ShapeNoteDivider.astro';
+
+const selectedEssays = ['dancing-on-the-cliffs-edge'];
+const writing = await getWriting();
+const essays = selectedEssays.flatMap((id) => writing.filter((entry) => entry.id === id));
 
 const email = CRITICISM_EMAIL.trim();
 const mailto = `mailto:${email}?subject=${encodeURIComponent('Criticism — Compost et Coagula')}`;
 ---
 
-<BaseLayout title="Criticism" description="An invitation to question the arguments, challenge the readings, and correct the errors in Compost et Coagula.">
+<BaseLayout title="Criticism" description="Essays on books, images, buildings, and forms, and an invitation to respond.">
 	<article class="criticism">
 		<header class="page-header">
 			<h1>Criticism</h1>
-			<p class="lede">These essays are open to disagreement.</p>
+			<p class="lede">Essays on books, images, buildings, and forms.</p>
 		</header>
-		<div class="prose">
+		{essays.length > 0 && <ArticleList entries={essays} />}
+		<div class="prose correspondence">
+			<h2 id="responding-to-an-essay">Responding to an essay</h2>
 			<p>
 				I welcome criticism of the writing here: an error in a source, a reading that does not hold up,
 				a conclusion the evidence cannot carry, or a question the essay has failed to ask.
@@ -60,6 +68,10 @@ const mailto = `mailto:${email}?subject=${encodeURIComponent('Criticism — Comp
 </BaseLayout>
 
 <style>
+	.correspondence {
+		margin-top: var(--space-section);
+	}
+
 	.criticism {
 		max-width: var(--measure);
 		margin-inline: auto;
