@@ -274,6 +274,34 @@ describe('the verified phrases', () => {
 		const key = { tonic: 'F', mode: 'major' } as const;
 		assert.deepEqual(pitches.map((p) => headFor('fasola-four', fasola(key, p))), printed);
 	});
+
+	it('Idumea, tenor, verse 1, line 4 (The Southern Harmony, 1854, p. 31): every head as printed', () => {
+		const pitches = ['G4', 'A4', 'G4', 'A4', 'C5', 'D5', 'C5', 'A4'];
+		const printed = ['sol', 'la', 'sol', 'la', 'fa', 'sol', 'fa', 'la'].map((s) => `fasola-${s}`);
+		const key = { tonic: 'A', mode: 'minor' } as const;
+		assert.deepEqual(pitches.map((p) => headFor('fasola-four', fasola(key, p))), printed);
+	});
+
+	it('Sweet Rivers, tenor, verse 1, line 8 (The Southern Harmony, 1854, p. 166): every head as printed', () => {
+		const pitches = ['C5', 'D5', 'C5', 'A4', 'C5', 'A4', 'G4', 'F4'];
+		const printed = ['sol', 'la', 'sol', 'la', 'sol', 'la', 'sol', 'fa'].map((s) => `fasola-${s}`);
+		const key = { tonic: 'F', mode: 'major' } as const;
+		assert.deepEqual(pitches.map((p) => headFor('fasola-four', fasola(key, p))), printed);
+	});
+
+	it('Northfield, tenor, verse 1, lines 1 and 3 (The Southern Harmony, 1854, p. 283): every head as printed', () => {
+		const pitches = ['C5', 'G4', 'F4', 'E4', 'G4', 'C5', 'E5', 'D5', 'C5', 'F5', 'D5', 'D5', 'D5', 'E5', 'C5', 'C5'];
+		const printed = ['fa', 'sol', 'fa', 'la', 'sol', 'fa', 'la', 'sol', 'fa', 'fa', 'sol', 'sol', 'sol', 'la', 'fa', 'fa'].map((s) => `fasola-${s}`);
+		const key = { tonic: 'C', mode: 'major' } as const;
+		assert.deepEqual(pitches.map((p) => headFor('fasola-four', fasola(key, p))), printed);
+	});
+
+	it("The Christian's Farewell, tenor, line 3 (The Southern Harmony, 1854, p. 334): every head as printed", () => {
+		const pitches = ['D5', 'F5', 'D5', 'F5', 'Bb4', 'Bb4', 'Bb4', 'D5', 'C5', 'D5', 'F4'];
+		const printed = ['la', 'sol', 'la', 'sol', 'fa', 'fa', 'fa', 'la', 'sol', 'la', 'sol'].map((s) => `fasola-${s}`);
+		const key = { tonic: 'Bb', mode: 'major' } as const;
+		assert.deepEqual(pitches.map((p) => headFor('fasola-four', fasola(key, p))), printed);
+	});
 });
 
 describe('renderPhraseSvg', () => {

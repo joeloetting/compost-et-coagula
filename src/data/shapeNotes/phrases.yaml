@@ -986,6 +986,476 @@
   editorial:
     - Pitches as printed in the treble clef; men sing them an octave lower.
 
+- id: liverpool-tenor-s1-l8
+  # The page number is the same PLACEHOLDER as liverpool-tenor's, so this
+  # phrase stays a fixture until the real page is read from the book.
+  fixture: true
+  title: Liverpool
+  passageId: southern-harmony-1854-liverpool-tenor-line-8
+  system: fasola-four
+  key: { tonic: F, mode: major } # one flat; fa on F
+  # Read from the author's scan. The tenor is the middle of three staves; the
+  # eighth line of verse 1 is the last line of words under it, sung to the
+  # first-time ending.
+  notes:
+    - { pitch: D5, dur: quarter, syl: Your, sourceHead: fasola-la }
+    - { pitch: C5, dur: quarter, continues: true, sourceHead: fasola-sol }
+    - { pitch: A4, dur: { value: quarter, dots: 1 }, syl: flesh, sourceHead: fasola-la }
+    - { pitch: F4, dur: eighth, syl: in, sourceHead: fasola-fa }
+    - { pitch: G4, dur: quarter, syl: dust, sourceHead: fasola-sol }
+    - { pitch: G4, dur: quarter, syl: be, sourceHead: fasola-sol }
+    - { pitch: F4, dur: half, syl: laid., sourceHead: fasola-fa }
+  spans:
+    - { kind: slur, from: 1, to: 2 }
+  tune: { composer: M. C. H. Davis (as printed) }
+  words: { firstLine: 'Young people all, attention give' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 23 # PLACEHOLDER: not the real page
+    tune: Liverpool
+    voice: tenor
+    verse: 1
+    locator: stanza 1, line 8; entry 1, PDF p. 29
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - '"Your" is sung to two slurred quarter notes, as printed.'
+    - The last note is the first-time ending.
+
+- id: distress-tenor-s1-l1
+  # The scan does not show the printed page number, so this phrase stays a
+  # fixture until the page is read from the book.
+  fixture: true
+  title: Distress
+  passageId: southern-harmony-1854-distress-tenor-line-1
+  system: fasola-four
+  key: { tonic: E, mode: minor } # one sharp; la on E
+  meter: '4/4'
+  # Read from the author's screenshot. The tenor is the middle of three
+  # staves and carries the melody; stanza 1 is printed under it.
+  notes:
+    - { pitch: E4, dur: half, syl: So, sourceHead: fasola-la }
+    - { pitch: G4, dur: quarter, syl: fades, sourceHead: fasola-fa }
+    - { pitch: A4, dur: quarter, syl: the, sourceHead: fasola-sol }
+    - { pitch: B4, dur: half, syl: love-, sourceHead: fasola-la }
+    - { pitch: A4, dur: half, syl: 'ly,', sourceHead: fasola-sol }
+    - { pitch: G4, dur: quarter, syl: bloom-, sourceHead: fasola-fa }
+    - { pitch: E4, dur: eighth, syl: ing, sourceHead: fasola-la }
+    - { pitch: D4, dur: eighth, continues: true, sourceHead: fasola-sol }
+    - { pitch: E4, dur: whole, syl: "flow'r,", sourceHead: fasola-la }
+  spans:
+    - { kind: beam, from: 7, to: 8 }
+  words: { firstLine: 'So fades the lovely, blooming flower' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    tune: Distress
+    voice: tenor
+    verse: 1
+    locator: stanza 1, line 1; entry 22b, PDF p. 76
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+
+- id: distress-tenor-s1-l4
+  # The scan does not show the printed page number, so this phrase stays a
+  # fixture until the page is read from the book.
+  fixture: true
+  title: Distress
+  passageId: southern-harmony-1854-distress-tenor-line-4
+  system: fasola-four
+  key: { tonic: E, mode: minor } # one sharp; la on E
+  meter: '4/4'
+  # Read from the author's screenshot: the tenor's notes for the fourth line,
+  # with stanza 1 printed under them, ending on the second-time ending.
+  notes:
+    - { pitch: E4, dur: half, syl: And, sourceHead: fasola-la }
+    - { pitch: G4, dur: quarter, syl: plea-, sourceHead: fasola-fa }
+    - { pitch: A4, dur: quarter, syl: sure }
+    - { pitch: B4, dur: half, syl: on-, sourceHead: fasola-la }
+    - { pitch: A4, dur: half, syl: ly, sourceHead: fasola-sol }
+    - { pitch: G4, dur: quarter, syl: blooms, sourceHead: fasola-fa }
+    - { pitch: E4, dur: eighth, syl: to, sourceHead: fasola-la }
+    - { pitch: D4, dur: eighth, continues: true, sourceHead: fasola-sol }
+    - { pitch: E4, dur: half, syl: die., sourceHead: fasola-la }
+  spans:
+    - { kind: beam, from: 7, to: 8 }
+  words: { firstLine: 'So fades the lovely, blooming flower' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    tune: Distress
+    voice: tenor
+    verse: 1
+    locator: stanza 1, line 4; entry 22b, PDF p. 76
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - The third note's head is unclear in the scan; its position reads A, as in the first line, where the head is a clear sol.
+    - The last note is the second-time ending.
+
+- id: idumea-tenor-s1-l1
+  # The last note's length is inferred, so this phrase stays a fixture.
+  fixture: true
+  title: Idumea
+  passageId: southern-harmony-1854-idumea-tenor-line-1
+  system: fasola-four
+  key: { tonic: A, mode: minor } # no sharps or flats; la on A
+  meter: '3/2'
+  # Read from the author's screenshot of page 31. The tenor is the middle of
+  # three staves and carries the melody; stanza 1 is printed under it. These
+  # are not the words of idumea-opening.
+  notes:
+    - { pitch: A4, dur: half, syl: And, sourceHead: fasola-la }
+    - { pitch: A4, dur: whole, syl: am, sourceHead: fasola-la }
+    - { pitch: G4, dur: quarter, syl: I, sourceHead: fasola-sol }
+    - { pitch: A4, dur: quarter, continues: true, sourceHead: fasola-la }
+    - { pitch: C5, dur: whole, syl: born, sourceHead: fasola-fa }
+    - { pitch: D5, dur: quarter, syl: to, sourceHead: fasola-sol }
+    - { pitch: C5, dur: quarter, continues: true, sourceHead: fasola-fa }
+    - { pitch: A4, dur: whole, syl: die?, sourceHead: fasola-la }
+  spans:
+    - { kind: slur, from: 3, to: 4 }
+    - { kind: slur, from: 6, to: 7 }
+  tune: { composer: Davisson (as printed) }
+  words: { firstLine: 'And am I born to die?' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 31
+    tune: Idumea
+    voice: tenor
+    verse: 1
+    locator: stanza 1, line 1; entry 31, PDF p. 93
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - The last note is read as a whole note to fill the bar; the scan is faint there.
+
+- id: idumea-tenor-s1-l4
+  title: Idumea
+  passageId: southern-harmony-1854-idumea-tenor-line-4
+  system: fasola-four
+  key: { tonic: A, mode: minor } # no sharps or flats; la on A
+  meter: '3/2'
+  # Read from the author's screenshot of page 31: the tenor's fourth line,
+  # with stanza 1 printed under it, ending on the second-time ending.
+  notes:
+    - { pitch: G4, dur: half, syl: In-, sourceHead: fasola-sol }
+    - { pitch: A4, dur: whole, syl: to, sourceHead: fasola-la }
+    - { pitch: G4, dur: quarter, syl: a, sourceHead: fasola-sol }
+    - { pitch: A4, dur: quarter, continues: true, sourceHead: fasola-la }
+    - { pitch: C5, dur: whole, syl: world, sourceHead: fasola-fa }
+    - { pitch: D5, dur: quarter, syl: un-, sourceHead: fasola-sol }
+    - { pitch: C5, dur: quarter, continues: true, sourceHead: fasola-fa }
+    - { pitch: A4, dur: { value: whole, dots: 1 }, syl: known?, sourceHead: fasola-la }
+  spans:
+    - { kind: slur, from: 3, to: 4 }
+    - { kind: slur, from: 6, to: 7 }
+  tune: { composer: Davisson (as printed) }
+  words: { firstLine: 'And am I born to die?' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 31
+    tune: Idumea
+    voice: tenor
+    verse: 1
+    locator: stanza 1, line 4; entry 31, PDF p. 93
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - The last note is the second-time ending.
+
+- id: davids-lamentation-s3-o-my-son
+  # Which staff is the tenor is inferred, so this phrase stays a fixture.
+  fixture: true
+  title: David's Lamentation
+  passageId: southern-harmony-1854-davids-lamentation-staff-3-o-my-son
+  system: fasola-four
+  key: { tonic: A, mode: minor } # no sharps or flats
+  meter: '2/4'
+  # Read from the author's screenshot of page 213. Four staves; the words are
+  # printed under the second, which rests during "Would to God", so they do
+  # not settle the voice. The third staff is taken as the tenor.
+  notes:
+    - { pitch: E5, dur: quarter, syl: O, sourceHead: fasola-la }
+    - { pitch: D5, dur: quarter, syl: my, sourceHead: fasola-sol }
+    - { pitch: C5, dur: half, syl: son!, sourceHead: fasola-fa }
+    - { rest: half }
+    - { pitch: C5, dur: quarter, syl: O, sourceHead: fasola-fa }
+    - { pitch: B4, dur: quarter, syl: my, sourceHead: fasola-mi }
+    - { pitch: A4, dur: half, syl: son!, sourceHead: fasola-la }
+  tune: { composer: Billings (as printed) }
+  words: { firstLine: 'David the king was grieved and moved' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 213
+    tune: David's Lamentation
+    voice: third staff (taken as the tenor)
+    locator: entry 213, PDF p. 370
+  editorial:
+    - Pitches as printed in the treble clef.
+    - The repeated "O my son" is written once in the words with a repeat sign; the notes are the third staff's.
+    - Which staff is the tenor is inferred; the book does not label the voices.
+
+- id: davids-lamentation-s3-would-to-god
+  # Which staff is the tenor is inferred, so this phrase stays a fixture.
+  fixture: true
+  title: David's Lamentation
+  passageId: southern-harmony-1854-davids-lamentation-staff-3-would-to-god
+  system: fasola-four
+  key: { tonic: A, mode: minor } # no sharps or flats
+  meter: '2/4'
+  # Read from the author's screenshot of page 213: the third staff, after a
+  # quarter rest.
+  notes:
+    - { pitch: A4, dur: eighth, syl: Would, sourceHead: fasola-la }
+    - { pitch: B4, dur: eighth, syl: to, sourceHead: fasola-mi }
+    - { pitch: C5, dur: quarter, syl: God, sourceHead: fasola-fa }
+    - { pitch: B4, dur: eighth, syl: I, sourceHead: fasola-mi }
+    - { pitch: A4, dur: eighth, syl: had, sourceHead: fasola-la }
+    - { pitch: G4, dur: quarter, syl: died, sourceHead: fasola-sol }
+  tune: { composer: Billings (as printed) }
+  words: { firstLine: 'David the king was grieved and moved' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 213
+    tune: David's Lamentation
+    voice: third staff (taken as the tenor)
+    locator: entry 213, PDF p. 370
+  editorial:
+    - Pitches as printed in the treble clef.
+    - Which staff is the tenor is inferred; the book does not label the voices, and the staff the words are printed under rests here.
+
+- id: sweet-rivers-tenor-s1-l1
+  # The first note's length is inferred, so this phrase stays a fixture.
+  fixture: true
+  title: Sweet Rivers
+  passageId: southern-harmony-1854-sweet-rivers-tenor-line-1
+  system: fasola-four
+  key: { tonic: F, mode: major } # one flat; fa on F
+  # Read from the author's screenshot of page 166. The tenor is the middle of
+  # three staves and carries the melody; stanzas 1 and 2 are printed under it.
+  notes:
+    - { pitch: F4, dur: half, syl: Sweet, sourceHead: fasola-fa }
+    - { pitch: A4, dur: quarter, syl: ri-, sourceHead: fasola-la }
+    - { pitch: A4, dur: eighth, syl: vers, sourceHead: fasola-la }
+    - { pitch: F4, dur: eighth, syl: of, sourceHead: fasola-fa }
+    - { pitch: G4, dur: quarter, syl: re-, sourceHead: fasola-sol }
+    - { pitch: G4, dur: eighth, syl: deem-, sourceHead: fasola-sol }
+    - { pitch: A4, dur: eighth, syl: ing, sourceHead: fasola-la }
+    - { pitch: C5, dur: quarter, syl: 'love,', sourceHead: fasola-sol }
+  spans:
+    - { kind: beam, from: 3, to: 4 }
+    - { kind: beam, from: 6, to: 7 }
+  tune: { composer: More (as printed) }
+  words: { firstLine: 'Sweet rivers of redeeming love' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 166
+    tune: Sweet Rivers
+    voice: tenor
+    verse: 1
+    locator: stanza 1, line 1; entry 166, PDF p. 324
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - The first note is faint in the scan; it is read as a half note, filling the bar after the half rest.
+
+- id: sweet-rivers-tenor-s1-l8
+  title: Sweet Rivers
+  passageId: southern-harmony-1854-sweet-rivers-tenor-line-8
+  system: fasola-four
+  key: { tonic: F, mode: major } # one flat; fa on F
+  # Read from the author's screenshot of page 166: the tenor's last line,
+  # with stanza 1 printed under it, ending on the first-time ending.
+  notes:
+    - { pitch: C5, dur: half, syl: And, sourceHead: fasola-sol }
+    - { pitch: D5, dur: eighth, syl: leave, sourceHead: fasola-la }
+    - { pitch: C5, dur: eighth, continues: true, sourceHead: fasola-sol }
+    - { pitch: A4, dur: quarter, syl: the, sourceHead: fasola-la }
+    - { pitch: C5, dur: eighth, syl: world, sourceHead: fasola-sol }
+    - { pitch: A4, dur: eighth, continues: true, sourceHead: fasola-la }
+    - { pitch: G4, dur: quarter, syl: be-, sourceHead: fasola-sol }
+    - { pitch: F4, dur: half, syl: hind., sourceHead: fasola-fa }
+  spans:
+    - { kind: beam, from: 2, to: 3 }
+    - { kind: beam, from: 5, to: 6 }
+  tune: { composer: More (as printed) }
+  words: { firstLine: 'Sweet rivers of redeeming love' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 166
+    tune: Sweet Rivers
+    voice: tenor
+    verse: 1
+    locator: stanza 1, line 8; entry 166, PDF p. 324
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - Each pair of beamed eighths is sung to one syllable, as printed.
+    - The last note is the first-time ending.
+
+- id: northfield-tenor-s1-l1
+  title: Northfield
+  passageId: southern-harmony-1854-northfield-tenor-line-1
+  system: fasola-four
+  key: { tonic: C, mode: major } # no sharps or flats; fa on C
+  meter: '2/2'
+  # Read from the author's screenshot of page 283. The tenor is the middle of
+  # three staves and carries the melody; stanza 1 is printed under it.
+  notes:
+    - { pitch: C5, dur: half, syl: How, sourceHead: fasola-fa }
+    - { pitch: G4, dur: quarter, syl: 'long,', sourceHead: fasola-sol }
+    - { pitch: F4, dur: quarter, syl: dear, sourceHead: fasola-fa }
+    - { pitch: E4, dur: quarter, syl: Je-, sourceHead: fasola-la }
+    - { pitch: G4, dur: quarter, syl: 'sus,', sourceHead: fasola-sol }
+    - { pitch: C5, dur: quarter, syl: oh!, sourceHead: fasola-fa }
+    - { pitch: E5, dur: quarter, syl: how, sourceHead: fasola-la }
+    - { pitch: D5, dur: { value: half, dots: 1 }, syl: long, sourceHead: fasola-sol }
+  tune: { composer: Ingalls (as printed) }
+  words: { firstLine: 'How long, dear Jesus, oh! how long' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 283
+    tune: Northfield
+    voice: tenor
+    verse: 1
+    locator: stanza 1, line 1; entry 283, PDF p. 444
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+
+- id: northfield-tenor-s1-l3
+  title: Northfield
+  passageId: southern-harmony-1854-northfield-tenor-line-3
+  system: fasola-four
+  key: { tonic: C, mode: major } # no sharps or flats; fa on C
+  meter: '2/2'
+  # Read from the author's screenshot of page 283: the tenor's entry in the
+  # fuguing section, which runs from the end of the first system into the
+  # second.
+  notes:
+    - { pitch: C5, dur: quarter, syl: Fly, sourceHead: fasola-fa }
+    - { pitch: F5, dur: quarter, syl: swift-, sourceHead: fasola-fa }
+    - { pitch: D5, dur: quarter, syl: ly, sourceHead: fasola-sol }
+    - { pitch: D5, dur: quarter, syl: 'round,', sourceHead: fasola-sol }
+    - { pitch: D5, dur: quarter, syl: ye, sourceHead: fasola-sol }
+    - { pitch: E5, dur: quarter, syl: wheels, sourceHead: fasola-la }
+    - { pitch: C5, dur: quarter, syl: of, sourceHead: fasola-fa }
+    - { pitch: C5, dur: quarter, syl: 'time,', sourceHead: fasola-fa }
+  tune: { composer: Ingalls (as printed) }
+  words: { firstLine: 'How long, dear Jesus, oh! how long' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 283
+    tune: Northfield
+    voice: tenor
+    verse: 1
+    locator: stanza 1, line 3; entry 283, PDF p. 444
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+
+- id: christians-farewell-tenor-s1-l3
+  title: The Christian's Farewell
+  passageId: southern-harmony-1854-christians-farewell-tenor-line-3
+  system: fasola-four
+  key: { tonic: Bb, mode: major } # two flats; fa on B flat
+  # Read from the author's screenshot of page 334. The tenor is the middle of
+  # three staves; each staff has its own stanza under it, stanza 1 under the
+  # top staff and stanza 2 under the tenor.
+  notes:
+    - { pitch: D5, dur: half, syl: Our, sourceHead: fasola-la }
+    - { pitch: F5, dur: half, syl: "sev'-", sourceHead: fasola-sol }
+    - { pitch: D5, dur: quarter, syl: ral, sourceHead: fasola-la }
+    - { pitch: F5, dur: quarter, syl: en-, sourceHead: fasola-sol }
+    - { pitch: Bb4, dur: half, syl: gage-, sourceHead: fasola-fa }
+    - { pitch: Bb4, dur: quarter, syl: ments, sourceHead: fasola-fa }
+    - { pitch: Bb4, dur: quarter, syl: now, sourceHead: fasola-fa }
+    - { pitch: D5, dur: half, syl: call, sourceHead: fasola-la }
+    - { pitch: C5, dur: quarter, syl: us, sourceHead: fasola-sol }
+    - { pitch: D5, dur: quarter, syl: a-, sourceHead: fasola-la }
+    - { pitch: F4, dur: half, syl: 'way,', sourceHead: fasola-sol }
+  words: { firstLine: 'Farewell, my dear brethren, the time is at hand' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 334
+    tune: The Christian's Farewell
+    voice: tenor
+    verse: 1
+    locator: stanza 1, line 3; entry 334, PDF p. 544
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - The words of stanza 1 are printed under the top staff and set here to the tenor's notes, one syllable to a note, as stanza 2 is set under the tenor.
+
+- id: christians-farewell-tenor-s1-l4
+  # Two readings are inferred (see editorial), so this phrase stays a fixture.
+  fixture: true
+  title: The Christian's Farewell
+  passageId: southern-harmony-1854-christians-farewell-tenor-line-4
+  system: fasola-four
+  key: { tonic: Bb, mode: major } # two flats; fa on B flat
+  # Read from the author's screenshot of page 334: the tenor's fourth line,
+  # ending on the first-time ending.
+  notes:
+    - { pitch: F4, dur: quarter, syl: Our, sourceHead: fasola-sol }
+    - { pitch: G4, dur: quarter, continues: true, sourceHead: fasola-la }
+    - { pitch: C5, dur: half, syl: par- }
+    - { pitch: G4, dur: quarter, syl: ting, sourceHead: fasola-la }
+    - { pitch: Bb4, dur: quarter, syl: is, sourceHead: fasola-fa }
+    - { pitch: F4, dur: { value: quarter, dots: 1 }, syl: need-, sourceHead: fasola-sol }
+    - { pitch: G4, dur: eighth, continues: true, sourceHead: fasola-la }
+    - { pitch: Bb4, dur: quarter, syl: 'ful,', sourceHead: fasola-fa }
+    - { pitch: C5, dur: quarter, syl: and, sourceHead: fasola-sol }
+    - { pitch: D5, dur: half, syl: we, sourceHead: fasola-la }
+    - { pitch: C5, dur: quarter, syl: must, sourceHead: fasola-sol }
+    - { pitch: C5, dur: quarter, syl: o-, sourceHead: fasola-sol }
+    - { pitch: Bb4, dur: half, syl: bey., sourceHead: fasola-fa }
+  spans:
+    - { kind: slur, from: 1, to: 2 }
+    - { kind: slur, from: 6, to: 7 }
+  words: { firstLine: 'Farewell, my dear brethren, the time is at hand' }
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 'new edition, thoroughly revised and much enlarged (Philadelphia: E. W. Miller)'
+    year: 1854
+    page: 334
+    tune: The Christian's Farewell
+    voice: tenor
+    verse: 1
+    locator: stanza 1, line 4; entry 334, PDF p. 544
+  editorial:
+    - Pitches as printed in the treble clef; tenors sing them an octave lower.
+    - The words of stanza 1 are printed under the top staff and set here to the tenor's notes, as stanza 2 is set under the tenor.
+    - The head of the third note is too faint to read its shape; its position reads C. The dot after the sixth note is inferred from the length of the bar.
+    - The last note is the first-time ending.
+
 - id: fixture-minor-phrase
   fixture: true
   title: Synthetic test phrase (minor)
