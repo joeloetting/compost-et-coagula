@@ -3074,3 +3074,504 @@
     verse: 1
     locator: first line
     url: https://ccel.org/ccel/walker/harmony2/harmony2.H46.html
+
+# Southern Harmony tenor excerpts from the CCEL score images.
+- id: southern-harmony-kedron-tenor
+  title: Kedron
+  passageId: southern-harmony-1854-kedron-tenor-opening
+  system: fasola-four
+  key:
+    tonic: E
+    mode: minor
+  notes:
+  - pitch: G4
+    dur:
+      value: quarter
+      dots: 1
+    sourceHead: fasola-fa
+    syl: Thou
+  - pitch: F#4
+    dur: eighth
+    sourceHead: fasola-mi
+    continues: true
+  - pitch: E4
+    dur: quarter
+    sourceHead: fasola-la
+    syl: Man
+  - pitch: E4
+    dur: quarter
+    sourceHead: fasola-la
+    syl: of
+  - pitch: B4
+    dur: half
+    sourceHead: fasola-la
+    syl: grief,
+  spans:
+  - kind: slur
+    from: 1
+    to: 2
+  tune:
+    composer: Dare (as printed)
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 3
+    tune: Kedron
+    voice: tenor
+    verse: 1
+    locator: Opening through “Thou Man of grief”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H3b.html
+- id: southern-harmony-restoration-tenor
+  title: Restoration
+  passageId: southern-harmony-1854-restoration-tenor-opening
+  system: fasola-four
+  key:
+    tonic: C
+    mode: major
+  notes:
+  - pitch: A4
+    dur: quarter
+    sourceHead: fasola-la
+    syl: Mer-
+  - pitch: A4
+    dur: quarter
+    sourceHead: fasola-la
+    syl: cy,
+  - pitch: A4
+    dur: quarter
+    sourceHead: fasola-la
+    syl: O
+  - pitch: G4
+    dur: eighth
+    sourceHead: fasola-sol
+    syl: thou
+  - pitch: A4
+    dur: eighth
+    sourceHead: fasola-la
+    continues: true
+  - pitch: C5
+    dur: quarter
+    sourceHead: fasola-fa
+    syl: Son
+  - pitch: C5
+    dur: quarter
+    sourceHead: fasola-fa
+    syl: of
+  - pitch: A4
+    dur: eighth
+    sourceHead: fasola-la
+    syl: Da-
+  - pitch: G4
+    dur: eighth
+    sourceHead: fasola-sol
+    continues: true
+  - pitch: E4
+    dur: quarter
+    sourceHead: fasola-la
+    syl: vid!
+  spans:
+  - kind: beam
+    from: 4
+    to: 5
+  - kind: beam
+    from: 8
+    to: 9
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 5
+    tune: Restoration
+    voice: tenor
+    verse: 1
+    locator: Opening through “Mercy, O thou Son of David”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H5b.html
+- id: southern-harmony-meditation-tenor
+  title: Meditation
+  passageId: southern-harmony-1854-meditation-tenor-opening
+  system: fasola-four
+  key:
+    tonic: C
+    mode: major
+  notes:
+  - pitch: A4
+    dur: half
+    sourceHead: fasola-la
+    syl: To-
+  - pitch: G4
+    dur: quarter
+    sourceHead: fasola-sol
+    syl: day,
+  - pitch: A4
+    dur: quarter
+    sourceHead: fasola-la
+    syl: if
+  - pitch: C5
+    dur: half
+    sourceHead: fasola-fa
+    syl: you
+  - pitch: D5
+    dur:
+      value: quarter
+      dots: 1
+    sourceHead: fasola-sol
+    syl: will
+  - pitch: C5
+    dur: eighth
+    sourceHead: fasola-fa
+    syl: hear
+  - pitch: A4
+    dur: quarter
+    sourceHead: fasola-la
+    syl: his
+  - pitch: G4
+    dur: quarter
+    sourceHead: fasola-sol
+    syl: voice,
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 4
+    tune: Meditation
+    voice: tenor
+    verse: 1
+    locator: Opening through “To-day, if you will hear his voice”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H4.html
+- id: southern-harmony-devotion-tenor
+  title: Devotion
+  passageId: southern-harmony-1854-devotion-tenor-opening
+  system: fasola-four
+  key:
+    tonic: C
+    mode: major
+  notes:
+  - pitch: G4
+    dur: half
+    sourceHead: fasola-sol
+    syl: Sweet
+  - pitch: A4
+    dur: quarter
+    sourceHead: fasola-la
+    syl: is
+  - pitch: C5
+    dur: quarter
+    sourceHead: fasola-fa
+    syl: the
+  - pitch: A4
+    dur: half
+    sourceHead: fasola-la
+    syl: day
+  - pitch: G4
+    dur: half
+    sourceHead: fasola-sol
+    syl: of
+  - pitch: A4
+    dur: quarter
+    sourceHead: fasola-la
+    syl: sa-
+  - pitch: C5
+    dur: quarter
+    sourceHead: fasola-fa
+    syl: cred
+  - pitch: C5
+    dur: half
+    sourceHead: fasola-fa
+    syl: rest,
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 13
+    tune: Devotion
+    voice: tenor
+    verse: 1
+    locator: Opening through “Sweet is the day of sacred rest”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H13b.html
+- id: southern-harmony-king-of-peace-tenor
+  title: King of Peace
+  passageId: southern-harmony-1854-king-of-peace-tenor-opening
+  system: fasola-four
+  key:
+    tonic: C
+    mode: major
+  notes:
+  - pitch: A4
+    dur: half
+    sourceHead: fasola-la
+    syl: Chil-
+  - pitch: B4
+    dur: quarter
+    sourceHead: fasola-mi
+    syl: dren
+  - pitch: A4
+    dur: half
+    sourceHead: fasola-la
+    syl: of
+  - pitch: G4
+    dur: quarter
+    sourceHead: fasola-sol
+    syl: the
+  - pitch: E4
+    dur: half
+    sourceHead: fasola-la
+    syl: heav’n-
+  - pitch: G4
+    dur: quarter
+    sourceHead: fasola-sol
+    syl: ly
+  - pitch: A4
+    dur:
+      value: half
+      dots: 1
+    sourceHead: fasola-la
+    syl: King,
+  tune:
+    composer: F. Price (as printed)
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 6
+    tune: King of Peace
+    voice: tenor
+    verse: 1
+    locator: Opening through “Children of the heav’nly King”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H6b.html
+- id: southern-harmony-sweet-prospect-tenor
+  title: Sweet Prospect
+  passageId: southern-harmony-1854-sweet-prospect-tenor-opening
+  system: fasola-four
+  key:
+    tonic: G
+    mode: major
+  notes:
+  - pitch: B4
+    dur: half
+    sourceHead: fasola-la
+    syl: 'On'
+  - pitch: D5
+    dur: quarter
+    sourceHead: fasola-sol
+    continues: true
+  - pitch: B4
+    dur: quarter
+    sourceHead: fasola-la
+    syl: Jor-
+  - pitch: A4
+    dur: quarter
+    sourceHead: fasola-sol
+    continues: true
+  - pitch: F#4
+    dur: quarter
+    sourceHead: fasola-mi
+    syl: dan’s
+  - pitch: E4
+    dur: half
+    sourceHead: fasola-la
+    syl: storm-
+  - pitch: D4
+    dur: quarter
+    sourceHead: fasola-sol
+    syl: y
+  - pitch: E4
+    dur: half
+    sourceHead: fasola-la
+    syl: banks
+  - pitch: F#4
+    dur: quarter
+    sourceHead: fasola-mi
+    syl: I
+  - pitch: A4
+    dur:
+      value: half
+      dots: 1
+    sourceHead: fasola-sol
+    syl: stand,
+  spans:
+  - kind: slur
+    from: 1
+    to: 2
+  - kind: slur
+    from: 3
+    to: 4
+  tune:
+    composer: Wm. Walker (as printed)
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 137
+    tune: Sweet Prospect
+    voice: tenor
+    verse: 1
+    locator: Opening through “On Jordan’s stormy banks I stand”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H137.html
+- id: southern-harmony-newburgh-tenor
+  title: Newburgh
+  passageId: southern-harmony-1854-newburgh-tenor-opening
+  system: fasola-four
+  key:
+    tonic: C
+    mode: major
+  notes:
+  - pitch: G4
+    dur: half
+    sourceHead: fasola-sol
+    syl: Let
+  - pitch: E4
+    dur: quarter
+    sourceHead: fasola-la
+    syl: ev’-
+  - pitch: G4
+    dur: quarter
+    sourceHead: fasola-sol
+    syl: ry
+  - pitch: C5
+    dur: quarter
+    sourceHead: fasola-fa
+    syl: crea-
+  - pitch: D5
+    dur: quarter
+    sourceHead: fasola-sol
+    syl: ture
+  - pitch: C5
+    dur:
+      value: half
+      dots: 1
+    sourceHead: fasola-fa
+    syl: join
+  tune:
+    composer: Munson (as printed)
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 296
+    tune: Newburgh
+    voice: tenor
+    verse: 1
+    locator: Opening through “Let ev’ry creature join”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H296.html
+- id: southern-harmony-ministers-farewell-tenor
+  title: Minister’s Farewell
+  passageId: southern-harmony-1854-ministers-farewell-tenor-opening
+  system: fasola-four
+  key:
+    tonic: G
+    mode: major
+  notes:
+  - pitch: B4
+    dur: half
+    sourceHead: fasola-la
+    syl: Dear
+  - pitch: G4
+    dur: quarter
+    sourceHead: fasola-fa
+    syl: friends,
+  - pitch: G4
+    dur: quarter
+    sourceHead: fasola-fa
+    syl: fare-
+  - pitch: B4
+    dur: half
+    sourceHead: fasola-la
+    syl: well,
+  - pitch: D5
+    dur: half
+    sourceHead: fasola-sol
+    syl: I
+  - pitch: B4
+    dur: eighth
+    sourceHead: fasola-la
+    syl: do
+  - pitch: A4
+    dur: eighth
+    sourceHead: fasola-sol
+    continues: true
+  - pitch: G4
+    dur: quarter
+    sourceHead: fasola-fa
+    syl: you
+  - pitch: E4
+    dur: half
+    sourceHead: fasola-la
+    syl: tell,
+  spans:
+  - kind: beam
+    from: 6
+    to: 7
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 14
+    tune: Minister’s Farewell
+    voice: tenor
+    verse: 1
+    locator: Opening through “Dear friends, farewell, I do you tell”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H14.html
+- id: southern-harmony-new-jerusalem-tenor
+  title: New Jerusalem
+  passageId: southern-harmony-1854-new-jerusalem-tenor-opening
+  system: fasola-four
+  key:
+    tonic: C
+    mode: major
+  notes:
+  - pitch: A4
+    dur:
+      value: half
+      dots: 1
+    sourceHead: fasola-la
+    syl: My
+  - pitch: A4
+    dur: quarter
+    sourceHead: fasola-la
+    syl: gra-
+  - pitch: E4
+    dur: quarter
+    sourceHead: fasola-la
+    syl: cious
+  - pitch: A4
+    dur: quarter
+    sourceHead: fasola-la
+    syl: Re-
+  - pitch: C5
+    dur: quarter
+    sourceHead: fasola-fa
+    syl: deem-
+  - pitch: D5
+    dur: quarter
+    sourceHead: fasola-sol
+    syl: er
+  - pitch: E5
+    dur: quarter
+    sourceHead: fasola-la
+    syl: I
+  - pitch: E5
+    dur:
+      value: half
+      dots: 1
+    sourceHead: fasola-la
+    syl: love,
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 125
+    tune: New Jerusalem
+    voice: tenor
+    verse: 1
+    locator: Opening through “My gracious Redeemer I love”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H125.html
