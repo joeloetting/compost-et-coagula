@@ -3575,3 +3575,1309 @@
     verse: 1
     locator: Opening through “My gracious Redeemer I love”
     url: https://ccel.org/ccel/walker/harmony2/harmony2.H125.html
+
+# Additional 1919 Columbia excerpts.
+- id: columbia-albion-tenor
+  title: Albion
+  passageId: columbia-1919-albion-tenor-opening
+  system: swan-seven
+  key:
+    tonic: G
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: G4, dur: half, sourceHead: swan-do, syl: 'Come,'}
+  - {pitch: B4, dur: quarter, sourceHead: swan-mi, syl: ye}
+  - {pitch: D5, dur: quarter, sourceHead: swan-sol, syl: who}
+  - {pitch: B4, dur: quarter, sourceHead: swan-mi, syl: love}
+  - {pitch: G4, dur: quarter, sourceHead: swan-do, syl: the}
+  - {pitch: A4, dur: half, sourceHead: swan-ra, syl: 'Lord,'}
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 12
+    tune: Albion
+    voice: tenor
+    verse: 1
+    locator: Opening through “Come, ye who love the Lord”
+- id: columbia-reflection-tenor
+  title: Reflection
+  passageId: columbia-1919-reflection-tenor-opening
+  system: swan-seven
+  key:
+    tonic: Bb
+    mode: major
+  meter: 2/4
+  notes:
+  - {pitch: F4, dur: eighth, sourceHead: swan-sol, syl: Blest}
+  - {pitch: G4, dur: eighth, sourceHead: swan-la, continues: true}
+  - {pitch: Bb4, dur: quarter, sourceHead: swan-do, syl: be}
+  - {pitch: Bb4, dur: eighth, sourceHead: swan-do, syl: the}
+  - {pitch: G4, dur: eighth, sourceHead: swan-la, continues: true}
+  - {pitch: Bb4, dur: quarter, sourceHead: swan-do, syl: dear}
+  - {pitch: F4, dur: eighth, sourceHead: swan-sol, syl: u-}
+  - {pitch: G4, dur: eighth, sourceHead: swan-la, continues: true}
+  - {pitch: Bb4, dur: quarter, sourceHead: swan-do, syl: nit-}
+  - {pitch: Bb4, dur: eighth, sourceHead: swan-do, syl: ing}
+  - {pitch: G4, dur: eighth, sourceHead: swan-la, continues: true}
+  - {pitch: Bb4, dur: quarter, sourceHead: swan-do, syl: 'love,'}
+  spans:
+  - kind: beam
+    from: 1
+    to: 2
+  - kind: beam
+    from: 4
+    to: 5
+  - kind: beam
+    from: 7
+    to: 8
+  - kind: beam
+    from: 10
+    to: 11
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 13
+    tune: Reflection
+    voice: tenor
+    verse: 1
+    locator: Opening through “Blest be the dear uniting love”
+- id: columbia-prospect-tenor
+  title: Prospect
+  passageId: columbia-1919-prospect-tenor-opening
+  system: swan-seven
+  key:
+    tonic: C
+    mode: major
+  meter: 3/4
+  notes:
+  - {pitch: G4, dur: eighth, sourceHead: swan-sol, syl: Why}
+  - {pitch: A4, dur: eighth, sourceHead: swan-la, continues: true}
+  - {pitch: C5, dur: half, sourceHead: swan-do, syl: should}
+  - {pitch: C5, dur: eighth, sourceHead: swan-do, syl: we}
+  - {pitch: A4, dur: eighth, sourceHead: swan-la, continues: true}
+  - {pitch: D5, dur: half, sourceHead: swan-ra, syl: start}
+  - {pitch: C5, dur: quarter, sourceHead: swan-do, syl: and}
+  - {pitch: E5, dur: half, sourceHead: swan-mi, syl: fear}
+  - {pitch: D5, dur: eighth, sourceHead: swan-ra, syl: to}
+  - {pitch: C5, dur: eighth, sourceHead: swan-do, continues: true}
+  - {pitch: A4, dur: half, sourceHead: swan-la, syl: 'die?'}
+  spans:
+  - kind: beam
+    from: 1
+    to: 2
+  - kind: beam
+    from: 4
+    to: 5
+  - kind: beam
+    from: 9
+    to: 10
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 15
+    tune: Prospect
+    voice: tenor
+    verse: 1
+    locator: Opening through “Why should we start and fear to die”
+- id: columbia-windham-tenor
+  title: Windham
+  passageId: columbia-1919-windham-tenor-opening
+  system: swan-seven
+  key:
+    tonic: F
+    mode: minor
+  meter: 4/4
+  notes:
+  - {pitch: F4, dur: half, sourceHead: swan-la, syl: Broad}
+  - {pitch: Ab4, dur: quarter, sourceHead: swan-do, syl: is}
+  - {pitch: Bb4, dur: quarter, sourceHead: swan-ra, syl: the}
+  - {pitch: C5, dur: half, sourceHead: swan-mi, syl: road}
+  - {pitch: C5, dur: half, sourceHead: swan-mi, syl: that}
+  - {pitch: Ab4, dur: quarter, sourceHead: swan-do, syl: leads}
+  - {pitch: G4, dur: quarter, sourceHead: swan-si, syl: to}
+  - {pitch: F4, dur: half, sourceHead: swan-la, syl: 'death,'}
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 18
+    tune: Windham
+    voice: tenor
+    verse: 1
+    locator: Opening through “Broad is the road that leads to death”
+- id: columbia-wells-tenor
+  title: Wells
+  passageId: columbia-1919-wells-tenor-opening
+  system: swan-seven
+  key:
+    tonic: F
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: F4, dur: half, sourceHead: swan-do, syl: Ye}
+  - {pitch: A4, dur: quarter, sourceHead: swan-mi, syl: na-}
+  - {pitch: C5, dur: quarter, sourceHead: swan-sol, syl: tions}
+  - {pitch: F5, dur: half, sourceHead: swan-do, syl: round}
+  - {pitch: E5, dur: half, sourceHead: swan-si, syl: the}
+  - {pitch: F5, dur: quarter, sourceHead: swan-do, syl: earth}
+  - {pitch: D5, dur: quarter, sourceHead: swan-la, syl: re-}
+  - {pitch: C5, dur: half, sourceHead: swan-sol, syl: joice}
+  - {pitch: C5, dur: half, sourceHead: swan-sol, continues: true}
+  spans:
+  - kind: tie
+    from: 8
+    to: 9
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 19
+    tune: Wells
+    voice: tenor
+    verse: 1
+    locator: Opening through “Ye nations round the earth rejoice”
+- id: columbia-salvation-tenor
+  title: Salvation
+  passageId: columbia-1919-salvation-tenor-opening
+  system: swan-seven
+  key:
+    tonic: G
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: B4, dur: half, sourceHead: swan-mi, syl: 'Come,'}
+  - {pitch: G4, dur: quarter, sourceHead: swan-do, syl: hum-}
+  - {pitch: E4, dur: quarter, sourceHead: swan-la, syl: ble}
+  - {pitch: F#4, dur: quarter, sourceHead: swan-si, syl: sin-}
+  - {pitch: D4, dur: quarter, sourceHead: swan-sol, syl: 'ner,'}
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 24
+    tune: Salvation
+    voice: tenor
+    verse: 1
+    locator: Opening through “Come, humble sinner”
+- id: columbia-erin-tenor
+  title: Erin
+  passageId: columbia-1919-erin-tenor-opening
+  system: swan-seven
+  key:
+    tonic: F
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: F4, dur: {value: quarter, dots: 1}, sourceHead: swan-do, syl: 'On'}
+  - {pitch: G4, dur: eighth, sourceHead: swan-ra, continues: true}
+  - {pitch: A4, dur: {value: quarter, dots: 1}, sourceHead: swan-mi, syl: Jor-}
+  - {pitch: A4, dur: eighth, sourceHead: swan-mi, syl: dan’s}
+  - {pitch: Bb4, dur: quarter, sourceHead: swan-fa, syl: storm-}
+  - {pitch: Bb4, dur: quarter, sourceHead: swan-fa, syl: y}
+  - {pitch: D5, dur: {value: quarter, dots: 1}, sourceHead: swan-la, syl: banks}
+  - {pitch: Bb4, dur: eighth, sourceHead: swan-fa, syl: I}
+  - {pitch: D5, dur: quarter, sourceHead: swan-la, syl: 'stand,'}
+  spans:
+  - kind: slur
+    from: 1
+    to: 2
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 26
+    tune: Erin
+    voice: tenor
+    verse: 1
+    locator: Opening through “On Jordan’s stormy banks I stand”
+- id: columbia-pleasant-hill-tenor
+  title: Pleasant Hill
+  passageId: columbia-1919-pleasant-hill-tenor-opening
+  system: swan-seven
+  key:
+    tonic: D
+    mode: major
+  meter: 6/4
+  notes:
+  - {pitch: D4, dur: {value: quarter, dots: 1}, sourceHead: swan-do, syl: In}
+  - {pitch: F#4, dur: half, sourceHead: swan-mi, syl: hope}
+  - {pitch: F#4, dur: quarter, sourceHead: swan-mi, syl: of}
+  - {pitch: F#4, dur: quarter, sourceHead: swan-mi, syl: that}
+  - {pitch: E4, dur: quarter, sourceHead: swan-ra, continues: true}
+  - {pitch: F#4, dur: quarter, sourceHead: swan-mi, syl: im-}
+  - {pitch: A4, dur: half, sourceHead: swan-sol, syl: mor-}
+  - {pitch: A4, dur: quarter, sourceHead: swan-sol, syl: tal}
+  - {pitch: F#4, dur: half, sourceHead: swan-mi, syl: 'crown,'}
+  spans:
+  - kind: slur
+    from: 4
+    to: 5
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 43
+    tune: Pleasant Hill
+    voice: tenor
+    verse: 2
+    locator: Opening through “In hope of that immortal crown”
+- id: columbia-kedron-tenor
+  title: Kedron
+  passageId: columbia-1919-kedron-tenor-opening
+  system: swan-seven
+  key:
+    tonic: G
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: G4, dur: {value: quarter, dots: 1}, sourceHead: swan-do, syl: 'Here,'}
+  - {pitch: F#4, dur: eighth, sourceHead: swan-si, continues: true}
+  - {pitch: E4, dur: quarter, sourceHead: swan-la, syl: when}
+  - {pitch: E4, dur: quarter, sourceHead: swan-la, syl: thy}
+  - {pitch: B4, dur: half, sourceHead: swan-mi, syl: peo-}
+  - {pitch: B4, dur: half, sourceHead: swan-mi, syl: ple}
+  - {pitch: A4, dur: quarter, sourceHead: swan-ra, syl: seek}
+  - {pitch: G4, dur: quarter, sourceHead: swan-do, syl: thy}
+  - {pitch: F#4, dur: half, sourceHead: swan-si, syl: 'face,'}
+  spans:
+  - kind: slur
+    from: 1
+    to: 2
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 45
+    tune: Kedron
+    voice: tenor
+    verse: 2
+    locator: Opening through “Here, when thy people seek thy face”
+- id: columbia-lone-pilgrim-tenor
+  title: Lone Pilgrim
+  passageId: columbia-1919-lone-pilgrim-tenor-opening
+  system: swan-seven
+  key:
+    tonic: F
+    mode: major
+  meter: 2/4
+  notes:
+  - {pitch: F4, dur: {value: eighth, dots: 1}, sourceHead: swan-do, syl: In}
+  - {pitch: A4, dur: sixteenth, sourceHead: swan-mi, continues: true}
+  - {pitch: C5, dur: quarter, sourceHead: swan-sol, syl: songs}
+  - {pitch: C5, dur: eighth, sourceHead: swan-sol, syl: of}
+  - {pitch: C5, dur: eighth, sourceHead: swan-sol, syl: sub-}
+  - {pitch: C5, dur: quarter, sourceHead: swan-sol, syl: lime}
+  - {pitch: D5, dur: eighth, sourceHead: swan-la, syl: a-}
+  - {pitch: E5, dur: eighth, sourceHead: swan-si, syl: do-}
+  - {pitch: F5, dur: quarter, sourceHead: swan-do, syl: ra-}
+  - {pitch: C5, dur: eighth, sourceHead: swan-sol, syl: tion}
+  spans:
+  - kind: slur
+    from: 1
+    to: 2
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 49
+    tune: Lone Pilgrim
+    voice: tenor
+    verse: 1
+    locator: Opening through “In songs of sublime adoration”
+- id: columbia-benevento-tenor
+  title: Benevento
+  passageId: columbia-1919-benevento-tenor-opening
+  system: swan-seven
+  key:
+    tonic: F
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: F4, dur: quarter, sourceHead: swan-do, syl: Sin-}
+  - {pitch: F4, dur: quarter, sourceHead: swan-do, syl: 'ners,'}
+  - {pitch: F4, dur: quarter, sourceHead: swan-do, syl: 'turn,'}
+  - {pitch: F4, dur: quarter, sourceHead: swan-do, syl: why}
+  - {pitch: A4, dur: {value: quarter, dots: 1}, sourceHead: swan-mi, syl: will}
+  - {pitch: G4, dur: eighth, sourceHead: swan-ra, syl: ye}
+  - {pitch: F4, dur: half, sourceHead: swan-do, syl: 'die?'}
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 50
+    tune: Benevento
+    voice: tenor
+    verse: 1
+    locator: Opening through “Sinners, turn, why will ye die”
+- id: columbia-home-tenor
+  title: Home
+  passageId: columbia-1919-home-tenor-opening
+  system: swan-seven
+  key:
+    tonic: F
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: F4, dur: quarter, sourceHead: swan-do, syl: ’Mid}
+  - {pitch: A4, dur: half, sourceHead: swan-mi, syl: scenes}
+  - {pitch: Bb4, dur: {value: quarter, dots: 1}, sourceHead: swan-fa, syl: of}
+  - {pitch: C5, dur: eighth, sourceHead: swan-sol, syl: con-}
+  - {pitch: C5, dur: half, sourceHead: swan-sol, syl: fu-}
+  - {pitch: A4, dur: {value: quarter, dots: 1}, sourceHead: swan-mi, syl: sion}
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 54
+    tune: Home
+    voice: tenor
+    verse: 1
+    locator: Opening through “’Mid scenes of confusion”
+- id: columbia-oh-sing-to-me-of-heaven-tenor
+  title: Oh, Sing to Me of Heaven!
+  passageId: columbia-1919-oh-sing-to-me-of-heaven-tenor-opening
+  system: swan-seven
+  key:
+    tonic: C
+    mode: major
+  meter: 6/4
+  notes:
+  - {pitch: A4, dur: {value: half, dots: 1}, sourceHead: swan-la, syl: When}
+  - {pitch: C5, dur: quarter, sourceHead: swan-do, syl: cold}
+  - {pitch: B4, dur: quarter, sourceHead: swan-si, continues: true}
+  - {pitch: C5, dur: quarter, sourceHead: swan-do, syl: and}
+  - {pitch: A4, dur: half, sourceHead: swan-la, syl: slug-}
+  - {pitch: B4, dur: quarter, sourceHead: swan-si, syl: gish}
+  - {pitch: A4, dur: {value: half, dots: 1}, sourceHead: swan-la, syl: drops}
+  spans:
+  - kind: slur
+    from: 2
+    to: 3
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 73
+    tune: Oh, Sing to Me of Heaven!
+    voice: tenor
+    verse: 2
+    locator: Opening through “When cold and sluggish drops”
+- id: columbia-travelling-to-the-grave-tenor
+  title: Travelling to the Grave
+  passageId: columbia-1919-travelling-to-the-grave-tenor-opening
+  system: swan-seven
+  key:
+    tonic: A
+    mode: major
+  meter: 2/4
+  notes:
+  - {pitch: E4, dur: quarter, sourceHead: swan-sol, syl: 'Poor,'}
+  - {pitch: A4, dur: eighth, sourceHead: swan-do, syl: pen-}
+  - {pitch: C#5, dur: eighth, sourceHead: swan-mi, syl: sive}
+  - {pitch: B4, dur: eighth, sourceHead: swan-ra, syl: so-}
+  - {pitch: C#5, dur: eighth, sourceHead: swan-mi, syl: journ-}
+  - {pitch: A4, dur: {value: quarter, dots: 1}, sourceHead: swan-do, syl: 'ers,'}
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 79
+    tune: Travelling to the Grave
+    voice: tenor
+    verse: 3
+    locator: Opening through “Poor, pensive sojourners”
+- id: columbia-the-midnight-cry-tenor
+  title: The Midnight Cry
+  passageId: columbia-1919-the-midnight-cry-tenor-opening
+  system: swan-seven
+  key:
+    tonic: A
+    mode: major
+  meter: 2/4
+  notes:
+  - {pitch: A4, dur: quarter, sourceHead: swan-do, syl: When}
+  - {pitch: A4, dur: quarter, sourceHead: swan-do, syl: the}
+  - {pitch: B4, dur: quarter, sourceHead: swan-ra, syl: mid-}
+  - {pitch: A4, dur: quarter, sourceHead: swan-do, syl: night}
+  - {pitch: C#5, dur: quarter, sourceHead: swan-mi, syl: cry}
+  - {pitch: C#5, dur: quarter, sourceHead: swan-mi, syl: be-}
+  - {pitch: B4, dur: half, sourceHead: swan-ra, syl: 'gan,'}
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 84
+    tune: The Midnight Cry
+    voice: tenor
+    verse: 1
+    locator: Opening through “When the midnight cry began”
+- id: columbia-deep-spring-tenor
+  title: Deep Spring
+  passageId: columbia-1919-deep-spring-tenor-opening
+  system: swan-seven
+  key:
+    tonic: G
+    mode: major
+  meter: 6/8
+  notes:
+  - {pitch: D4, dur: {value: quarter, dots: 1}, sourceHead: swan-sol, syl: As}
+  - {pitch: G4, dur: quarter, sourceHead: swan-do, syl: 'on'}
+  - {pitch: B4, dur: eighth, sourceHead: swan-mi, syl: the}
+  - {pitch: A4, dur: quarter, sourceHead: swan-ra, syl: cross}
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 93
+    tune: Deep Spring
+    voice: tenor
+    verse: 1
+    locator: Opening through “As on the cross”
+- id: columbia-funeral-thought-tenor
+  title: Funeral Thought
+  passageId: columbia-1919-funeral-thought-tenor-opening
+  system: swan-seven
+  key:
+    tonic: F
+    mode: major
+  meter: 2/4
+  notes:
+  - {pitch: F4, dur: eighth, sourceHead: swan-do, syl: Thou}
+  - {pitch: F4, dur: eighth, sourceHead: swan-do, syl: art}
+  - {pitch: A4, dur: quarter, sourceHead: swan-mi, syl: gone}
+  - {pitch: A4, dur: eighth, sourceHead: swan-mi, syl: to}
+  - {pitch: C5, dur: eighth, sourceHead: swan-sol, syl: the}
+  - {pitch: C5, dur: quarter, sourceHead: swan-sol, syl: 'grave,'}
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 102
+    tune: Funeral Thought
+    voice: tenor
+    verse: 1
+    locator: Opening through “Thou art gone to the grave”
+- id: columbia-waynesville-tenor
+  title: Waynesville
+  passageId: columbia-1919-waynesville-tenor-opening
+  system: swan-seven
+  key:
+    tonic: A
+    mode: major
+  meter: 6/4
+  notes:
+  - {pitch: E5, dur: half, sourceHead: swan-sol, syl: Songs}
+  - {pitch: C#5, dur: quarter, sourceHead: swan-mi, syl: a-}
+  - {pitch: A4, dur: half, sourceHead: swan-do, syl: new}
+  - {pitch: C#5, dur: quarter, sourceHead: swan-mi, syl: of}
+  - {pitch: B4, dur: half, sourceHead: swan-ra, syl: hon-}
+  - {pitch: E5, dur: quarter, sourceHead: swan-sol, syl: or}
+  - {pitch: C#5, dur: half, sourceHead: swan-mi, syl: fra-}
+  - {pitch: A4, dur: quarter, sourceHead: swan-do, syl: 'ming,'}
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 108
+    tune: Waynesville
+    voice: tenor
+    verse: 1
+    locator: Opening through “Songs anew of honor framing”
+- id: columbia-oliphant-tenor
+  title: Oliphant
+  passageId: columbia-1919-oliphant-tenor-opening
+  system: swan-seven
+  key:
+    tonic: F
+    mode: major
+  meter: 2/2
+  notes:
+  - {pitch: C5, dur: half, sourceHead: swan-sol, syl: Guide}
+  - {pitch: C5, dur: quarter, sourceHead: swan-sol, syl: 'me,'}
+  - {pitch: D5, dur: quarter, sourceHead: swan-la, continues: true}
+  - {pitch: C5, dur: half, sourceHead: swan-sol, syl: O}
+  - {pitch: A4, dur: half, sourceHead: swan-mi, syl: thou}
+  - {pitch: F4, dur: half, sourceHead: swan-do, syl: great}
+  - {pitch: C5, dur: quarter, sourceHead: swan-sol, syl: Je-}
+  - {pitch: D5, dur: quarter, sourceHead: swan-la, continues: true}
+  - {pitch: C5, dur: half, sourceHead: swan-sol, syl: ho-}
+  - {pitch: A4, dur: quarter, sourceHead: swan-mi, syl: 'vah,'}
+  spans:
+  - kind: slur
+    from: 2
+    to: 3
+  - kind: slur
+    from: 7
+    to: 8
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 145
+    tune: Oliphant
+    voice: tenor
+    verse: 1
+    locator: Opening through “Guide me, O thou great Jehovah”
+- id: columbia-creation-tenor
+  title: Creation
+  passageId: columbia-1919-creation-tenor-opening
+  system: swan-seven
+  key:
+    tonic: A
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: A4, dur: half, sourceHead: swan-do, syl: Let}
+  - {pitch: A4, dur: quarter, sourceHead: swan-do, syl: ev-}
+  - {pitch: C#5, dur: quarter, sourceHead: swan-mi, syl: ’ry}
+  - {pitch: E5, dur: quarter, sourceHead: swan-sol, syl: crea-}
+  - {pitch: D5, dur: eighth, sourceHead: swan-fa, syl: ture}
+  - {pitch: C#5, dur: eighth, sourceHead: swan-mi, continues: true}
+  - {pitch: B4, dur: {value: quarter, dots: 1}, sourceHead: swan-ra, syl: 'join,'}
+  spans:
+  - kind: beam
+    from: 5
+    to: 6
+  source:
+    tunebook: The New Harp of Columbia
+    compiler: M. L. Swan
+    edition: 'Nashville: Publishing House of the M. E. Church, South'
+    year: 1919
+    page: 157
+    tune: Creation
+    voice: tenor
+    verse: 1
+    locator: Opening through “Let every creature join”
+
+# Additional 1854 Southern Harmony excerpts.
+- id: southern-harmony-alabama-treble
+  title: Alabama
+  passageId: southern-harmony-1854-alabama-treble-opening
+  system: fasola-four
+  key:
+    tonic: G
+    mode: major
+  meter: 6/8
+  notes:
+  - {pitch: B4, dur: quarter, sourceHead: fasola-la, syl: An-}
+  - {pitch: G4, dur: quarter, sourceHead: fasola-fa, syl: gels}
+  - {pitch: A4, dur: eighth, sourceHead: fasola-sol, syl: in}
+  - {pitch: B4, dur: quarter, sourceHead: fasola-la, syl: shin-}
+  - {pitch: B4, dur: eighth, sourceHead: fasola-la, syl: ing}
+  - {pitch: B4, dur: quarter, sourceHead: fasola-la, syl: or-}
+  - {pitch: E5, dur: eighth, sourceHead: fasola-la, syl: der}
+  - {pitch: D5, dur: quarter, sourceHead: fasola-sol, syl: 'stand,'}
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 116
+    tune: Alabama
+    voice: treble
+    verse: 1
+    locator: Opening through “Angels in shining order stand”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H116.html
+- id: southern-harmony-dublin-counter
+  title: Dublin
+  passageId: southern-harmony-1854-dublin-counter-opening
+  system: fasola-four
+  key:
+    tonic: C
+    mode: major
+  meter: 2/2
+  notes:
+  - {pitch: E4, dur: half, sourceHead: fasola-la, syl: 'Lord,'}
+  - {pitch: E4, dur: half, sourceHead: fasola-la, syl: what}
+  - {pitch: G4, dur: half, sourceHead: fasola-sol, syl: is}
+  - {pitch: G4, dur: half, sourceHead: fasola-sol, syl: 'man,'}
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 13
+    tune: Dublin
+    voice: counter
+    verse: 1
+    locator: Opening through “Lord, what is man”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H13.html
+- id: southern-harmony-liverpool-treble
+  title: Liverpool
+  passageId: southern-harmony-1854-liverpool-treble-opening
+  system: fasola-four
+  key:
+    tonic: F
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: C5, dur: half, sourceHead: fasola-sol, syl: Young}
+  - {pitch: D5, dur: quarter, sourceHead: fasola-la, syl: peo-}
+  - {pitch: D5, dur: quarter, sourceHead: fasola-la, syl: ple}
+  - {pitch: C5, dur: half, sourceHead: fasola-sol, syl: 'all,'}
+  - {pitch: Bb4, dur: half, sourceHead: fasola-fa, syl: at-}
+  - {pitch: G4, dur: quarter, sourceHead: fasola-sol, syl: ten-}
+  - {pitch: A4, dur: eighth, sourceHead: fasola-la, syl: tion}
+  - {pitch: Bb4, dur: eighth, sourceHead: fasola-fa, continues: true}
+  - {pitch: C5, dur: half, sourceHead: fasola-sol, syl: 'give,'}
+  spans:
+  - kind: beam
+    from: 7
+    to: 8
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 1
+    tune: Liverpool
+    voice: treble
+    verse: 1
+    locator: Opening through “Young people all, attention give”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H1.html
+- id: southern-harmony-marysville-treble
+  title: Marysville
+  passageId: southern-harmony-1854-marysville-treble-opening
+  system: fasola-four
+  key:
+    tonic: C
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: A4, dur: half, sourceHead: fasola-la, syl: Je-}
+  - {pitch: E5, dur: quarter, sourceHead: fasola-la, syl: 'sus,'}
+  - {pitch: D5, dur: quarter, sourceHead: fasola-sol, syl: my}
+  - {pitch: C5, dur: quarter, sourceHead: fasola-fa, syl: all}
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 6
+    tune: Marysville
+    voice: treble
+    verse: 1
+    locator: Opening through “Jesus, my all”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H6.html
+- id: southern-harmony-montgomery-tenor
+  title: Montgomery
+  passageId: southern-harmony-1854-montgomery-tenor-opening
+  system: fasola-four
+  key:
+    tonic: C
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: C5, dur: half, sourceHead: fasola-fa, syl: Ear-}
+  - {pitch: E5, dur: quarter, sourceHead: fasola-la, syl: 'ly,'}
+  - {pitch: E5, dur: quarter, sourceHead: fasola-la, syl: my}
+  - {pitch: E5, dur: quarter, sourceHead: fasola-la, syl: 'God,'}
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 170
+    tune: Montgomery
+    voice: tenor
+    verse: 1
+    locator: Opening through “Early, my God”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H170.html
+- id: southern-harmony-mount-zion-tenor
+  title: Mount Zion
+  passageId: southern-harmony-1854-mount-zion-tenor-opening
+  system: fasola-four
+  key:
+    tonic: C
+    mode: major
+  meter: 6/8
+  notes:
+  - {pitch: G4, dur: eighth, sourceHead: fasola-sol, syl: The}
+  - {pitch: C5, dur: quarter, sourceHead: fasola-fa, syl: hill}
+  - {pitch: D5, dur: eighth, sourceHead: fasola-sol, syl: of}
+  - {pitch: E5, dur: quarter, sourceHead: fasola-la, syl: Zi-}
+  - {pitch: E5, dur: eighth, sourceHead: fasola-la, syl: 'on'}
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 175
+    tune: Mount Zion
+    voice: tenor
+    verse: 1
+    locator: Opening through “The hill of Zion”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H175.html
+- id: southern-harmony-new-topia-treble
+  title: New Topia
+  passageId: southern-harmony-1854-new-topia-treble-opening
+  system: fasola-four
+  key:
+    tonic: G
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: B4, dur: quarter, sourceHead: fasola-la, syl: Young}
+  - {pitch: B4, dur: quarter, sourceHead: fasola-la, syl: peo-}
+  - {pitch: B4, dur: quarter, sourceHead: fasola-la, syl: ple}
+  - {pitch: B4, dur: eighth, sourceHead: fasola-la, syl: 'all,'}
+  - {pitch: A4, dur: eighth, sourceHead: fasola-sol, continues: true}
+  spans:
+  - kind: beam
+    from: 4
+    to: 5
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 163
+    tune: New Topia
+    voice: treble
+    verse: 1
+    locator: Opening through “Young people all”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H163.html
+- id: southern-harmony-supplication-tenor
+  title: Supplication
+  passageId: southern-harmony-1854-supplication-tenor-opening
+  system: fasola-four
+  key:
+    tonic: C
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: E4, dur: half, sourceHead: fasola-la, syl: O}
+  - {pitch: A4, dur: quarter, sourceHead: fasola-la, syl: thou}
+  - {pitch: A4, dur: eighth, sourceHead: fasola-la, syl: who}
+  - {pitch: G4, dur: eighth, sourceHead: fasola-sol, continues: true}
+  - {pitch: A4, dur: half, sourceHead: fasola-la, syl: hear’st}
+  spans:
+  - kind: beam
+    from: 3
+    to: 4
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 5
+    tune: Supplication
+    voice: tenor
+    verse: 1
+    locator: Opening through “O thou who hear’st”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H5.html
+- id: southern-harmony-webster-tenor
+  title: Webster
+  passageId: southern-harmony-1854-webster-tenor-opening
+  system: fasola-four
+  key:
+    tonic: G
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: G4, dur: half, sourceHead: fasola-fa, syl: 'Come,'}
+  - {pitch: B4, dur: quarter, sourceHead: fasola-la, syl: we}
+  - {pitch: A4, dur: quarter, sourceHead: fasola-sol, syl: that}
+  - {pitch: B4, dur: quarter, sourceHead: fasola-la, syl: love}
+  - {pitch: D5, dur: quarter, sourceHead: fasola-sol, syl: the}
+  - {pitch: G4, dur: half, sourceHead: fasola-fa, syl: 'Lord,'}
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 10
+    tune: Webster
+    voice: tenor
+    verse: 1
+    locator: Opening through “Come, we that love the Lord”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H10.html
+- id: southern-harmony-windham-tenor
+  title: Windham
+  passageId: southern-harmony-1854-windham-tenor-opening
+  system: fasola-four
+  key:
+    tonic: F
+    mode: minor
+  meter: 4/4
+  notes:
+  - {pitch: F4, dur: half, sourceHead: fasola-la, syl: Broad}
+  - {pitch: Ab4, dur: quarter, sourceHead: fasola-fa, syl: is}
+  - {pitch: Bb4, dur: quarter, sourceHead: fasola-sol, syl: the}
+  - {pitch: C5, dur: half, sourceHead: fasola-la, syl: road}
+  - {pitch: C5, dur: half, sourceHead: fasola-la, syl: that}
+  - {pitch: Ab4, dur: quarter, sourceHead: fasola-fa, syl: leads}
+  - {pitch: G4, dur: quarter, sourceHead: fasola-mi, syl: to}
+  - {pitch: F4, dur: half, sourceHead: fasola-la, syl: 'death,'}
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 48
+    tune: Windham
+    voice: tenor
+    verse: 1
+    locator: Opening through “Broad is the road that leads to death”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H48.html
+- id: southern-harmony-primrose-treble
+  title: Primrose
+  passageId: southern-harmony-1854-primrose-treble-opening
+  system: fasola-four
+  key:
+    tonic: A
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: A4, dur: half, sourceHead: fasola-fa, syl: Sal-}
+  - {pitch: C#5, dur: quarter, sourceHead: fasola-la, syl: va-}
+  - {pitch: E5, dur: quarter, sourceHead: fasola-sol, syl: tion!}
+  - {pitch: E5, dur: half, sourceHead: fasola-sol, syl: O}
+  - {pitch: E5, dur: half, sourceHead: fasola-sol, syl: the}
+  - {pitch: D5, dur: quarter, sourceHead: fasola-fa, syl: joy-}
+  - {pitch: B4, dur: quarter, sourceHead: fasola-sol, syl: ful}
+  - {pitch: B4, dur: whole, sourceHead: fasola-sol, syl: sound!}
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 3
+    tune: Primrose
+    voice: treble
+    verse: 1
+    locator: Opening through “Salvation! O the joyful sound”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H3.html
+- id: southern-harmony-weeping-saviour-treble
+  title: Weeping Saviour
+  passageId: southern-harmony-1854-weeping-saviour-treble-opening
+  system: fasola-four
+  key:
+    tonic: A
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: C#5, dur: half, sourceHead: fasola-la, syl: Did}
+  - {pitch: F#5, dur: quarter, sourceHead: fasola-la, syl: Christ}
+  - {pitch: C#5, dur: quarter, sourceHead: fasola-la, syl: o’er}
+  - {pitch: A4, dur: quarter, sourceHead: fasola-fa, syl: sin-}
+  - {pitch: B4, dur: quarter, sourceHead: fasola-sol, syl: ners}
+  - {pitch: C#5, dur: half, sourceHead: fasola-la, syl: 'weep?'}
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 7b
+    tune: Weeping Saviour
+    voice: treble
+    verse: 1
+    locator: Opening through “Did Christ o’er sinners weep”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H7b.html
+- id: southern-harmony-sherburne-treble
+  title: Sherburne
+  passageId: southern-harmony-1854-sherburne-treble-opening
+  system: fasola-four
+  key:
+    tonic: A
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: E5, dur: half, sourceHead: fasola-sol, syl: To}
+  - {pitch: E5, dur: quarter, sourceHead: fasola-sol, syl: God}
+  - {pitch: E5, dur: quarter, sourceHead: fasola-sol, syl: our}
+  - {pitch: A4, dur: quarter, sourceHead: fasola-fa, syl: voi-}
+  - {pitch: A4, dur: quarter, sourceHead: fasola-fa, syl: ces}
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 280b
+    tune: Sherburne
+    voice: treble
+    verse: 1
+    locator: Opening through “To God our voices”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H280b.html
+- id: southern-harmony-jerusalem-tenor
+  title: Jerusalem
+  passageId: southern-harmony-1854-jerusalem-tenor-opening
+  system: fasola-four
+  key:
+    tonic: C
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: E4, dur: half, sourceHead: fasola-la, syl: The}
+  - {pitch: A4, dur: quarter, sourceHead: fasola-la, syl: way}
+  - {pitch: B4, dur: eighth, sourceHead: fasola-mi, syl: the}
+  - {pitch: A4, dur: eighth, sourceHead: fasola-la, continues: true}
+  - {pitch: G4, dur: quarter, sourceHead: fasola-sol, syl: ho-}
+  - {pitch: A4, dur: eighth, sourceHead: fasola-la, syl: ly}
+  - {pitch: C5, dur: eighth, sourceHead: fasola-fa, continues: true}
+  - {pitch: D5, dur: quarter, sourceHead: fasola-sol, syl: proph-}
+  - {pitch: D5, dur: eighth, sourceHead: fasola-sol, syl: ets}
+  - {pitch: C5, dur: eighth, sourceHead: fasola-fa, continues: true}
+  - {pitch: B4, dur: quarter, sourceHead: fasola-mi, syl: 'went,'}
+  spans:
+  - kind: beam
+    from: 3
+    to: 4
+  - kind: beam
+    from: 6
+    to: 7
+  - kind: beam
+    from: 9
+    to: 10
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 11
+    tune: Jerusalem
+    voice: tenor
+    verse: 2
+    locator: Opening through “The way the holy prophets went”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H11.html
+- id: southern-harmony-the-family-bible-treble
+  title: The Family Bible
+  passageId: southern-harmony-1854-the-family-bible-treble-opening
+  system: fasola-four
+  key:
+    tonic: C
+    mode: major
+  meter: 2/4
+  notes:
+  - {pitch: G4, dur: quarter, sourceHead: fasola-sol, syl: How}
+  - {pitch: C5, dur: quarter, sourceHead: fasola-fa, syl: pain-}
+  - {pitch: C5, dur: eighth, sourceHead: fasola-fa, syl: ful-}
+  - {pitch: A4, dur: eighth, sourceHead: fasola-la, syl: ly}
+  - {pitch: C5, dur: quarter, sourceHead: fasola-fa, syl: pleas-}
+  - {pitch: E5, dur: eighth, sourceHead: fasola-la, syl: ing}
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 20
+    tune: The Family Bible
+    voice: treble
+    verse: 1
+    locator: Opening through “How painfully pleasing”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H20.html
+- id: southern-harmony-old-hundred-counter
+  title: Old Hundred
+  passageId: southern-harmony-1854-old-hundred-counter-opening
+  system: fasola-four
+  key:
+    tonic: A
+    mode: major
+  meter: 2/2
+  notes:
+  - {pitch: E4, dur: half, sourceHead: fasola-sol, syl: O}
+  - {pitch: A4, dur: half, sourceHead: fasola-fa, syl: 'come,'}
+  - {pitch: B4, dur: half, sourceHead: fasola-sol, syl: loud}
+  - {pitch: A4, dur: half, sourceHead: fasola-fa, syl: an-}
+  - {pitch: E4, dur: half, sourceHead: fasola-sol, syl: thems}
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 22
+    tune: Old Hundred
+    voice: counter
+    verse: 1
+    locator: Opening through “O come, loud anthems”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H22.html
+- id: southern-harmony-indians-farewell-treble
+  title: Indian’s Farewell
+  passageId: southern-harmony-1854-indians-farewell-treble-opening
+  system: fasola-four
+  key:
+    tonic: G
+    mode: major
+  meter: 6/4
+  notes:
+  - {pitch: B4, dur: half, sourceHead: fasola-la, syl: When}
+  - {pitch: B4, dur: quarter, sourceHead: fasola-la, syl: shall}
+  - {pitch: D5, dur: half, sourceHead: fasola-sol, syl: we}
+  - {pitch: E5, dur: quarter, sourceHead: fasola-la, syl: all}
+  - {pitch: D5, dur: half, sourceHead: fasola-sol, syl: meet}
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 25b
+    tune: Indian’s Farewell
+    voice: treble
+    verse: 1
+    locator: Opening through “When shall we all meet”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H25b.html
+- id: southern-harmony-solemn-thought-tenor
+  title: Solemn Thought
+  passageId: southern-harmony-1854-solemn-thought-tenor-opening
+  system: fasola-four
+  key:
+    tonic: C
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: A4, dur: half, sourceHead: fasola-la, syl: Re-}
+  - {pitch: C5, dur: quarter, sourceHead: fasola-fa, syl: mem-}
+  - {pitch: C5, dur: quarter, sourceHead: fasola-fa, syl: 'ber,'}
+  - {pitch: A4, dur: quarter, sourceHead: fasola-la, syl: sin-}
+  - {pitch: G4, dur: quarter, sourceHead: fasola-sol, syl: ful}
+  - {pitch: A4, dur: half, sourceHead: fasola-la, syl: 'youth,'}
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 29
+    tune: Solemn Thought
+    voice: tenor
+    verse: 1
+    locator: Opening through “Remember, sinful youth”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H29.html
+- id: southern-harmony-detroit-treble
+  title: Detroit
+  passageId: southern-harmony-1854-detroit-treble-opening
+  system: fasola-four
+  key:
+    tonic: G
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: D5, dur: quarter, sourceHead: fasola-sol, syl: Do}
+  - {pitch: C5, dur: quarter, sourceHead: fasola-fa, syl: not}
+  - {pitch: B4, dur: {value: quarter, dots: 1}, sourceHead: fasola-la, syl: I}
+  - {pitch: E5, dur: eighth, sourceHead: fasola-la, syl: love}
+  - {pitch: D5, dur: quarter, sourceHead: fasola-sol, syl: 'thee,'}
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 40
+    tune: Detroit
+    voice: treble
+    verse: 1
+    locator: Opening through “Do not I love thee”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H40.html
+- id: southern-harmony-the-promised-land-tenor
+  title: The Promised Land
+  passageId: southern-harmony-1854-the-promised-land-tenor-opening
+  system: fasola-four
+  key:
+    tonic: A
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: F#4, dur: half, sourceHead: fasola-la, syl: 'On'}
+  - {pitch: A4, dur: quarter, sourceHead: fasola-fa, syl: Jor-}
+  - {pitch: A4, dur: quarter, sourceHead: fasola-fa, syl: dan’s}
+  - {pitch: A4, dur: eighth, sourceHead: fasola-fa, syl: storm-}
+  - {pitch: B4, dur: eighth, sourceHead: fasola-sol, continues: true}
+  - {pitch: C#5, dur: quarter, sourceHead: fasola-la, syl: y}
+  - {pitch: B4, dur: quarter, sourceHead: fasola-sol, syl: banks}
+  spans:
+  - kind: beam
+    from: 4
+    to: 5
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 51
+    tune: The Promised Land
+    voice: tenor
+    verse: 1
+    locator: Opening through “On Jordan’s stormy banks”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H51.html
+- id: southern-harmony-the-turtle-dove-tenor
+  title: The Turtle Dove
+  passageId: southern-harmony-1854-the-turtle-dove-tenor-opening
+  system: fasola-four
+  key:
+    tonic: D
+    mode: major
+  meter: 6/4
+  notes:
+  - {pitch: A4, dur: {value: half, dots: 1}, sourceHead: fasola-sol, syl: Hark!}
+  - {pitch: B4, dur: quarter, sourceHead: fasola-la, syl: don’t}
+  - {pitch: A4, dur: quarter, sourceHead: fasola-sol, continues: true}
+  - {pitch: G4, dur: quarter, sourceHead: fasola-fa, syl: you}
+  - {pitch: A4, dur: quarter, sourceHead: fasola-sol, syl: hear}
+  - {pitch: B4, dur: quarter, sourceHead: fasola-la, continues: true}
+  spans:
+  - kind: slur
+    from: 2
+    to: 3
+  - kind: slur
+    from: 5
+    to: 6
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 43
+    tune: The Turtle Dove
+    voice: tenor
+    verse: 1
+    locator: Opening through “Hark! don’t you hear”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H43.html
+- id: southern-harmony-consolation-treble
+  title: Consolation
+  passageId: southern-harmony-1854-consolation-treble-opening
+  system: fasola-four
+  key:
+    tonic: C
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: A4, dur: half, sourceHead: fasola-la, syl: Once}
+  - {pitch: E5, dur: half, sourceHead: fasola-la, syl: 'more,'}
+  - {pitch: D5, dur: half, sourceHead: fasola-sol, syl: my}
+  - {pitch: C5, dur: half, sourceHead: fasola-fa, syl: 'soul,'}
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 17b
+    tune: Consolation
+    voice: treble
+    verse: 1
+    locator: Opening through “Once more, my soul”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H17b.html
+- id: southern-harmony-prospect-of-heaven-tenor
+  title: Prospect of Heaven
+  passageId: southern-harmony-1854-prospect-of-heaven-tenor-opening
+  system: fasola-four
+  key:
+    tonic: G
+    mode: major
+  meter: 6/4
+  notes:
+  - {pitch: G4, dur: half, sourceHead: fasola-fa, syl: The}
+  - {pitch: A4, dur: half, sourceHead: fasola-sol, syl: faith-}
+  - {pitch: B4, dur: quarter, sourceHead: fasola-la, syl: less}
+  - {pitch: G4, dur: half, sourceHead: fasola-fa, syl: world}
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 24
+    tune: Prospect of Heaven
+    voice: tenor
+    verse: 1
+    locator: Opening through “The faithless world”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H24.html
+- id: southern-harmony-the-converted-thief-tenor
+  title: The Converted Thief
+  passageId: southern-harmony-1854-the-converted-thief-tenor-opening
+  system: fasola-four
+  key:
+    tonic: C
+    mode: major
+  meter: 6/4
+  notes:
+  - {pitch: E4, dur: quarter, sourceHead: fasola-la, syl: Je-}
+  - {pitch: G4, dur: half, sourceHead: fasola-sol, syl: 'sus,'}
+  - {pitch: A4, dur: quarter, sourceHead: fasola-la, syl: thou}
+  - {pitch: G4, dur: quarter, sourceHead: fasola-sol, syl: Son}
+  - {pitch: A4, dur: quarter, sourceHead: fasola-la, continues: true}
+  spans:
+  - kind: slur
+    from: 4
+    to: 5
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 9
+    tune: The Converted Thief
+    voice: tenor
+    verse: 2
+    locator: Opening through “Jesus, thou Son”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H9.html
+- id: southern-harmony-hanover-tenor
+  title: Hanover
+  passageId: southern-harmony-1854-hanover-tenor-opening
+  system: fasola-four
+  key:
+    tonic: C
+    mode: major
+  meter: 4/4
+  notes:
+  - {pitch: A4, dur: half, sourceHead: fasola-la, syl: 'Come,'}
+  - {pitch: C5, dur: half, sourceHead: fasola-fa, syl: hum-}
+  - {pitch: B4, dur: half, sourceHead: fasola-mi, syl: ble}
+  - {pitch: A4, dur: quarter, sourceHead: fasola-la, syl: sin-}
+  - {pitch: A4, dur: quarter, sourceHead: fasola-la, syl: 'ner,'}
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 4b
+    tune: Hanover
+    voice: tenor
+    verse: 1
+    locator: Opening through “Come, humble sinner”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H4b.html
+- id: southern-harmony-ortonville-treble
+  title: Ortonville
+  passageId: southern-harmony-1854-ortonville-treble-opening
+  system: fasola-four
+  key:
+    tonic: Bb
+    mode: major
+  meter: 6/4
+  notes:
+  - {pitch: Bb4, dur: {value: half, dots: 1}, sourceHead: fasola-fa, syl: Am}
+  - {pitch: D5, dur: half, sourceHead: fasola-la, syl: I}
+  - {pitch: D5, dur: quarter, sourceHead: fasola-la, syl: a}
+  - {pitch: C5, dur: half, sourceHead: fasola-sol, syl: sol-}
+  - {pitch: C5, dur: quarter, sourceHead: fasola-sol, syl: dier}
+  source:
+    tunebook: The Southern Harmony, and Musical Companion
+    compiler: William Walker
+    edition: 1854 edition
+    year: 1854
+    page: 10b
+    tune: Ortonville
+    voice: treble
+    verse: 1
+    locator: Opening through “Am I a soldier”
+    url: https://ccel.org/ccel/walker/harmony2/harmony2.H10b.html
